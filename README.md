@@ -2,7 +2,15 @@
 
 Static website for **Japan car cycle**, exporters of used vehicles from Japan to the UK.
 
-White ground, black ink. Orange (`#f07832`) and lime (`#c5f542`) are used only as small accents, the same way the printed Vehicle Request Form uses them.
+White ground, black ink, black header bar. Orange (`#f07832`) and lime (`#c5f542`) are used only as small accents, the same way the printed Vehicle Request Form uses them. Orange is the only accent used on lettering (the J and the c of the wordmark); lime appears only on bars, dots and ticks.
+
+## Publishing on GitHub Pages
+
+The site needs no build step. In the repository on GitHub: **Settings → Pages → Build and deployment → Source: Deploy from a branch → Branch: `main`, folder `/ (root)` → Save**. A minute or two later it is live at
+
+https://atsushi-odajima.github.io/car_site/
+
+(`.nojekyll` is included so Pages serves the files exactly as they are.)
 
 ## Pages (one document, hash routes)
 
@@ -27,7 +35,7 @@ assets/img/            photos (cars/ = stock photos, bg/ = road, yard, highway)
 assets/docs/           printable PDF request form
 ```
 
-No build step. To preview locally, run `python3 -m http.server` in this folder and open http://localhost:8000. It works on GitHub Pages as-is.
+To preview locally, run `python3 -m http.server` in this folder and open http://localhost:8000.
 
 ## Before going live
 

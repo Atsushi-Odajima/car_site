@@ -1,9 +1,10 @@
 /* ============================================================================
    Japan car cycle — shared stylesheet
    ----------------------------------------------------------------------------
-   White ground, black ink. Orange + lime are accents only (the same quiet
-   doses as the Vehicle Request Form): the twin bars, the j / c of the
-   wordmark, the scroll needle, hover underlines. Never as body text colour.
+   White ground, black ink, black header bar. Orange + lime are accents only
+   (the same quiet doses as the Vehicle Request Form): the twin bars, the
+   J / c of the wordmark (orange), the scroll needle, hover underlines.
+   Lime is never used on lettering — only on bars, dots and ticks.
    No border-radius anywhere.
    ========================================================================== */
 
@@ -343,8 +344,8 @@ input[type="number"]::-webkit-outer-spin-button {
 /* ----------------------------------------------------------------------------
    7. Wordmark — "Japan car cycle"
    Marcellus SC, the same inscription face as the section titles: a full
-   capital J, the rest in small caps. The J (lime) and the c of car (orange)
-   carry the accents exactly where the printed logo has them.
+   capital J, the rest in small caps. The J and the c of car are orange,
+   where the printed logo carries its accents.
    ------------------------------------------------------------------------- */
 
 .wm {
@@ -353,7 +354,7 @@ input[type="number"]::-webkit-outer-spin-button {
   white-space: nowrap;
 }
 
-.wm-j { color: var(--lime); -webkit-text-stroke: .6px var(--ink); }
+.wm-j,
 .wm-c { color: var(--orange); }
 
 /* the logo glyph: orange Ж-like crossing, drawn inline */
@@ -374,16 +375,13 @@ input[type="number"]::-webkit-outer-spin-button {
   top: 0;
   z-index: 100;
   height: var(--header-h);
-  color: var(--ink);
-  background: rgba(255, 255, 255, .86);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--line);
+  color: var(--paper);
+  background: var(--black);
   transition: box-shadow .4s var(--ease);
 }
 
 .site-header.is-scrolled {
-  box-shadow: 0 1px 8px rgba(0, 0, 0, .05);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, .18);
 }
 
 .header-inner {
@@ -395,17 +393,23 @@ input[type="number"]::-webkit-outer-spin-button {
   padding-inline: var(--gutter);
 }
 
+/* logo + name sit on a white rectangle cut into the black bar */
 .brand-mark {
   position: relative;
   z-index: 130;
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  height: 40px;
+  padding: 0 16px;
   font-size: 18px;
-  transition: opacity .3s var(--ease);
+  color: var(--ink);
+  background: var(--white);
+  transition: background-color .3s var(--ease);
 }
 
-.brand-mark:hover { opacity: .6; }
+.brand-mark:hover,
+.brand-mark:focus-visible { background: var(--paper-warm); }
 
 .site-nav {
   flex: 1;
@@ -458,7 +462,7 @@ input[type="number"]::-webkit-outer-spin-button {
 /* GBP / JPY switch */
 .ccy {
   display: inline-flex;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, .35);
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: .14em;
@@ -466,13 +470,13 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .ccy button {
   padding: 5px 9px;
-  color: var(--ink-mute);
+  color: rgba(255, 255, 255, .62);
   transition: color .3s var(--ease), background-color .3s var(--ease);
 }
 
 .ccy button[aria-pressed="true"] {
-  color: var(--paper);
-  background: var(--ink);
+  color: var(--ink);
+  background: var(--paper);
 }
 
 /* hamburger */
@@ -505,7 +509,7 @@ body.nav-open .menu-toggle span:nth-child(2) { top: 19px; transform: rotate(-45d
 @media (max-width: 767px) {
   .menu-toggle { display: block; }
 
-  .brand-mark { font-size: 16px; }
+  .brand-mark { font-size: 15px; padding: 0 12px; height: 36px; }
 
   .site-nav {
     position: fixed;
@@ -550,17 +554,7 @@ body.nav-open .menu-toggle span:nth-child(2) { top: 19px; transform: rotate(-45d
   body.nav-open .site-nav li:nth-child(3) a { transition-delay: .28s; }
   body.nav-open .site-nav li:nth-child(4) a { transition-delay: .36s; }
 
-  body.nav-open .site-header {
-    color: var(--paper);
-    background: transparent;
-    border-bottom-color: transparent;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-  }
-
-  body.nav-open .wm-j { -webkit-text-stroke: 0; }
-  body.nav-open .ccy { border-color: rgba(255,255,255,.3); }
-  body.nav-open .ccy button[aria-pressed="true"] { background: var(--paper); color: var(--ink); }
+  body.nav-open .site-header { box-shadow: none; }
 }
 
 @media (max-width: 400px) {
@@ -603,8 +597,6 @@ body.nav-open .menu-toggle span:nth-child(2) { top: 19px; transform: rotate(-45d
   margin-bottom: 18px;
 }
 
-.footer-brand .wm-j { -webkit-text-stroke: 0; }
-
 .footer-tag {
   display: flex;
   align-items: center;
@@ -646,7 +638,6 @@ body.nav-open .menu-toggle span:nth-child(2) { top: 19px; transform: rotate(-45d
    10. Motion components (with js/ink.js + js/fx.js)
    ------------------------------------------------------------------------- */
 
-.site-header,
 .site-footer,
 main {
   position: relative;
@@ -830,6 +821,16 @@ main {
   white-space: nowrap;
 }
 
+/* long-form text sits on a soft white veil; the blooms still show at the edges */
+.lede,
+.message__body,
+.req,
+.news,
+.figures,
+.cta-note {
+  background: radial-gradient(ellipse at 50% 50%, rgba(255,255,255,.82) 0%, rgba(255,255,255,.55) 55%, rgba(255,255,255,0) 100%);
+}
+
 .lede {
   max-width: 640px;
   margin-top: 36px;
@@ -881,8 +882,6 @@ main {
   -webkit-user-select: none;
   animation: word-in 1.8s var(--ease) both;
 }
-
-.hero__wordmark .wm-j { -webkit-text-stroke: 1.4px var(--ink); }
 
 .hero__wordmark .wm-line {
   display: block;
@@ -1154,13 +1153,13 @@ main {
   font-size: 10px;
   letter-spacing: 0.26em;
   color: var(--paper);
-  border-bottom: 1px solid var(--lime);
+  border-bottom: 1px solid var(--orange);
   padding-bottom: 3px;
   white-space: nowrap;
 }
 
 .card__enquire:hover,
-.card__enquire:focus-visible { color: var(--lime); }
+.card__enquire:focus-visible { color: var(--orange); }
 
 .card__cap {
   display: flex;
@@ -1385,7 +1384,7 @@ main {
 
 .rows tr:hover .row-no,
 .rows tr:focus-within .row-no {
-  -webkit-text-stroke: 1px var(--lime);
+  -webkit-text-stroke: 1px var(--orange);
   color: transparent;
 }
 
@@ -1679,7 +1678,7 @@ main {
 
 .message__quote em {
   font-style: normal;
-  background: linear-gradient(transparent 62%, var(--lime) 62%, var(--lime) 92%, transparent 92%);
+  background: linear-gradient(transparent 86%, var(--orange) 86%, var(--orange) 94%, transparent 94%);
 }
 
 .message__body p {
@@ -2057,7 +2056,8 @@ main {
   display: inline-block;
   margin-top: 12px;
   padding: 4px 10px;
-  background: var(--lime);
+  border: 1px solid var(--ink);
+  border-left: 4px solid var(--orange);
   font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: .16em;
@@ -2347,7 +2347,7 @@ main {
   letter-spacing: .14em;
 }
 
-.route__legs div:last-child dd { color: var(--lime); }
+.route__legs div:last-child dd { color: var(--orange); }
 
 @media (prefers-reduced-motion: reduce) {
   .hero-road__car, .hero-road__lane::after, .hero-road__car svg { animation: none; }
