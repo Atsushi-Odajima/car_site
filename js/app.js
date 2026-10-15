@@ -126,7 +126,9 @@
       '<p class="card__no"><span>NO.' + String(index + 1).padStart(2, "0") + '</span>' +
         '<span class="card__tag">' + esc(bodyLabel(v.body)) + '</span></p>' +
       '<div class="card__inner">' +
-        '<div class="card__face card__front">' + D.carSVG(v.body) +
+        (v.img
+          ? '<div class="card__face card__front card__front--photo"><img src="' + v.img + '" alt="' + esc(name + " " + v.grade) + '" loading="lazy">'
+          : '<div class="card__face card__front">' + D.carSVG(v.body)) +
           '<span class="card__plate">' + esc(v.id) + ' / ' + v.year + '</span>' +
           '<button type="button" class="card__flipbtn" aria-label="Show specification">↻</button>' +
         '</div>' +
@@ -483,10 +485,34 @@
     if (FX.refreshRail) FX.refreshRail();
   }
 
+  /* ---------- hero car + route parallax ---------- */
+
+  function initRoad() {
+    var car = $("#heroCar");
+    if (car) car.innerHTML = D.carSVG("minivan", true);
+    var route = $(".route");
+    var media = route && $(".route__media", route);
+    if (!media || FX.REDUCED) return;
+    var ticking = false;
+    var update = function () {
+      ticking = false;
+      if (!route.offsetParent) return;
+      var r = route.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) return;
+      var p = (r.top + r.height / 2 - window.innerHeight / 2) / window.innerHeight;
+      media.style.transform = "translateY(" + (p * -9).toFixed(2) + "%)";
+    };
+    window.addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    update();
+  }
+
   /* ---------- boot ---------- */
 
   function init() {
     initHeader();
+    initRoad();
     renderFeatured();
     initStock();
     initRequest();

@@ -27,7 +27,7 @@
     </button>
     <a class="brand-mark wm" href="#/" aria-label="Japan car cycle — home">
       <svg class="wm-glyph" aria-hidden="true"><use href="#glyph"/></svg>
-      <span aria-hidden="true"><span class="wm-j">j</span>apan <span class="wm-c">c</span>ar cycle</span>
+      <span aria-hidden="true"><span class="wm-j">J</span>apan <span class="wm-c">c</span>ar cycle</span>
     </a>
     <nav class="site-nav" id="siteNav" aria-label="Main">
       <ul>
@@ -59,7 +59,7 @@
     <span class="lex-float lex-float--br" aria-hidden="true">RIGHT-HAND DRIVE&ensp;/&ensp;右ハンドル</span>
     <p class="hero__meta"><span class="duo" aria-hidden="true"></span>USED VEHICLES FROM JAPAN TO THE UK</p>
     <h1 class="hero__wordmark wm" data-kinetic aria-label="Japan car cycle">
-      <span class="wm-line"><span class="k-letter wm-j" aria-hidden="true">j</span><span class="k-letter" aria-hidden="true">a</span><span class="k-letter" aria-hidden="true">p</span><span class="k-letter" aria-hidden="true">a</span><span class="k-letter" aria-hidden="true">n</span><span class="k-letter" aria-hidden="true">&nbsp;</span><span class="k-letter wm-c" aria-hidden="true">c</span><span class="k-letter" aria-hidden="true">a</span><span class="k-letter" aria-hidden="true">r</span></span>
+      <span class="wm-line"><span class="k-letter wm-j" aria-hidden="true">J</span><span class="k-letter" aria-hidden="true">a</span><span class="k-letter" aria-hidden="true">p</span><span class="k-letter" aria-hidden="true">a</span><span class="k-letter" aria-hidden="true">n</span><span class="k-letter" aria-hidden="true">&nbsp;</span><span class="k-letter wm-c" aria-hidden="true">c</span><span class="k-letter" aria-hidden="true">a</span><span class="k-letter" aria-hidden="true">r</span></span>
       <span class="wm-line"><span class="k-letter" aria-hidden="true">c</span><span class="k-letter" aria-hidden="true">y</span><span class="k-letter" aria-hidden="true">c</span><span class="k-letter" aria-hidden="true">l</span><span class="k-letter" aria-hidden="true">e</span></span>
     </h1>
     <p class="hero__sub">Japan keeps its cars beautifully. We find the right one at auction, inspect it, and ship it to your port in the UK — right-hand drive, fully documented.</p>
@@ -67,6 +67,11 @@
       <a class="btn btn--solid" href="#/request">Request a vehicle</a>
       <a class="btn" href="#/stock">View stock</a>
     </p>
+    <div class="hero-road" aria-hidden="true">
+      <span class="hero-road__pin">YOKOHAMA</span>
+      <span class="hero-road__lane"><span class="hero-road__car" id="heroCar"></span></span>
+      <span class="hero-road__pin">SOUTHAMPTON</span>
+    </div>
     <p class="scrollcue" aria-hidden="true">SCROLL</p>
   </section>
 
@@ -100,6 +105,21 @@
     </div>
   </section>
 
+  <!-- ROUTE — full-bleed road photo that spreads open like the ink -->
+  <section class="route reveal" aria-labelledby="routeTitle">
+    <div class="route__media"><img src="assets/img/bg/road.jpg" alt="Aerial view of a highway winding through a forest" loading="lazy" width="1600" height="1067"></div>
+    <div class="route__inner">
+      <p class="route__eyebrow"><span class="duo" aria-hidden="true"></span>THE ROUTE</p>
+      <h2 class="route__title" id="routeTitle">Japan <i aria-hidden="true">→</i><span class="visually-hidden">to the</span> UK</h2>
+      <dl class="route__legs">
+        <div><dt>FROM</dt><dd>YOKOHAMA · 35.4°N</dd></div>
+        <div><dt>VIA</dt><dd>SINGAPORE · SUEZ</dd></div>
+        <div><dt>TO</dt><dd>SOUTHAMPTON · 50.9°N</dd></div>
+        <div><dt>DISTANCE</dt><dd>≈ 11,000 NM</dd></div>
+      </dl>
+    </div>
+  </section>
+
   <!-- 03 FEATURED STOCK — flip cards -->
   <section class="section" aria-labelledby="featuredTitle">
     <header class="shead reveal">
@@ -113,8 +133,8 @@
   <!-- outlined-type marquee — ink shows through the strokes -->
   <div class="marquee" aria-hidden="true">
     <div class="marquee__track">
-      <span class="marquee__seg">japan <i>→</i> uk&ensp;japan car cycle&ensp;from tokyo to your door&ensp;</span>
-      <span class="marquee__seg">japan <i>→</i> uk&ensp;japan car cycle&ensp;from tokyo to your door&ensp;</span>
+      <span class="marquee__seg">Japan <i>→</i> UK&ensp;Japan car cycle&ensp;from Tokyo to your door&ensp;</span>
+      <span class="marquee__seg">Japan <i>→</i> UK&ensp;Japan car cycle&ensp;from Tokyo to your door&ensp;</span>
     </div>
   </div>
 
@@ -276,8 +296,8 @@
         <figcaption class="photo__cap"><span class="duo" aria-hidden="true"></span>TOKYO OFFICE</figcaption>
       </figure>
       <figure class="photo reveal">
-        <img src="assets/img/ship.jpg" alt="Car carrier ship at port" loading="lazy" width="1366" height="540" style="object-position:30% 50%">
-        <figcaption class="photo__cap"><span class="duo" aria-hidden="true"></span>PORT — JAPAN</figcaption>
+        <img src="assets/img/bg/yard.jpg" alt="Rows of cars waiting at a port terminal for shipment" loading="lazy" width="1600" height="1080">
+        <figcaption class="photo__cap"><span class="duo" aria-hidden="true"></span>READY FOR SHIPMENT</figcaption>
       </figure>
     </div>
   </section>
@@ -538,10 +558,11 @@
 </div>
 
 <footer class="site-footer">
+  <div class="footer-bg" aria-hidden="true"></div>
   <div class="footer-inner">
     <p class="footer-brand wm" aria-label="Japan car cycle">
       <svg class="wm-glyph" aria-hidden="true"><use href="#glyph"/></svg>
-      <span aria-hidden="true"><span class="wm-j">j</span>apan <span class="wm-c">c</span>ar cycle</span>
+      <span aria-hidden="true"><span class="wm-j">J</span>apan <span class="wm-c">c</span>ar cycle</span>
     </p>
     <p class="footer-tag"><span class="duo" aria-hidden="true"></span>USED VEHICLES FROM JAPAN TO THE UK</p>
     <nav class="footer-nav" aria-label="Footer">
@@ -550,12 +571,21 @@
       <a href="#/company" data-scramble>COMPANY</a>
       <a href="#/request" data-scramble>REQUEST</a>
     </nav>
-    <p class="footer-note">&copy; <span id="year">2026</span> Japan car cycle. All rights reserved.</p>
+    <p class="footer-note">&copy; <span id="year">2026</span> Japan car cycle. All rights reserved.<br>Road, yard and highway photos: Wikimedia Commons (public domain / CC0).</p>
   </div>
 </footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<script>
+  /* grayscale textures carried by the ink blooms (js/ink.js) */
+  window.JCC_INK_PHOTOS = [
+    "assets/img/bg/yard-ink.jpg",
+    "assets/img/bg/road-ink.jpg",
+    "assets/img/bg/ship-ink.jpg",
+    "assets/img/bg/trails-ink.jpg"
+  ];
+</script>
 <script src="js/data.js"></script>
 <script src="js/ink.js"></script>
 <script src="js/fx.js"></script>

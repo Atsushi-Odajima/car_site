@@ -1,7 +1,11 @@
 /* =========================================================================
    js/ink.js — Japan car cycle ink-wash background
    White ground. Ink blooms bleed in, spread and dissolve like liquid.
-   Tone cycle: black ×3 → orange → black ×3 → lime → (repeat)
+   Every other bloom is a "photo bloom": a grayscale road / port / highway
+   photo seen only through the bloom's feathered shape, as if the ink
+   carried the picture with it.
+   Tone cycle: photo, black, photo, orange, photo, black, photo, lime …
+   Photo sources: window.JCC_INK_PHOTOS (array of URLs), optional.
    Auto-initialises on load. window.JccInk = { pause(), resume() }.
    ========================================================================= */
 (function () {
@@ -12,7 +16,7 @@
     REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   } catch (e) {}
 
-  var CYCLE = ["k", "k", "k", "o", "k", "k", "k", "l"];
+  var CYCLE = ["p", "k", "p", "o", "p", "k", "p", "l"];
   var COLORS = {
     k: [24, 24, 24],     /* sumi black */
     o: [240, 120, 50],   /* form orange */
@@ -29,6 +33,25 @@
   var rafId = null;
   var spawnTimer = null;
   var paused = false;
+  var photos = [];
+  var photoIdx = 0;
+
+  function loadPhotos() {
+    var list = window.JCC_INK_PHOTOS || [];
+    for (var i = 0; i < list.length; i++) {
+      (function (src) {
+        var img = new Image();
+        img.decoding = "async";
+        img.onload = function () { photos.push(img); };
+        img.src = src;
+      })(list[i]);
+    }
+  }
+
+  function nextPhoto() {
+    if (!photos.length) return null;
+    return photos[photoIdx++ % photos.length];
+  }
 
   function rand(a, b) { return a + Math.random() * (b - a); }
   function clamp01(t) { return t < 0 ? 0 : t > 1 ? 1 : t; }
@@ -55,8 +78,8 @@
 
   /* One bloom pre-rendered to an offscreen sprite: faint wash + bleed +
      dense core + satellite droplets, all feathered. */
-  function makeSprite(rgb) {
-    var S = 512;
+  function makeSprite(rgb, photo) {
+    var S = photo ? 640 : 512;
     var off = document.createElement("canvas");
     off.width = S;
     off.height = S;
@@ -93,23 +116,37 @@
       c.fill();
     }
     if (hasFilter) c.filter = "none";
+
+    /* photo bloom: keep the bloom's alpha, replace its colour with a
+       random crop of the photo */
+    if (photo) {
+      var side = Math.min(photo.width, photo.height) * rand(0.62, 0.9);
+      var sx = rand(0, photo.width - side);
+      var sy = rand(0, photo.height - side);
+      c.globalCompositeOperation = "source-in";
+      c.globalAlpha = 1;
+      c.drawImage(photo, sx, sy, side, side, 0, 0, S, S);
+      c.globalCompositeOperation = "source-over";
+    }
     return off;
   }
 
   function spawn() {
     var tone = CYCLE[cycleIdx % CYCLE.length];
     cycleIdx++;
+    var photo = tone === "p" ? nextPhoto() : null;
+    if (tone === "p" && !photo) tone = "k";
     var vmin = Math.min(W, H);
     blooms.push({
-      sprite: makeSprite(COLORS[tone]),
+      sprite: makeSprite(COLORS[tone] || COLORS.k, photo),
       x: rand(W * 0.08, W * 0.92),
       y: rand(H * 0.10, H * 0.90),
-      size: vmin * rand(0.55, 1.0),
-      rot: rand(0, Math.PI * 2),
-      drift: rand(-1, 1),
+      size: vmin * (photo ? rand(0.8, 1.25) : rand(0.55, 1.0)),
+      rot: photo ? rand(-0.08, 0.08) : rand(0, Math.PI * 2),
+      drift: photo ? rand(-0.3, 0.3) : rand(-1, 1),
       born: performance.now(),
-      dur: rand(9000, 13000),
-      peak: tone === "k" ? rand(0.26, 0.38) : rand(0.42, 0.58)
+      dur: photo ? rand(11000, 15000) : rand(9000, 13000),
+      peak: photo ? rand(0.5, 0.66) : tone === "k" ? rand(0.24, 0.34) : rand(0.42, 0.58)
     });
     if (!rafId) rafId = requestAnimationFrame(frame);
   }
@@ -205,6 +242,9 @@
       if (document.hidden) pause(); else resume();
     });
     if (REDUCED) { paintStatic(); return; }
+    loadPhotos();
+    /* first bloom is plain ink; photos join once they have loaded */
+    cycleIdx = 1;
     spawn();
     schedule();
   }
