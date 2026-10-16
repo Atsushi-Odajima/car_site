@@ -724,6 +724,19 @@
   </div>
 </footer>
 
+<!-- calculator: the car drives Japan → UK over the page, then the figures appear -->
+<div class="calc-drive" id="calcDrive" hidden>
+  <div class="calc-drive__stage" role="status" aria-live="polite">
+    <p class="calc-drive__label"><span class="duo" aria-hidden="true"></span><span id="calcDriveLabel">ESTIMATING YOUR LANDED COST</span></p>
+    <div class="calc-drive__road" aria-hidden="true">
+      <span class="calc-drive__pin">YOKOHAMA</span>
+      <span class="calc-drive__lane"><span class="calc-drive__trail"></span><span class="calc-drive__car" id="calcDriveCar"></span></span>
+      <span class="calc-drive__pin">SOUTHAMPTON</span>
+    </div>
+    <p class="calc-drive__hint" aria-hidden="true">TAP TO SKIP</p>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>

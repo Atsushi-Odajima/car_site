@@ -35,8 +35,9 @@ js/calc-config.js      ALL calculator figures: exchange-rate default, fee rate a
                        pre-shipment lump sum, freight bands by vehicle size, duty options,
                        UK local costs, VAT rate — edit here, nothing is hard-coded elsewhere
 js/calc.js             calculator arithmetic (JccCalc.compute) and the page behaviour:
-                       figures appear on "Start Price Estimate"; editing an input afterwards
-                       dims them until the button is pressed again
+                       on "Start Price Estimate" the line-art car drives across a veil over
+                       the page (Yokohama → Southampton) and the figures appear when it
+                       arrives; editing an input afterwards dims them until the next press
 assets/fonts/          Marcellus SC, Della Respira (OFL)
 assets/img/            photos (cars/ = stock photos, bg/ = road, yard, highway)
 assets/docs/           printable PDF request form

@@ -5,9 +5,11 @@
    when a figure is printed (JPY to whole yen, GBP to two decimals).
    Settings come from js/calc-config.js (window.JCC_CALC_CONFIG).
 
-   The estimate is shown when the user presses "Start Price Estimate".
-   Editing an input afterwards dims the figures and asks for another
-   press, so the numbers on screen always belong to a deliberate run.
+   The estimate is shown when the user presses "Start Price Estimate":
+   the line-art car drives across the page (Yokohama → Southampton) and
+   the figures appear when it arrives. Editing an input afterwards dims
+   the figures and asks for another press, so the numbers on screen
+   always belong to a deliberate run.
    ========================================================================= */
 (function () {
   "use strict";
@@ -85,6 +87,9 @@
   }
 
   var MSG_START = "Enter the vehicle details, then press Start Price Estimate.";
+
+  /* which line-art body drives across the overlay for each size band */
+  var DRIVE_BODY = { small: "hatch", sedan: "sedan", sports: "sports", minivan: "minivan", suv: "suv" };
   var MSG_STALE = "Inputs changed — press Start Price Estimate to refresh the figures.";
 
   /* result rows, in display order; `key` is the field of compute()'s result */
@@ -237,6 +242,58 @@
     }
   }
 
+  /* ---------- the drive ----------
+     A light veil covers the page; the car crosses it left to right and
+     `done` runs when it arrives (or when the user taps / presses Escape).
+     Skipped entirely under prefers-reduced-motion. */
+  var driving = false;
+
+  function startDrive(sizeKey, done) {
+    var overlay = $("#calcDrive");
+    var car = $("#calcDriveCar");
+    var startBtn = $("#calcStart");
+    if (!overlay || !car || REDUCED || driving) { done(); return; }
+
+    driving = true;
+    if (startBtn) startBtn.disabled = true;
+    if (window.JCC && window.JCC.carSVG) {
+      car.innerHTML = window.JCC.carSVG(DRIVE_BODY[sizeKey] || "minivan", true);
+    }
+    overlay.hidden = false;
+    void overlay.offsetWidth;            /* let the hidden → shown frame paint before animating */
+    overlay.classList.add("is-on");
+    if (window.JccFX && window.JccFX.scramble) window.JccFX.scramble($("#calcDriveLabel"), 900);
+
+    var finished = false;
+    var timer = null;
+    function finish() {
+      if (finished) return;
+      finished = true;
+      clearTimeout(timer);
+      car.removeEventListener("animationend", finish);
+      overlay.removeEventListener("click", finish);
+      document.removeEventListener("keydown", onKey);
+      overlay.classList.remove("is-on");
+      setTimeout(function () { overlay.hidden = true; }, 320);
+      if (startBtn) startBtn.disabled = false;
+      driving = false;
+      done();
+    }
+    function onKey(e) { if (e.key === "Escape" || e.key === "Enter") finish(); }
+
+    car.addEventListener("animationend", finish);
+    overlay.addEventListener("click", finish);
+    document.addEventListener("keydown", onKey);
+    timer = setTimeout(finish, 2600);    /* safety net if animationend never fires */
+  }
+
+  /* the button: validate first (no drive for an empty form), then drive, then show */
+  function runEstimate(form) {
+    var input = readInput(form);
+    if (!compute(input)) { estimate(form); return; }
+    startDrive(input.size, function () { estimate(form); });
+  }
+
   function markStale(form) {
     syncDutyHint(form);
     if (!lastResult) return;
@@ -329,7 +386,7 @@
 
     form.addEventListener("input", function () { markStale(form); });
     form.addEventListener("change", function () { markStale(form); });
-    form.addEventListener("submit", function (e) { e.preventDefault(); estimate(form); });
+    form.addEventListener("submit", function (e) { e.preventDefault(); runEstimate(form); });
 
     $("#calcReset").addEventListener("click", function () {
       form.elements.calc_amount.value = "";
