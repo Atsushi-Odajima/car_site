@@ -1,0 +1,300 @@
+/* =========================================================================
+   js/calc.js — Import cost calculator (Japan dealer price → UK dealership)
+   Pure arithmetic in JccCalc.compute(), UI binding in initCalculator().
+   All sums are carried in JPY at full precision; rounding happens only
+   when a figure is printed (JPY to whole yen, GBP to two decimals).
+   Settings come from js/calc-config.js (window.JCC_CALC_CONFIG).
+   ========================================================================= */
+(function () {
+  "use strict";
+
+  var CFG = window.JCC_CALC_CONFIG;
+
+  function findBy(list, key) {
+    for (var i = 0; i < list.length; i++) if (list[i].key === key) return list[i];
+    return null;
+  }
+
+  /* ---------- arithmetic ----------
+     input = { amount, currency: "JPY" | "GBP", rate, size, duty }
+     Returns null when the inputs cannot produce a valid estimate. */
+  function compute(input, cfg) {
+    cfg = cfg || CFG;
+    var R = Number(input.rate);
+    var amount = Number(input.amount);
+    var size = findBy(cfg.vehicleSizes, input.size);
+    var duty = findBy(cfg.dutyOptions, input.duty);
+    if (!isFinite(R) || R <= 0) return null;
+    if (!isFinite(amount) || amount <= 0) return null;
+    if (!size || !duty) return null;
+
+    var P = input.currency === "GBP" ? amount * R : amount;   /* vehicle price, JPY */
+    var feePct = P * cfg.sourcingFee.rate;
+    var feeMin = cfg.sourcingFee.minimumGBP * R;
+    var F = Math.max(feePct, feeMin);                          /* our fee */
+    var J = cfg.japanPreShipmentJPY;                           /* Japan pre-shipment */
+    var H = size.gbp * R;                                      /* ocean freight & insurance */
+    var C = P + F + J + H;                                     /* Japan-side subtotal */
+    var D = C * duty.rate;                                     /* import duty */
+    var U = cfg.ukLocalCostsGBP * R;                           /* UK local costs */
+    var L = C + D + U;                                         /* landed, excl. VAT */
+    var V = L * cfg.vatRate;                                   /* import VAT */
+    var T = L + V;                                             /* cash outlay with VAT */
+
+    return {
+      R: R, P: P, F: F, J: J, H: H, C: C, D: D, U: U, L: L, V: V, T: T,
+      feeAtMinimum: feeMin > feePct,
+      size: size,
+      duty: duty
+    };
+  }
+
+  /* ---------- formatting (display only) ---------- */
+  function fmtJPY(n) {
+    return "¥" + Math.round(n).toLocaleString("en-GB");
+  }
+
+  function fmtGBP(n) {
+    return "£" + Number(n).toLocaleString("en-GB", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function fmtPct(rate) {
+    return (Math.round(rate * 1000) / 10) + "%";
+  }
+
+  /* ---------- UI ---------- */
+
+  function $(sel, root) { return (root || document).querySelector(sel); }
+  function $all(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  /* result rows, in display order; `key` is the field of compute()'s result */
+  function rowDefs(cfg) {
+    return [
+      { key: "P", name: "Vehicle purchase price",
+        desc: "The advertised vehicle price you entered, before Japanese domestic registration charges." },
+      { key: "F", name: "Our sourcing & export fee",
+        desc: fmtPct(cfg.sourcingFee.rate) + " of the vehicle purchase price, with a minimum fee of £" +
+              cfg.sourcingFee.minimumGBP.toLocaleString("en-GB") + " per vehicle." },
+      { key: "J", name: "Japan pre-shipment costs",
+        desc: "Estimated domestic transport, export deregistration and documentation, port/yard charges and Japanese export customs clearance." },
+      { key: "H", name: "Ocean freight & insurance",
+        desc: "Budget for the selected vehicle size. Marine insurance (£" + cfg.insuranceIncludedGBP +
+              ") is already included — do not add it separately. Actual cost varies with dimensions, route and sailing." },
+      { key: "C", name: "Japan-side subtotal including sea freight", subtotal: true,
+        desc: "Vehicle price, our fee, pre-shipment costs and freight." },
+      { key: "D", name: "Estimated import duty",
+        desc: "Applied to the Japan-side subtotal at the selected rate. A simplified estimate, not a customs valuation." },
+      { key: "U", name: "UK local costs",
+        desc: "Estimated UK port charges, customs clearance service and inland delivery to your dealership. Excludes import duty and VAT. Not a fee we receive — paid by you directly to UK providers." }
+    ];
+  }
+
+  function renderLedger(cfg) {
+    var ul = $("#calcLedger");
+    if (!ul) return;
+    ul.innerHTML = rowDefs(cfg).map(function (r) {
+      return '<li class="calc-row' + (r.subtotal ? " calc-row--sub" : "") + '" data-row="' + r.key + '">' +
+        '<span class="calc-row__name">' + esc(r.name) + '</span>' +
+        '<span class="calc-row__gbp" data-out="' + r.key + '-gbp">—</span>' +
+        '<span class="calc-row__desc">' + esc(r.desc) + '</span>' +
+        '<span class="calc-row__jpy" data-out="' + r.key + '-jpy">—</span>' +
+      '</li>';
+    }).join("");
+  }
+
+  function fillSelect(sel, items, selected, labelFn) {
+    sel.innerHTML = items.map(function (it) {
+      return '<option value="' + esc(it.key) + '"' + (it.key === selected ? " selected" : "") + ">" +
+        esc(labelFn(it)) + "</option>";
+    }).join("");
+  }
+
+  function readInput(form) {
+    return {
+      amount: form.elements.calc_amount.value.trim() === "" ? NaN : Number(form.elements.calc_amount.value),
+      currency: form.getAttribute("data-currency") || CFG.defaults.currency,
+      rate: form.elements.calc_rate.value.trim() === "" ? NaN : Number(form.elements.calc_rate.value),
+      size: form.elements.calc_size.value,
+      duty: form.elements.calc_duty.value
+    };
+  }
+
+  /* why the result is empty, in the user's words */
+  function problem(input) {
+    if (!isFinite(input.rate) || input.rate <= 0) return "Enter an exchange rate above zero (JPY per £1).";
+    if (!isFinite(input.amount)) return "Enter the vehicle purchase price to see the estimate.";
+    if (input.amount <= 0) return "The vehicle price must be above zero.";
+    return "";
+  }
+
+  function setOut(key, text) {
+    $all('[data-out="' + key + '"]').forEach(function (el) { el.textContent = text; });
+  }
+
+  var lastResult = null;
+  var lastInput = null;
+
+  function update(form) {
+    var input = readInput(form);
+    var res = compute(input);
+    lastResult = res;
+    lastInput = input;
+    var msg = $("#calcMsg");
+    var keys = ["P", "F", "J", "H", "C", "D", "U", "L", "V", "T"];
+
+    form.classList.toggle("is-duty-zero", input.duty !== CFG.defaults.duty &&
+      (findBy(CFG.dutyOptions, input.duty) || {}).rate === 0);
+
+    if (!res) {
+      keys.forEach(function (k) { setOut(k + "-gbp", "—"); setOut(k + "-jpy", "—"); });
+      $("#calcFeeNote").hidden = true;
+      msg.textContent = problem(input);
+      msg.hidden = !msg.textContent;
+      $("#calcResults").classList.add("is-empty");
+      return;
+    }
+
+    msg.hidden = true;
+    $("#calcResults").classList.remove("is-empty");
+    keys.forEach(function (k) {
+      setOut(k + "-gbp", fmtGBP(res[k] / res.R));
+      setOut(k + "-jpy", fmtJPY(res[k]));
+    });
+    setOut("duty-rate", fmtPct(res.duty.rate));
+    setOut("vat-rate", fmtPct(CFG.vatRate));
+    setOut("rate", "£1 = ¥" + res.R.toLocaleString("en-GB", { maximumFractionDigits: 4 }));
+    $("#calcFeeNote").hidden = !res.feeAtMinimum;
+  }
+
+  /* convert the typed amount when the currency switch changes */
+  function switchCurrency(form, next) {
+    var cur = form.getAttribute("data-currency");
+    if (cur === next) return;
+    var field = form.elements.calc_amount;
+    var rate = Number(form.elements.calc_rate.value);
+    var amt = Number(field.value);
+    if (field.value.trim() !== "" && isFinite(amt) && isFinite(rate) && rate > 0) {
+      field.value = next === "GBP"
+        ? (Math.round((amt / rate) * 100) / 100).toString()
+        : Math.round(amt * rate).toString();
+    }
+    form.setAttribute("data-currency", next);
+    $all("[data-calc-ccy]", form).forEach(function (b) {
+      b.setAttribute("aria-pressed", b.getAttribute("data-calc-ccy") === next ? "true" : "false");
+    });
+    field.setAttribute("placeholder", next === "GBP" ? "e.g. 2866.03" : "e.g. 599000");
+    $("#calcAmountUnit").textContent = next === "GBP" ? "£" : "¥";
+    update(form);
+  }
+
+  function summaryText() {
+    if (!lastResult) return "";
+    var r = lastResult;
+    var line = function (name, v) { return name + ": " + fmtGBP(v / r.R) + "  (" + fmtJPY(v) + ")"; };
+    return [
+      "Japan car cycle — import cost estimate (budget figures, not a quotation)",
+      "Exchange rate used: £1 = ¥" + r.R + " (editable estimate, not a live rate)",
+      "Vehicle size: " + r.size.label + " · Import duty: " + fmtPct(r.duty.rate),
+      "",
+      line("Vehicle purchase price", r.P),
+      line("Our sourcing & export fee", r.F),
+      line("Japan pre-shipment costs", r.J),
+      line("Ocean freight & insurance", r.H),
+      line("Japan-side subtotal including sea freight", r.C),
+      line("Estimated import duty", r.D),
+      line("UK local costs", r.U),
+      line("ESTIMATED TOTAL TO YOUR DEALERSHIP — excluding import VAT", r.L),
+      "",
+      line("Estimated import VAT (" + fmtPct(CFG.vatRate) + ")", r.V),
+      line("Estimated cash outlay if import VAT is paid upfront", r.T),
+      "",
+      "Final purchase prices, freight, insurance, local charges and taxes must be confirmed before purchase."
+    ].join("\n");
+  }
+
+  function toast(msg) {
+    var el = $("#toast");
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.add("is-on");
+    clearTimeout(el._t);
+    el._t = setTimeout(function () { el.classList.remove("is-on"); }, 2600);
+  }
+
+  function initCalculator() {
+    var form = $("#calcForm");
+    if (!form || !CFG) return;
+
+    fillSelect(form.elements.calc_size, CFG.vehicleSizes, CFG.defaults.size, function (s) {
+      return s.label + " · £" + s.gbp.toLocaleString("en-GB");
+    });
+    fillSelect(form.elements.calc_duty, CFG.dutyOptions, CFG.defaults.duty, function (d) { return d.label; });
+
+    var rateField = form.elements.calc_rate;
+    rateField.value = String(CFG.exchangeRate["default"]);
+    rateField.min = String(CFG.exchangeRate.min);
+    rateField.step = String(CFG.exchangeRate.step);
+
+    /* numbers quoted in the static copy come from the config too */
+    setOut("cfg-fee-min", "£" + CFG.sourcingFee.minimumGBP.toLocaleString("en-GB"));
+    setOut("cfg-fee-rate", fmtPct(CFG.sourcingFee.rate));
+    setOut("cfg-insurance", "£" + CFG.insuranceIncludedGBP.toLocaleString("en-GB"));
+    setOut("cfg-rate-default", String(CFG.exchangeRate["default"]));
+    setOut("vat-rate", fmtPct(CFG.vatRate));
+
+    renderLedger(CFG);
+    form.setAttribute("data-currency", CFG.defaults.currency);
+    $all("[data-calc-ccy]", form).forEach(function (b) {
+      b.setAttribute("aria-pressed", b.getAttribute("data-calc-ccy") === CFG.defaults.currency ? "true" : "false");
+      b.addEventListener("click", function () { switchCurrency(form, b.getAttribute("data-calc-ccy")); });
+    });
+
+    form.addEventListener("input", function () { update(form); });
+    form.addEventListener("change", function () { update(form); });
+    form.addEventListener("submit", function (e) { e.preventDefault(); });
+
+    $("#calcReset").addEventListener("click", function () {
+      form.elements.calc_amount.value = "";
+      rateField.value = String(CFG.exchangeRate["default"]);
+      form.elements.calc_size.value = CFG.defaults.size;
+      form.elements.calc_duty.value = CFG.defaults.duty;
+      switchCurrency(form, CFG.defaults.currency);
+      update(form);
+      form.elements.calc_amount.focus();
+    });
+
+    $("#calcCopy").addEventListener("click", function () {
+      var text = summaryText();
+      if (!text) { toast("ENTER A VEHICLE PRICE FIRST"); return; }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(
+          function () { toast("ESTIMATE COPIED TO CLIPBOARD"); },
+          function () { toast("COPY FAILED — PLEASE SELECT THE FIGURES MANUALLY"); });
+      } else {
+        toast("COPY NOT AVAILABLE IN THIS BROWSER");
+      }
+    });
+
+    update(form);
+  }
+
+  window.JccCalc = {
+    compute: compute,
+    fmtJPY: fmtJPY,
+    fmtGBP: fmtGBP,
+    summaryText: summaryText,
+    init: initCalculator
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initCalculator);
+  } else {
+    initCalculator();
+  }
+})();

@@ -431,7 +431,7 @@
 
   /* ---------- router ---------- */
 
-  var PAGES = ["home", "stock", "company", "request"];
+  var PAGES = ["home", "stock", "calculator", "company", "request"];
   var current = null;
 
   function parseHash() {
@@ -474,6 +474,7 @@
     var titles = {
       home: "Japan car cycle — Used vehicles from Japan to the UK",
       stock: "Stock — Japan car cycle",
+      calculator: "Import cost calculator — Japan car cycle",
       company: "Company — Japan car cycle",
       request: "Vehicle Request — Japan car cycle"
     };

@@ -33,6 +33,7 @@
       <ul>
         <li><a href="#/" data-scramble>HOME</a></li>
         <li><a href="#/stock" data-scramble>STOCK</a></li>
+        <li><a href="#/calculator" data-scramble>CALCULATOR</a></li>
         <li><a href="#/company" data-scramble>COMPANY</a></li>
         <li><a href="#/request" data-scramble>REQUEST</a></li>
       </ul>
@@ -160,6 +161,13 @@
     </table>
   </section>
 
+  <section class="section" style="padding-top:0" aria-labelledby="calcTeaser">
+    <p class="more-row reveal" style="margin-top:0">
+      <span class="visually-hidden" id="calcTeaser">Import cost calculator</span>
+      <a href="#/calculator" data-scramble>ESTIMATE YOUR LANDED COST →</a>
+    </p>
+  </section>
+
   <!-- 05 CTA -->
   <section class="section" aria-labelledby="ctaTitle">
     <header class="shead reveal">
@@ -231,6 +239,122 @@
     <p class="empty" id="stockEmpty" hidden>NO VEHICLES MATCH — <a href="#/request" style="border-bottom:1px solid var(--orange)">REQUEST ONE INSTEAD →</a></p>
     <p class="disclaimer">Sample stock shown for illustration. Prices are indicative CIF Southampton and exclude UK import duty, VAT, port handling and registration. JPY figures use an indicative rate. Don’t see the right car? We source to order — <a href="#/request" style="border-bottom:1px solid var(--orange)">send us a request</a>.</p>
   </section>
+</main>
+
+<!-- =====================================================================
+     CALCULATOR — import cost estimate for UK dealers
+     Figures and rates: js/calc-config.js · arithmetic: js/calc.js
+     ===================================================================== -->
+<main class="page" data-page="calculator" hidden>
+  <div class="page-head">
+    <p class="page-eyebrow" aria-hidden="true">
+      <span><span class="duo"></span>FOR UK DEALERS — IMPORT COST CALCULATOR</span>
+      <span>BUDGET ESTIMATE · NOT A QUOTATION</span>
+    </p>
+    <div class="page-title-row">
+      <h1 class="page-title" data-kinetic data-outline="5">CALCULATOR</h1>
+      <dl class="lexicon" aria-label="What this calculator covers">
+        <div><dt>FROM</dt><dd>JAPANESE DEALER PRICE</dd></div>
+        <div><dt>TO</dt><dd>YOUR UK DEALERSHIP</dd></div>
+        <div><dt>SHOWS</dt><dd>GBP · JPY</dd></div>
+        <div><dt>RATE</dt><dd>EDITABLE ESTIMATE</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <div class="calc">
+
+    <!-- inputs -->
+    <form class="calc__inputs" id="calcForm" novalidate autocomplete="off">
+      <p class="calc__head"><span class="duo" aria-hidden="true"></span>YOUR INPUTS</p>
+
+      <div class="calc-field">
+        <label class="calc-field__label" for="calc_amount">Vehicle purchase price</label>
+        <div class="calc-field__row">
+          <span class="calc-unit" id="calcAmountUnit" aria-hidden="true">¥</span>
+          <input type="number" id="calc_amount" name="calc_amount" inputmode="decimal" min="0" step="any" placeholder="e.g. 599000">
+          <div class="seg" role="group" aria-label="Price currency">
+            <button type="button" data-calc-ccy="JPY" aria-pressed="true">JPY</button>
+            <button type="button" data-calc-ccy="GBP" aria-pressed="false">GBP</button>
+          </div>
+        </div>
+        <p class="calc-field__hint">Enter the advertised vehicle price (車両本体価格) from the Japanese listing. The “total payment” figure (支払総額) also includes Japanese domestic registration costs, so it is not the export price — confirm the final purchase price with the selling dealer. Switching currency converts the amount at the rate below.</p>
+      </div>
+
+      <div class="calc-field">
+        <label class="calc-field__label" for="calc_rate">Exchange rate — JPY per £1</label>
+        <div class="calc-field__row">
+          <span class="calc-unit" aria-hidden="true">£1 =</span>
+          <input type="number" id="calc_rate" name="calc_rate" inputmode="decimal" min="1" step="0.01">
+          <span class="calc-unit" aria-hidden="true">JPY</span>
+        </div>
+        <p class="calc-field__hint">An editable estimate you can change at any time — not a live market rate. Yen amounts are divided by this rate to give pounds; pound amounts are multiplied by it to give yen. Default: ¥<span data-out="cfg-rate-default"></span> per £1.</p>
+      </div>
+
+      <div class="calc-field">
+        <label class="calc-field__label" for="calc_size">Vehicle size</label>
+        <div class="calc-field__row">
+          <select id="calc_size" name="calc_size"></select>
+        </div>
+        <p class="calc-field__hint">Each figure is the combined budget for ocean freight and marine insurance. The insurance budget (<span data-out="cfg-insurance"></span>) is included, so do not add insurance separately. Actual cost varies with the vehicle’s dimensions, the route and the sailing.</p>
+      </div>
+
+      <div class="calc-field calc-field--duty">
+        <label class="calc-field__label" for="calc_duty">Import duty</label>
+        <div class="calc-field__row">
+          <select id="calc_duty" name="calc_duty"></select>
+        </div>
+        <p class="calc-field__hint">Use 0% only where preferential-origin eligibility and the required declaration have been verified for this vehicle. Year of manufacture or make alone does not qualify a vehicle, so the calculator never selects 0% automatically.</p>
+      </div>
+
+      <div class="calc-actions">
+        <button type="button" class="btn" id="calcReset">Reset</button>
+        <button type="button" class="btn btn--solid" id="calcCopy">Copy estimate</button>
+      </div>
+    </form>
+
+    <!-- results -->
+    <section class="calc__results is-empty" id="calcResults" aria-live="polite" aria-label="Estimate">
+      <p class="calc__head"><span class="duo" aria-hidden="true"></span>ESTIMATE <span class="calc__rate" data-out="rate"></span></p>
+      <p class="calc-msg" id="calcMsg" hidden></p>
+
+      <ul class="calc-ledger" id="calcLedger"></ul>
+      <p class="calc-feenote" id="calcFeeNote" hidden>The minimum fee of <span data-out="cfg-fee-min"></span> applies — <span data-out="cfg-fee-rate"></span> of this vehicle price would be lower.</p>
+
+      <div class="calc-total">
+        <p class="calc-total__name">Estimated total to your dealership — <em>excluding import VAT</em></p>
+        <p class="calc-total__gbp" data-out="L-gbp">—</p>
+        <p class="calc-total__jpy" data-out="L-jpy">—</p>
+      </div>
+
+      <section class="calc-vat" aria-label="Import VAT reference">
+        <p class="calc-vat__head">REFERENCE — UK IMPORT VAT AT <span data-out="vat-rate"></span></p>
+        <ul class="calc-ledger">
+          <li class="calc-row">
+            <span class="calc-row__name">Estimated import VAT</span>
+            <span class="calc-row__gbp" data-out="V-gbp">—</span>
+            <span class="calc-row__desc">A separate tax due on import; shown apart from the total above.</span>
+            <span class="calc-row__jpy" data-out="V-jpy">—</span>
+          </li>
+          <li class="calc-row">
+            <span class="calc-row__name">Estimated cash outlay if import VAT is paid upfront</span>
+            <span class="calc-row__gbp" data-out="T-gbp">—</span>
+            <span class="calc-row__desc">Total above plus import VAT. Whether VAT is recoverable or can be postponed depends on the importer’s circumstances; nothing here guarantees relief or a refund.</span>
+            <span class="calc-row__jpy" data-out="T-jpy">—</span>
+          </li>
+        </ul>
+      </section>
+
+      <div class="calc-notes">
+        <p>This calculator provides budget estimates, not a binding quotation. Final purchase prices, freight, insurance, local charges and taxes must be confirmed before purchase. The exchange rate shown is an editable estimate, not a live market rate.</p>
+        <p>UK customs clearance and inland delivery are arranged and paid for directly by the buyer. We provide suggested service-provider details and the required export documents.</p>
+        <p>Import duty and VAT use simplified assumptions. A 0% duty estimate requires verified eligibility for preferential treatment and the appropriate declaration. Import VAT recovery or postponed accounting depends on the importer’s circumstances.</p>
+        <p>MOT, UK registration, vehicle tax, modifications, repairs, retail preparation, additional storage and other unlisted charges are excluded.</p>
+      </div>
+
+      <p class="more-row" style="margin-top:40px"><a href="#/request" data-scramble>FOUND THE CAR? SEND US A REQUEST →</a></p>
+    </section>
+  </div>
 </main>
 
 <!-- =====================================================================
@@ -568,6 +692,7 @@
     <nav class="footer-nav" aria-label="Footer">
       <a href="#/" data-scramble>HOME</a>
       <a href="#/stock" data-scramble>STOCK</a>
+      <a href="#/calculator" data-scramble>CALCULATOR</a>
       <a href="#/company" data-scramble>COMPANY</a>
       <a href="#/request" data-scramble>REQUEST</a>
     </nav>
@@ -589,9 +714,11 @@
     "assets/img/bg/trails-ink.jpg"
   ];
 </script>
+<script src="js/calc-config.js"></script>
 <script src="js/data.js"></script>
 <script src="js/ink.js"></script>
 <script src="js/fx.js"></script>
+<script src="js/calc.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

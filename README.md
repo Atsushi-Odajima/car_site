@@ -18,6 +18,7 @@ https://atsushi-odajima.github.io/car_site/
 |--------------|----------|
 | `#/`         | Hero (kinetic wordmark), key figures, featured stock (flip cards), how it works, request CTA, news |
 | `#/stock`    | Stock list: body-type filters, search, sorting, GBP / JPY switch |
+| `#/calculator` | Import cost calculator for UK dealers: Japanese dealer price → estimated landed cost at the dealership, GBP with JPY alongside, import VAT shown separately |
 | `#/company`  | Message, business lines, photos, company profile |
 | `#/request`  | Online version of the Vehicle Request Form (all 13 questions plus contact details) |
 
@@ -30,6 +31,10 @@ js/data.js             sample stock + line-art car drawings
 js/ink.js              ink-wash background (black / orange / lime blooms)
 js/fx.js               scramble, kinetic letters, reveal, odometer, scroll rail
 js/app.js              routing, stock, request form
+js/calc-config.js      ALL calculator figures: exchange-rate default, fee rate and minimum,
+                       pre-shipment lump sum, freight bands by vehicle size, duty options,
+                       UK local costs, VAT rate — edit here, nothing is hard-coded elsewhere
+js/calc.js             calculator arithmetic (JccCalc.compute) and the page behaviour
 assets/fonts/          Marcellus SC, Della Respira (OFL)
 assets/img/            photos (cars/ = stock photos, bg/ = road, yard, highway)
 assets/docs/           printable PDF request form
@@ -40,6 +45,7 @@ To preview locally, run `python3 -m http.server` in this folder and open http://
 ## Before going live
 
 - **Stock** in `js/data.js` is sample data. Replace it with real inventory.
+- **Calculator figures** in `js/calc-config.js` are the agreed initial values (£1 = ¥209, 10% / min £500 fee, ¥85,000 pre-shipment, freight £1,603–£2,103 by size, £700 UK local costs, 10% / 0% duty, 20% VAT). The stock list's indicative JPY rate reads the same default. Review them whenever rates change; the page itself says the rate is an editable estimate, not a live one.
 - **Contact email**: `CONTACT_EMAIL` in `js/app.js` is a placeholder.
 - **Company profile**: the established date, full address and dealer licence number are marked TBC in `index.html`.
 - **Figures and news** on the home page are example copy. Check them before publishing.

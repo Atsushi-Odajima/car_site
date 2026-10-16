@@ -8,7 +8,9 @@
 (function () {
   "use strict";
 
-  var GBP_TO_JPY = 190; /* indicative display rate — update as needed */
+  /* indicative display rate for stock prices; kept equal to the calculator's
+     default in js/calc-config.js so the site quotes one rate */
+  var GBP_TO_JPY = (window.JCC_CALC_CONFIG && window.JCC_CALC_CONFIG.exchangeRate["default"]) || 209;
 
   var vehicles = [
     { id: "JCC-2401", make: "Toyota", model: "Alphard", grade: "2.5 S C Package", body: "minivan", year: 2019, km: 48000, engine: "2.5 Petrol", fuel: "Petrol", seats: 7, score: "4.5", gbp: 24950, featured: true, img: "assets/img/cars/alphard.jpg" },
