@@ -4,6 +4,10 @@
    All sums are carried in JPY at full precision; rounding happens only
    when a figure is printed (JPY to whole yen, GBP to two decimals).
    Settings come from js/calc-config.js (window.JCC_CALC_CONFIG).
+
+   The estimate is shown when the user presses "Start Price Estimate".
+   Editing an input afterwards dims the figures and asks for another
+   press, so the numbers on screen always belong to a deliberate run.
    ========================================================================= */
 (function () {
   "use strict";
@@ -64,6 +68,9 @@
 
   /* ---------- UI ---------- */
 
+  var REDUCED = false;
+  try { REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+
   function $(sel, root) { return (root || document).querySelector(sel); }
   function $all(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
 
@@ -73,24 +80,31 @@
     });
   }
 
+  function ico(name) {
+    return '<svg class="ico" aria-hidden="true"><use href="#i-' + name + '"/></svg>';
+  }
+
+  var MSG_START = "Enter the vehicle details, then press Start Price Estimate.";
+  var MSG_STALE = "Inputs changed — press Start Price Estimate to refresh the figures.";
+
   /* result rows, in display order; `key` is the field of compute()'s result */
   function rowDefs(cfg) {
     return [
-      { key: "P", name: "Vehicle purchase price",
+      { key: "P", icon: "car", name: "Vehicle purchase price",
         desc: "The advertised vehicle price you entered, before Japanese domestic registration charges." },
-      { key: "F", name: "Our sourcing & export fee",
+      { key: "F", icon: "fee", name: "Our sourcing & export fee",
         desc: fmtPct(cfg.sourcingFee.rate) + " of the vehicle purchase price, with a minimum fee of £" +
               cfg.sourcingFee.minimumGBP.toLocaleString("en-GB") + " per vehicle." },
-      { key: "J", name: "Japan pre-shipment costs",
+      { key: "J", icon: "truck", name: "Japan pre-shipment costs",
         desc: "Estimated domestic transport, export deregistration and documentation, port/yard charges and Japanese export customs clearance." },
-      { key: "H", name: "Ocean freight & insurance",
+      { key: "H", icon: "ship", name: "Ocean freight & insurance",
         desc: "Budget for the selected vehicle size. Marine insurance (£" + cfg.insuranceIncludedGBP +
               ") is already included — do not add it separately. Actual cost varies with dimensions, route and sailing." },
-      { key: "C", name: "Japan-side subtotal including sea freight", subtotal: true,
+      { key: "C", icon: "sum", name: "Japan-side subtotal including sea freight", subtotal: true,
         desc: "Vehicle price, our fee, pre-shipment costs and freight." },
-      { key: "D", name: "Estimated import duty",
+      { key: "D", icon: "stamp", name: "Estimated import duty",
         desc: "Applied to the Japan-side subtotal at the selected rate. A simplified estimate, not a customs valuation." },
-      { key: "U", name: "UK local costs",
+      { key: "U", icon: "dealer", name: "UK local costs",
         desc: "Estimated UK port charges, customs clearance service and inland delivery to your dealership. Excludes import duty and VAT. Not a fee we receive — paid by you directly to UK providers." }
     ];
   }
@@ -98,8 +112,9 @@
   function renderLedger(cfg) {
     var ul = $("#calcLedger");
     if (!ul) return;
-    ul.innerHTML = rowDefs(cfg).map(function (r) {
-      return '<li class="calc-row' + (r.subtotal ? " calc-row--sub" : "") + '" data-row="' + r.key + '">' +
+    ul.innerHTML = rowDefs(cfg).map(function (r, i) {
+      return '<li class="calc-row' + (r.subtotal ? " calc-row--sub" : "") + '" data-row="' + r.key + '" style="--i:' + i + '">' +
+        ico(r.icon) +
         '<span class="calc-row__name">' + esc(r.name) + '</span>' +
         '<span class="calc-row__gbp" data-out="' + r.key + '-gbp">—</span>' +
         '<span class="calc-row__desc">' + esc(r.desc) + '</span>' +
@@ -125,64 +140,122 @@
     };
   }
 
-  /* why the result is empty, in the user's words */
-  function problem(input) {
-    if (!isFinite(input.rate) || input.rate <= 0) return "Enter an exchange rate above zero (JPY per £1).";
-    if (!isFinite(input.amount)) return "Enter the vehicle purchase price to see the estimate.";
-    if (input.amount <= 0) return "The vehicle price must be above zero.";
-    return "";
+  /* why the estimate cannot run, in the user's words + the field to fix */
+  function problem(input, form) {
+    if (!isFinite(input.rate) || input.rate <= 0) {
+      return { text: "Enter an exchange rate above zero (JPY per £1).", field: form.elements.calc_rate };
+    }
+    if (!isFinite(input.amount)) {
+      return { text: "Enter the vehicle purchase price to run the estimate.", field: form.elements.calc_amount };
+    }
+    if (input.amount <= 0) {
+      return { text: "The vehicle price must be above zero.", field: form.elements.calc_amount };
+    }
+    return null;
   }
 
   function setOut(key, text) {
     $all('[data-out="' + key + '"]').forEach(function (el) { el.textContent = text; });
   }
 
+  var KEYS = ["P", "F", "J", "H", "C", "D", "U", "L", "V", "T"];
   var lastResult = null;
-  var lastInput = null;
 
-  function update(form) {
+  function showMessage(text, kind) {
+    var msg = $("#calcMsg");
+    msg.textContent = text || "";
+    msg.hidden = !text;
+    msg.className = "calc-msg" + (kind ? " calc-msg--" + kind : "");
+  }
+
+  function setState(state) {
+    var box = $("#calcResults");
+    box.classList.remove("is-empty", "is-stale", "is-live");
+    box.classList.add("is-" + state);
+  }
+
+  function clearFigures() {
+    KEYS.forEach(function (k) { setOut(k + "-gbp", "—"); setOut(k + "-jpy", "—"); });
+    setOut("rate", "");
+    $("#calcFeeNote").hidden = true;
+    var total = $('[data-out="L-gbp"]');
+    total.classList.remove("odo");
+    total.removeAttribute("data-odo-text");
+    lastResult = null;
+  }
+
+  /* the total rolls like the stock prices do; everything else fades in */
+  function rollTotal(text) {
+    var el = $('.calc-total__gbp[data-out="L-gbp"]');
+    if (!el) return;
+    el.classList.remove("odo");
+    el.removeAttribute("data-odo-text");
+    el.textContent = text;
+    if (!REDUCED && window.JccFX && window.JccFX.odometer) window.JccFX.odometer(el);
+  }
+
+  function replayReveal() {
+    var box = $("#calcResults");
+    box.classList.remove("is-animating");
+    void box.offsetWidth;
+    if (!REDUCED) box.classList.add("is-animating");
+  }
+
+  /* the duty hint turns cautionary as soon as 0% is picked — no button needed */
+  function syncDutyHint(form) {
+    var d = findBy(CFG.dutyOptions, form.elements.calc_duty.value);
+    form.classList.toggle("is-duty-zero", !!d && d.rate === 0 && d.key !== CFG.defaults.duty);
+  }
+
+  function estimate(form) {
     var input = readInput(form);
     var res = compute(input);
-    lastResult = res;
-    lastInput = input;
-    var msg = $("#calcMsg");
-    var keys = ["P", "F", "J", "H", "C", "D", "U", "L", "V", "T"];
-
-    form.classList.toggle("is-duty-zero", input.duty !== CFG.defaults.duty &&
-      (findBy(CFG.dutyOptions, input.duty) || {}).rate === 0);
-
     if (!res) {
-      keys.forEach(function (k) { setOut(k + "-gbp", "—"); setOut(k + "-jpy", "—"); });
-      $("#calcFeeNote").hidden = true;
-      msg.textContent = problem(input);
-      msg.hidden = !msg.textContent;
-      $("#calcResults").classList.add("is-empty");
+      clearFigures();
+      setState("empty");
+      var p = problem(input, form) || { text: MSG_START, field: null };
+      showMessage(p.text, "error");
+      if (p.field) p.field.focus();
       return;
     }
 
-    msg.hidden = true;
-    $("#calcResults").classList.remove("is-empty");
-    keys.forEach(function (k) {
-      setOut(k + "-gbp", fmtGBP(res[k] / res.R));
+    lastResult = res;
+    KEYS.forEach(function (k) {
+      if (k !== "L") setOut(k + "-gbp", fmtGBP(res[k] / res.R));
       setOut(k + "-jpy", fmtJPY(res[k]));
     });
-    setOut("duty-rate", fmtPct(res.duty.rate));
-    setOut("vat-rate", fmtPct(CFG.vatRate));
+    rollTotal(fmtGBP(res.L / res.R));
     setOut("rate", "£1 = ¥" + res.R.toLocaleString("en-GB", { maximumFractionDigits: 4 }));
     $("#calcFeeNote").hidden = !res.feeAtMinimum;
+    showMessage("");
+    setState("live");
+    replayReveal();
+
+    /* phones stack inputs above results: bring the figures into view */
+    if (window.innerWidth < 960) {
+      $("#calcResults").scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "start" });
+    }
+  }
+
+  function markStale(form) {
+    syncDutyHint(form);
+    if (!lastResult) return;
+    setState("stale");
+    showMessage(MSG_STALE, "stale");
   }
 
   /* convert the typed amount when the currency switch changes */
   function switchCurrency(form, next) {
     var cur = form.getAttribute("data-currency");
-    if (cur === next) return;
     var field = form.elements.calc_amount;
-    var rate = Number(form.elements.calc_rate.value);
-    var amt = Number(field.value);
-    if (field.value.trim() !== "" && isFinite(amt) && isFinite(rate) && rate > 0) {
-      field.value = next === "GBP"
-        ? (Math.round((amt / rate) * 100) / 100).toString()
-        : Math.round(amt * rate).toString();
+    if (cur !== next) {
+      var rate = Number(form.elements.calc_rate.value);
+      var amt = Number(field.value);
+      if (field.value.trim() !== "" && isFinite(amt) && isFinite(rate) && rate > 0) {
+        field.value = next === "GBP"
+          ? (Math.round((amt / rate) * 100) / 100).toString()
+          : Math.round(amt * rate).toString();
+      }
     }
     form.setAttribute("data-currency", next);
     $all("[data-calc-ccy]", form).forEach(function (b) {
@@ -190,7 +263,7 @@
     });
     field.setAttribute("placeholder", next === "GBP" ? "e.g. 2866.03" : "e.g. 599000");
     $("#calcAmountUnit").textContent = next === "GBP" ? "£" : "¥";
-    update(form);
+    if (cur !== next) markStale(form);
   }
 
   function summaryText() {
@@ -249,15 +322,14 @@
     setOut("vat-rate", fmtPct(CFG.vatRate));
 
     renderLedger(CFG);
-    form.setAttribute("data-currency", CFG.defaults.currency);
+    switchCurrency(form, CFG.defaults.currency);
     $all("[data-calc-ccy]", form).forEach(function (b) {
-      b.setAttribute("aria-pressed", b.getAttribute("data-calc-ccy") === CFG.defaults.currency ? "true" : "false");
       b.addEventListener("click", function () { switchCurrency(form, b.getAttribute("data-calc-ccy")); });
     });
 
-    form.addEventListener("input", function () { update(form); });
-    form.addEventListener("change", function () { update(form); });
-    form.addEventListener("submit", function (e) { e.preventDefault(); });
+    form.addEventListener("input", function () { markStale(form); });
+    form.addEventListener("change", function () { markStale(form); });
+    form.addEventListener("submit", function (e) { e.preventDefault(); estimate(form); });
 
     $("#calcReset").addEventListener("click", function () {
       form.elements.calc_amount.value = "";
@@ -265,13 +337,16 @@
       form.elements.calc_size.value = CFG.defaults.size;
       form.elements.calc_duty.value = CFG.defaults.duty;
       switchCurrency(form, CFG.defaults.currency);
-      update(form);
+      syncDutyHint(form);
+      clearFigures();
+      setState("empty");
+      showMessage(MSG_START);
       form.elements.calc_amount.focus();
     });
 
     $("#calcCopy").addEventListener("click", function () {
       var text = summaryText();
-      if (!text) { toast("ENTER A VEHICLE PRICE FIRST"); return; }
+      if (!text) { toast("PRESS START PRICE ESTIMATE FIRST"); return; }
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(
           function () { toast("ESTIMATE COPIED TO CLIPBOARD"); },
@@ -281,7 +356,9 @@
       }
     });
 
-    update(form);
+    clearFigures();
+    setState("empty");
+    showMessage(MSG_START);
   }
 
   window.JccCalc = {

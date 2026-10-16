@@ -18,6 +18,24 @@
       <path d="M20 5v30M7 5l13 15L33 5M7 35l13-15 13 15"/>
     </g>
   </symbol>
+  <!-- calculator pictograms: 24×24 stroke icons, drawn in the ink-soft grey -->
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M19 7h1M4 17h3M13 17h7"/><circle cx="15" cy="7" r="2.2"/><circle cx="9" cy="17" r="2.2"/></symbol>
+  <symbol id="i-calc" viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18"/><path d="M9 6.5h6v3H9zM9 13h.01M12 13h.01M15 13h.01M9 16.5h.01M12 16.5h.01M15 16.5h.01"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3.5 12.5V4h8.5l8.5 8.5-8.5 8.5z"/><circle cx="8" cy="8.5" r="1.4"/></symbol>
+  <symbol id="i-fx" viewBox="0 0 24 24"><path d="M4 8h13M14 5l3 3-3 3M20 16H7M10 13l-3 3 3 3"/></symbol>
+  <symbol id="i-size" viewBox="0 0 24 24"><path d="M3.5 14l2.3-5.5h12.4L20.5 14v3.5h-17z"/><circle cx="7.5" cy="17.5" r="1.6"/><circle cx="16.5" cy="17.5" r="1.6"/><path d="M3 22h18M5.5 20.5L3 22l2.5 1.5M18.5 20.5L21 22l-2.5 1.5"/></symbol>
+  <symbol id="i-duty" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8.5 15.5l7-7"/><circle cx="9.3" cy="9.3" r="1.1"/><circle cx="14.7" cy="14.7" r="1.1"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24"><path d="M3 15.5l2.4-6h13.2L21 15.5v3.5H3zM6 19v1.5M18 19v1.5M7.5 9.5l1-3h7l1 3"/><circle cx="7.5" cy="16.5" r="1.5"/><circle cx="16.5" cy="16.5" r="1.5"/></symbol>
+  <symbol id="i-fee" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12"/><path d="M9 8V5h6v3M3 13h18M12 12v3"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M2 7h11v9H2zM13 10.5h4.5l3 3V16H13z"/><circle cx="6" cy="18" r="1.7"/><circle cx="17" cy="18" r="1.7"/></symbol>
+  <symbol id="i-ship" viewBox="0 0 24 24"><path d="M3 14l2 4.5h14L21 14zM6 14V9h12v5M10 9V5h4v4M2 21.5c2 1.2 3.8 1.2 5.6 0s3.6-1.2 5.4 0 3.6 1.2 5.4 0 3.6-1.2 3.6-1.2"/></symbol>
+  <symbol id="i-sum" viewBox="0 0 24 24"><path d="M17 5.5H7l6 6.5-6 6.5h10"/></symbol>
+  <symbol id="i-stamp" viewBox="0 0 24 24"><path d="M12 3a3.8 3.8 0 0 1 3.8 3.8c0 2-1.4 3-1.9 5.2H10.1c-.5-2.2-1.9-3.2-1.9-5.2A3.8 3.8 0 0 1 12 3zM6 16.5h12v4H6zM9.5 12v4.5M14.5 12v4.5"/></symbol>
+  <symbol id="i-dealer" viewBox="0 0 24 24"><path d="M3 21h18M5 21V9l7-5 7 5v12M9.5 21v-6h5v6M9 11.5h2M13 11.5h2"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21.5s-6.5-5.6-6.5-10.5a6.5 6.5 0 0 1 13 0c0 4.9-6.5 10.5-6.5 10.5z"/><circle cx="12" cy="11" r="2.2"/></symbol>
+  <symbol id="i-vat" viewBox="0 0 24 24"><path d="M6.5 3h11v18l-2.2-1.6-2.2 1.6-2.1-1.6-2.1 1.6-2.4-1.6zM9.5 14.5l5-5"/><circle cx="10" cy="10" r="1"/><circle cx="14" cy="14" r="1"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5M12 7.5v.01"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12"/><path d="M16 8V4H4v12h4"/></symbol>
 </svg>
 
 <header class="site-header" id="siteHeader">
@@ -266,10 +284,10 @@
 
     <!-- inputs -->
     <form class="calc__inputs" id="calcForm" novalidate autocomplete="off">
-      <p class="calc__head"><span class="duo" aria-hidden="true"></span>YOUR INPUTS</p>
+      <p class="calc__head"><span class="duo" aria-hidden="true"></span><svg class="ico" aria-hidden="true"><use href="#i-sliders"/></svg> YOUR INPUTS</p>
 
       <div class="calc-field">
-        <label class="calc-field__label" for="calc_amount">Vehicle purchase price</label>
+        <label class="calc-field__label" for="calc_amount"><svg class="ico" aria-hidden="true"><use href="#i-tag"/></svg><span>Vehicle purchase price</span></label>
         <div class="calc-field__row">
           <span class="calc-unit" id="calcAmountUnit" aria-hidden="true">¥</span>
           <input type="number" id="calc_amount" name="calc_amount" inputmode="decimal" min="0" step="any" placeholder="e.g. 599000">
@@ -282,7 +300,7 @@
       </div>
 
       <div class="calc-field">
-        <label class="calc-field__label" for="calc_rate">Exchange rate — JPY per £1</label>
+        <label class="calc-field__label" for="calc_rate"><svg class="ico" aria-hidden="true"><use href="#i-fx"/></svg><span>Exchange rate — JPY per £1</span></label>
         <div class="calc-field__row">
           <span class="calc-unit" aria-hidden="true">£1 =</span>
           <input type="number" id="calc_rate" name="calc_rate" inputmode="decimal" min="1" step="0.01">
@@ -292,7 +310,7 @@
       </div>
 
       <div class="calc-field">
-        <label class="calc-field__label" for="calc_size">Vehicle size</label>
+        <label class="calc-field__label" for="calc_size"><svg class="ico" aria-hidden="true"><use href="#i-size"/></svg><span>Vehicle size</span></label>
         <div class="calc-field__row">
           <select id="calc_size" name="calc_size"></select>
         </div>
@@ -300,7 +318,7 @@
       </div>
 
       <div class="calc-field calc-field--duty">
-        <label class="calc-field__label" for="calc_duty">Import duty</label>
+        <label class="calc-field__label" for="calc_duty"><svg class="ico" aria-hidden="true"><use href="#i-duty"/></svg><span>Import duty</span></label>
         <div class="calc-field__row">
           <select id="calc_duty" name="calc_duty"></select>
         </div>
@@ -308,35 +326,37 @@
       </div>
 
       <div class="calc-actions">
+        <button type="submit" class="btn btn--solid calc-start" id="calcStart"><span>Start Price Estimate</span><span class="calc-start__arr" aria-hidden="true">→</span></button>
         <button type="button" class="btn" id="calcReset">Reset</button>
-        <button type="button" class="btn btn--solid" id="calcCopy">Copy estimate</button>
       </div>
     </form>
 
     <!-- results -->
     <section class="calc__results is-empty" id="calcResults" aria-live="polite" aria-label="Estimate">
-      <p class="calc__head"><span class="duo" aria-hidden="true"></span>ESTIMATE <span class="calc__rate" data-out="rate"></span></p>
+      <p class="calc__head"><span class="duo" aria-hidden="true"></span><svg class="ico" aria-hidden="true"><use href="#i-calc"/></svg> ESTIMATE <span class="calc__rate" data-out="rate"></span></p>
       <p class="calc-msg" id="calcMsg" hidden></p>
 
       <ul class="calc-ledger" id="calcLedger"></ul>
       <p class="calc-feenote" id="calcFeeNote" hidden>The minimum fee of <span data-out="cfg-fee-min"></span> applies — <span data-out="cfg-fee-rate"></span> of this vehicle price would be lower.</p>
 
       <div class="calc-total">
-        <p class="calc-total__name">Estimated total to your dealership — <em>excluding import VAT</em></p>
+        <p class="calc-total__name"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg><span>Estimated total to your dealership — <em>excluding import VAT</em></span></p>
         <p class="calc-total__gbp" data-out="L-gbp">—</p>
         <p class="calc-total__jpy" data-out="L-jpy">—</p>
       </div>
 
       <section class="calc-vat" aria-label="Import VAT reference">
-        <p class="calc-vat__head">REFERENCE — UK IMPORT VAT AT <span data-out="vat-rate"></span></p>
+        <p class="calc-vat__head"><svg class="ico" aria-hidden="true"><use href="#i-vat"/></svg><span>REFERENCE — UK IMPORT VAT AT <span data-out="vat-rate"></span></span></p>
         <ul class="calc-ledger">
           <li class="calc-row">
+            <svg class="ico" aria-hidden="true"><use href="#i-vat"/></svg>
             <span class="calc-row__name">Estimated import VAT</span>
             <span class="calc-row__gbp" data-out="V-gbp">—</span>
             <span class="calc-row__desc">A separate tax due on import; shown apart from the total above.</span>
             <span class="calc-row__jpy" data-out="V-jpy">—</span>
           </li>
           <li class="calc-row">
+            <svg class="ico" aria-hidden="true"><use href="#i-fee"/></svg>
             <span class="calc-row__name">Estimated cash outlay if import VAT is paid upfront</span>
             <span class="calc-row__gbp" data-out="T-gbp">—</span>
             <span class="calc-row__desc">Total above plus import VAT. Whether VAT is recoverable or can be postponed depends on the importer’s circumstances; nothing here guarantees relief or a refund.</span>
@@ -346,13 +366,17 @@
       </section>
 
       <div class="calc-notes">
+        <p class="calc-notes__head"><svg class="ico" aria-hidden="true"><use href="#i-info"/></svg><span>PLEASE NOTE</span></p>
         <p>This calculator provides budget estimates, not a binding quotation. Final purchase prices, freight, insurance, local charges and taxes must be confirmed before purchase. The exchange rate shown is an editable estimate, not a live market rate.</p>
         <p>UK customs clearance and inland delivery are arranged and paid for directly by the buyer. We provide suggested service-provider details and the required export documents.</p>
         <p>Import duty and VAT use simplified assumptions. A 0% duty estimate requires verified eligibility for preferential treatment and the appropriate declaration. Import VAT recovery or postponed accounting depends on the importer’s circumstances.</p>
         <p>MOT, UK registration, vehicle tax, modifications, repairs, retail preparation, additional storage and other unlisted charges are excluded.</p>
       </div>
 
-      <p class="more-row" style="margin-top:40px"><a href="#/request" data-scramble>FOUND THE CAR? SEND US A REQUEST →</a></p>
+      <div class="calc-actions calc-actions--results">
+        <button type="button" class="btn" id="calcCopy"><svg class="ico" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy estimate</span></button>
+      </div>
+      <p class="more-row" style="margin-top:32px"><a href="#/request" data-scramble>FOUND THE CAR? SEND US A REQUEST →</a></p>
     </section>
   </div>
 </main>
