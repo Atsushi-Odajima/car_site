@@ -13,18 +13,17 @@
   var GBP_TO_JPY = (window.JCC_CALC_CONFIG && window.JCC_CALC_CONFIG.exchangeRate["default"]) || 209;
 
   var vehicles = [
-    { id: "JCC-2401", make: "Toyota", model: "Alphard", grade: "2.5 S C Package", body: "minivan", year: 2019, km: 48000, engine: "2.5 Petrol", fuel: "Petrol", seats: 7, score: "4.5", gbp: 24950, featured: true, img: "assets/img/cars/alphard.jpg" },
-    { id: "JCC-2402", make: "Toyota", model: "Vellfire", grade: "2.5 Z G Edition", body: "minivan", year: 2018, km: 62000, engine: "2.5 Petrol", fuel: "Petrol", seats: 7, score: "4", gbp: 19850 },
+    { id: "JCC-2401", make: "Toyota", model: "Alphard", grade: "2.5 S C Package", body: "minivan", year: 2019, km: 48000, engine: "2.5 Petrol", fuel: "Petrol", seats: 7, score: "4.5", gbp: 24950, featured: true, img: "assets/img/cars/alphard.jpg", fit: "cover" },
+    { id: "JCC-2402", make: "Toyota", model: "Vellfire", grade: "2.5 Z G Edition", body: "minivan", year: 2018, km: 62000, engine: "2.5 Petrol", fuel: "Petrol", seats: 7, score: "4", gbp: 19850, img: "assets/img/cars/vellfire.jpg", fit: "cover" },
     { id: "JCC-2403", make: "Nissan", model: "Elgrand", grade: "3.5 Highway Star", body: "minivan", year: 2017, km: 71000, engine: "3.5 V6", fuel: "Petrol", seats: 8, score: "4", gbp: 12450 },
     { id: "JCC-2404", make: "Mitsubishi", model: "Delica D:5", grade: "2.2D Jasper 4WD", body: "minivan", year: 2020, km: 38000, engine: "2.2 Diesel", fuel: "Diesel", seats: 8, score: "4.5", gbp: 23500 },
     { id: "JCC-2405", make: "Toyota", model: "Land Cruiser Prado", grade: "2.8D TX L Package", body: "suv", year: 2018, km: 59000, engine: "2.8 Diesel", fuel: "Diesel", seats: 7, score: "4", gbp: 27900, featured: true, img: "assets/img/cars/prado.jpg" },
-    { id: "JCC-2406", make: "Suzuki", model: "Jimny", grade: "XC 4WD", body: "kei", year: 2020, km: 31000, engine: "0.66 Turbo", fuel: "Petrol", seats: 4, score: "4.5", gbp: 14750 },
-    { id: "JCC-2407", make: "Honda", model: "N-BOX Custom", grade: "G L Turbo", body: "kei", year: 2021, km: 22000, engine: "0.66 Turbo", fuel: "Petrol", seats: 4, score: "5", gbp: 8950 },
-    { id: "JCC-2408", make: "Toyota", model: "Prius", grade: "1.8 S Touring", body: "hatch", year: 2019, km: 54000, engine: "1.8 Hybrid", fuel: "Hybrid", seats: 5, score: "4", gbp: 9450 },
+    { id: "JCC-2408", make: "Toyota", model: "Prius", grade: "1.8 S Touring", body: "hatch", year: 2019, km: 54000, engine: "1.8 Hybrid", fuel: "Hybrid", seats: 5, score: "4", gbp: 9450, img: "assets/img/cars/prius.jpg", fit: "cover" },
     { id: "JCC-2409", make: "Nissan", model: "Skyline", grade: "400R", body: "sedan", year: 2020, km: 29000, engine: "3.0 V6 Twin Turbo", fuel: "Petrol", seats: 5, score: "4.5", gbp: 26800, featured: true, img: "assets/img/cars/skyline.jpg" },
     { id: "JCC-2410", make: "Mazda", model: "Roadster RF", grade: "VS", body: "sports", year: 2019, km: 24000, engine: "2.0 Petrol", fuel: "Petrol", seats: 2, score: "4.5", gbp: 16900 },
     { id: "JCC-2411", make: "Toyota", model: "Crown", grade: "2.5 RS Advance", body: "sedan", year: 2019, km: 45000, engine: "2.5 Hybrid", fuel: "Hybrid", seats: 5, score: "4", gbp: 17600 },
-    { id: "JCC-2412", make: "Subaru", model: "Levorg", grade: "1.6 GT-S EyeSight", body: "estate", year: 2018, km: 52000, engine: "1.6 Turbo", fuel: "Petrol", seats: 5, score: "4", gbp: 11300 }
+    { id: "JCC-2413", make: "Toyota", model: "Voxy", grade: "Hybrid ZS Kirameki", body: "minivan", year: 2019, km: 46000, engine: "1.8 Hybrid", fuel: "Hybrid", seats: 7, score: "4", gbp: 13900, img: "assets/img/cars/voxy.jpg", fit: "cover" },
+    { id: "JCC-2412", make: "Subaru", model: "Levorg", grade: "1.6 GT-S EyeSight", body: "estate", year: 2018, km: 52000, engine: "1.6 Turbo", fuel: "Petrol", seats: 5, score: "4", gbp: 11300, img: "assets/img/cars/levorg.jpg", fit: "cover" }
   ];
 
   var bodies = [

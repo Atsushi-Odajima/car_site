@@ -127,7 +127,7 @@
         '<span class="card__tag">' + esc(bodyLabel(v.body)) + '</span></p>' +
       '<div class="card__inner">' +
         (v.img
-          ? '<div class="card__face card__front card__front--photo"><img src="' + v.img + '" alt="' + esc(name + " " + v.grade) + '" loading="lazy">'
+          ? '<div class="card__face card__front card__front--photo' + (v.fit === "cover" ? " card__front--cover" : "") + '"><img src="' + v.img + '" alt="' + esc(name + " " + v.grade) + '" loading="lazy">'
           : '<div class="card__face card__front">' + D.carSVG(v.body)) +
           '<span class="card__plate">' + esc(v.id) + ' / ' + v.year + '</span>' +
           '<button type="button" class="card__flipbtn" aria-label="Show specification">↻</button>' +
@@ -188,6 +188,7 @@
     wrap.innerHTML = all.map(function (b) {
       var count = b.key === "all" ? D.vehicles.length
         : D.vehicles.filter(function (v) { return v.body === b.key; }).length;
+      if (!count) return "";
       return '<button type="button" class="chip" data-body="' + b.key + '" aria-pressed="' +
         (stockState.body === b.key) + '">' + esc(b.label) + ' (' + count + ')</button>';
     }).join("");
