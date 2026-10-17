@@ -19,6 +19,7 @@ https://atsushi-odajima.github.io/car_site/
 | `#/`         | Hero (kinetic wordmark), key figures, featured stock (flip cards), how it works, request CTA, news |
 | `#/stock`    | Stock list: body-type filters, search, sorting, GBP / JPY switch |
 | `#/calculator` | Import cost calculator for UK dealers: Japanese dealer price → estimated landed cost at the dealership, GBP with JPY alongside, import VAT shown separately |
+| `#/process`  | The 16-step transaction flow in four phases (order & search, approval & purchase, Japan side, UK side) with the two end-to-end partner checklists; a line-art car follows the scroll down the rail |
 | `#/company`  | Message, business lines, photos, company profile |
 | `#/request`  | Online version of the Vehicle Request Form (all 13 questions plus contact details) |
 
@@ -30,7 +31,7 @@ css/style.css          design tokens + all components
 js/data.js             sample stock + line-art car drawings
 js/ink.js              ink-wash background (black / orange / lime blooms)
 js/fx.js               scramble, kinetic letters, reveal, odometer, scroll rail
-js/app.js              routing, stock, request form
+js/app.js              routing, stock, request form, process-page car marker
 js/calc-config.js      ALL calculator figures: exchange-rate default, fee rate and minimum,
                        pre-shipment lump sum, freight bands by vehicle size, duty options,
                        UK local costs, VAT rate — edit here, nothing is hard-coded elsewhere

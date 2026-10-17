@@ -422,8 +422,8 @@ input[type="number"]::-webkit-outer-spin-button {
   gap: 44px;
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {
-  .site-nav ul { gap: 24px; }
+@media (min-width: 1024px) and (max-width: 1180px) {
+  .site-nav ul { gap: 26px; }
 }
 
 .site-nav a {
@@ -510,7 +510,7 @@ input[type="number"]::-webkit-outer-spin-button {
 body.nav-open .menu-toggle span:nth-child(1) { top: 19px; transform: rotate(45deg); }
 body.nav-open .menu-toggle span:nth-child(2) { top: 19px; transform: rotate(-45deg); }
 
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .menu-toggle { display: block; }
 
   .brand-mark { font-size: 15px; padding: 0 12px; height: 36px; }
@@ -558,6 +558,7 @@ body.nav-open .menu-toggle span:nth-child(2) { top: 19px; transform: rotate(-45d
   body.nav-open .site-nav li:nth-child(3) a { transition-delay: .28s; }
   body.nav-open .site-nav li:nth-child(4) a { transition-delay: .36s; }
   body.nav-open .site-nav li:nth-child(5) a { transition-delay: .44s; }
+  body.nav-open .site-nav li:nth-child(6) a { transition-delay: .52s; }
 
   body.nav-open .site-header { box-shadow: none; }
 }
@@ -1241,6 +1242,16 @@ main {
 
 .more-row a:hover,
 .more-row a:focus-visible { color: var(--orange); }
+
+.more-row__sep {
+  margin: 0 18px;
+  font-family: var(--font-mono);
+  color: var(--ink-mute);
+}
+
+@media (max-width: 600px) {
+  .more-row__sep { display: block; height: 10px; overflow: hidden; color: transparent; margin: 0; }
+}
 
 /* ----------------------------------------------------------------------------
    15. Marquee — outlined type, ink blooms show through the strokes
@@ -2926,4 +2937,241 @@ main {
 
 @media (prefers-reduced-motion: reduce) {
   .calc-drive { display: none !important; }
+}
+
+/* ----------------------------------------------------------------------------
+   30. PROCESS — sixteen stops on one road. A dashed rail runs down the left,
+   the line-art car follows the scroll, each phase gets a photo band.
+   ------------------------------------------------------------------------- */
+
+.proc {
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 var(--gutter) 4vh;
+}
+
+.proc__rail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--gutter) + 17px);
+  width: 1px;
+  background: repeating-linear-gradient(180deg, var(--ink-mute) 0 6px, transparent 6px 13px);
+}
+
+.proc__car {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 62px;
+  margin-left: -31px;
+  transform: translateY(0);
+  will-change: transform;
+}
+
+.proc__car svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform: rotate(90deg);
+  filter: drop-shadow(0 0 6px rgba(255,255,255,1)) drop-shadow(0 0 6px rgba(255,255,255,1));
+}
+
+.proc-phase { position: relative; padding: 6vh 0 2vh; }
+
+.proc-phase__head {
+  position: relative;
+  margin-left: 100px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--ink);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  column-gap: 16px;
+}
+
+.proc-phase__k {
+  grid-column: 1 / -1;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .32em;
+  color: var(--orange);
+}
+
+.proc-phase__title {
+  margin-top: 6px;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3.2vw, 38px);
+  font-weight: 400;
+  letter-spacing: .04em;
+  line-height: 1.1;
+}
+
+.proc-phase__meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .3em;
+  color: var(--ink-mute);
+  white-space: nowrap;
+}
+
+.proc-steps { margin-top: 8px; }
+
+.proc-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  column-gap: 20px;
+  padding: 26px 0 26px 44px;
+  border-bottom: 1px solid var(--line);
+}
+
+.proc-step__no {
+  font-size: clamp(30px, 3.4vw, 44px);
+  font-weight: 200;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  padding-top: 2px;
+}
+
+/* the stop on the rail: white square with an ink border; orange where you act */
+.proc-step__node {
+  position: absolute;
+  left: 12px;
+  top: 34px;
+  width: 11px;
+  height: 11px;
+  background: var(--white);
+  border: 1px solid var(--ink);
+  transform: rotate(45deg);
+}
+
+.proc-step--you .proc-step__node { background: var(--orange); border-color: var(--orange); }
+
+.proc-step__body { min-width: 0; }
+
+.proc-step__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: .01em;
+  line-height: 1.4;
+}
+
+.proc-step__who {
+  padding: 2px 8px;
+  border: 1px solid var(--orange);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: .26em;
+  color: var(--orange);
+}
+
+.proc-step__jp {
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .14em;
+  color: var(--ink-mute);
+}
+
+.proc-step__desc {
+  margin-top: 8px;
+  max-width: 60ch;
+  font-size: 13.5px;
+  line-height: 1.85;
+  color: var(--ink-soft);
+}
+
+.proc-check {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.proc-check li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.75);
+  font-size: 12.5px;
+  color: var(--ink);
+}
+
+.proc-check .ico { width: 18px; height: 18px; }
+
+.proc-fee {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  margin-top: 14px;
+  padding: 14px 18px;
+  border: 1px solid var(--ink);
+  background: rgba(255,255,255,.8);
+  max-width: 520px;
+}
+
+.proc-fee dt {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .3em;
+  color: var(--ink-mute);
+}
+
+.proc-fee dd {
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: .04em;
+}
+
+.proc-photo {
+  margin: 4vh 0 2vh 100px;
+  aspect-ratio: 16 / 7;
+}
+
+.proc-photo--last { aspect-ratio: 16 / 6; }
+
+.proc-note {
+  margin: 6vh 0 0 100px;
+  padding-left: 14px;
+  border-left: 2px solid var(--orange);
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+  max-width: 62ch;
+}
+
+.proc .cta-row,
+.proc .cta-note { margin-left: 100px; }
+
+@media (max-width: 600px) {
+  .proc__rail { left: calc(var(--gutter) + 15px); }
+  .proc__car { width: 48px; margin-left: -24px; }
+  .proc-phase__head,
+  .proc-photo,
+  .proc-note,
+  .proc .cta-row,
+  .proc .cta-note { margin-left: 44px; }
+  .proc-phase__head { grid-template-columns: 1fr; }
+  .proc-phase__meta { white-space: normal; }
+  .proc-step { grid-template-columns: 1fr; padding: 26px 0 26px 44px; }
+  .proc-step__no { position: absolute; left: 0; top: 24px; width: 32px; padding: 0; font-family: var(--font-mono); font-size: 11px; font-weight: 400; letter-spacing: .1em; text-align: center; color: var(--ink-mute); background: var(--paper); z-index: 1; }
+  .proc-step__node { left: 10px; top: 42px; }
+  .proc-photo { aspect-ratio: 4 / 3; }
+  .proc-check { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .proc__car { display: none; }
 }

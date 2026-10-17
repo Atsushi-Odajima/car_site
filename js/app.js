@@ -432,7 +432,7 @@
 
   /* ---------- router ---------- */
 
-  var PAGES = ["home", "stock", "calculator", "company", "request"];
+  var PAGES = ["home", "stock", "calculator", "process", "company", "request"];
   var current = null;
 
   function parseHash() {
@@ -476,6 +476,7 @@
       home: "Japan car cycle — Used vehicles from Japan to the UK",
       stock: "Stock — Japan car cycle",
       calculator: "Import cost calculator — Japan car cycle",
+      process: "Process — Japan car cycle",
       company: "Company — Japan car cycle",
       request: "Vehicle Request — Japan car cycle"
     };
@@ -510,11 +511,37 @@
     update();
   }
 
+  /* ---------- PROCESS: a line-art car drives down the rail with the scroll ---------- */
+
+  function initProcess() {
+    var proc = $("#proc");
+    var car = $("#procCar");
+    if (!proc || !car) return;
+    car.innerHTML = D.carSVG("minivan", true);
+    if (FX.REDUCED) return;
+    var ticking = false;
+    var update = function () {
+      ticking = false;
+      if (!proc.offsetParent) return;
+      var r = proc.getBoundingClientRect();
+      var span = r.height - 120;
+      var p = (window.innerHeight * 0.45 - r.top) / span;
+      p = Math.max(0, Math.min(1, p));
+      car.style.transform = "translateY(" + (p * span).toFixed(1) + "px)";
+    };
+    window.addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+    update();
+  }
+
   /* ---------- boot ---------- */
 
   function init() {
     initHeader();
     initRoad();
+    initProcess();
     renderFeatured();
     initStock();
     initRequest();
