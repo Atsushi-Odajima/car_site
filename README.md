@@ -19,7 +19,8 @@ https://atsushi-odajima.github.io/car_site/
 | `#/`         | Hero (kinetic wordmark), key figures, featured stock (flip cards), how it works, request CTA, news |
 | `#/stock`    | Stock list: body-type filters, search, sorting, GBP / JPY switch |
 | `#/calculator` | Import cost calculator for UK dealers: Japanese dealer price → estimated landed cost at the dealership, GBP with JPY alongside, import VAT shown separately |
-| `#/process`  | The 16-step transaction flow in four phases (order & search, approval & purchase, Japan side, UK side) with the two end-to-end partner checklists; a line-art car follows the scroll down the rail |
+| `#/process`  | How it works in four steps (find the vehicle → confirm & pay → export & shipping → collect in the UK), each with its detail chips; "More details" leads on |
+| `#/process/details` | The 16-step transaction flow in four phases with the two end-to-end partner checklists; a line-art car follows the scroll down the rail |
 | `#/company`  | Message, business lines, photos, company profile |
 | `#/request`  | Online version of the Vehicle Request Form (all 13 questions plus contact details) |
 

@@ -3175,3 +3175,205 @@ main {
 @media (prefers-reduced-motion: reduce) {
   .proc__car { display: none; }
 }
+
+/* ----------------------------------------------------------------------------
+   31. PROCESS overview — four steps in a row under one road; "More details"
+   leads to the 16-step page.
+   ------------------------------------------------------------------------- */
+
+.pflow {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--gutter) 4vh;
+}
+
+.pflow__road {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .3em;
+  color: var(--ink-mute);
+  margin-bottom: 34px;
+}
+
+.pflow__pin { flex: none; padding-bottom: 2px; }
+
+.pflow__lane {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  margin-bottom: 6px;
+  background: repeating-linear-gradient(90deg, var(--ink-mute) 0 8px, transparent 8px 15px);
+}
+
+.pflow__trail {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 2px;
+  width: 0;
+  background: var(--orange);
+}
+
+.pflow__car {
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 72px;
+}
+
+.pflow__car svg { display: block; width: 100%; height: auto; }
+
+.has-reveal .pflow__road.reveal.is-visible .pflow__car {
+  animation: pflow-car 2.6s cubic-bezier(.45,.05,.25,1) .2s forwards;
+}
+
+.has-reveal .pflow__road.reveal.is-visible .pflow__trail {
+  animation: pflow-trail 2.6s cubic-bezier(.45,.05,.25,1) .2s forwards;
+}
+
+@keyframes pflow-car   { to { left: calc(100% - 72px); } }
+@keyframes pflow-trail { to { width: 100%; } }
+
+.psteps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 720px) {
+  .psteps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1100px) {
+  .psteps { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.pstep {
+  position: relative;
+  padding: 26px 24px 30px 0;
+  border-bottom: 1px solid var(--line);
+  min-width: 0;
+}
+
+@media (min-width: 720px) {
+  .pstep { padding-right: 32px; }
+  .pstep + .pstep { padding-left: 28px; border-left: 1px solid var(--line); }
+}
+
+@media (min-width: 720px) and (max-width: 1099px) {
+  .pstep:nth-child(3) { border-left: 0; padding-left: 0; }
+}
+
+/* a step's "stop": square node, orange where you act; arrow to the next step */
+.pstep__k {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .32em;
+  color: var(--orange);
+}
+
+.pstep__node {
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--ink);
+  background: var(--white);
+  transform: rotate(45deg);
+}
+
+.pstep--you .pstep__node { background: var(--orange); border-color: var(--orange); }
+
+.pstep > .ico {
+  width: 34px;
+  height: 34px;
+  margin-top: 26px;
+  stroke-width: 1.3;
+}
+
+.pstep__title {
+  margin-top: 16px;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: .01em;
+  line-height: 1.4;
+  text-wrap: balance;
+}
+
+.pstep__jp {
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  color: var(--ink-mute);
+}
+
+.pstep__desc {
+  margin-top: 14px;
+  font-size: 13.5px;
+  line-height: 1.85;
+  color: var(--ink-soft);
+}
+
+.pstep__dl {
+  margin-top: 20px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .3em;
+  color: var(--ink-mute);
+}
+
+.pstep__details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.pstep__details li {
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.75);
+  font-size: 12px;
+  color: var(--ink);
+}
+
+.pflow__note {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 28px;
+  padding: 14px 16px;
+  border-left: 3px solid var(--orange);
+  background: var(--paper-warm);
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  max-width: 72ch;
+}
+
+.pflow__note .ico { flex: none; margin-top: 2px; }
+
+.pflow .cta-row { margin-top: 10vh; }
+.pflow .more-row { margin-top: 56px; }
+
+.proc-back {
+  margin-top: 22px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .3em;
+}
+
+.proc-back a { border-bottom: 1px solid var(--orange); padding-bottom: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .has-reveal .pflow__road.reveal.is-visible .pflow__car,
+  .has-reveal .pflow__road.reveal.is-visible .pflow__trail { animation: none; }
+  .pflow__car { left: calc(100% - 72px); }
+}

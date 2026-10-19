@@ -196,7 +196,7 @@
   <section class="section" style="padding-top:0" aria-labelledby="calcTeaser">
     <p class="more-row reveal" style="margin-top:0">
       <span class="visually-hidden" id="calcTeaser">Import cost calculator</span>
-      <a href="#/process" data-scramble>THE FULL PROCESS — 16 STEPS →</a>
+      <a href="#/process" data-scramble>HOW IT WORKS — 4 STEPS →</a>
       <span class="more-row__sep" aria-hidden="true">/</span>
       <a href="#/calculator" data-scramble>ESTIMATE YOUR LANDED COST →</a>
     </p>
@@ -398,14 +398,102 @@
 </main>
 
 <!-- =====================================================================
-     PROCESS — the 16-step transaction flow, Japan → UK
+     PROCESS — how it works in four steps (the 16-step flow is behind
+     "More details")
      ===================================================================== -->
 <main class="page" data-page="process" hidden>
   <div class="page-head">
     <p class="page-eyebrow" aria-hidden="true">
-      <span><span class="duo"></span>HOW A VEHICLE TRAVELS FROM ORDER TO DELIVERY</span>
+      <span><span class="duo"></span>HOW IT WORKS — FROM YOUR REQUEST TO YOUR FORECOURT</span>
+      <span>4 STEPS · ONE CONTACT</span>
+    </p>
+    <div class="page-title-row">
+      <h1 class="page-title" data-kinetic data-outline="3">PROCESS</h1>
+      <dl class="lexicon" aria-label="The four steps">
+        <div><dt>STEP 1</dt><dd>WE FIND THE VEHICLE</dd></div>
+        <div><dt>STEP 2</dt><dd>CONFIRM &amp; PAY</dd></div>
+        <div><dt>STEP 3</dt><dd>EXPORT &amp; SHIPPING</dd></div>
+        <div><dt>STEP 4</dt><dd>COLLECT IN THE UK</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <div class="pflow">
+    <!-- the road: four stops, the car drives across once the row is in view -->
+    <div class="pflow__road reveal" aria-hidden="true">
+      <span class="pflow__pin">YOU</span>
+      <span class="pflow__lane"><span class="pflow__trail"></span><span class="pflow__car" id="pflowCar"></span></span>
+      <span class="pflow__pin">UK DEALERSHIP</span>
+    </div>
+
+    <ol class="psteps">
+      <li class="pstep reveal">
+        <p class="pstep__k"><span>STEP 1</span><span class="pstep__node" aria-hidden="true"></span></p>
+        <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>
+        <h2 class="pstep__title">We find the vehicle you want</h2>
+        <p class="pstep__jp">ご希望の車両をお探しします</p>
+        <p class="pstep__desc">We take your preferred make, model, year and budget, then propose vehicles that match from Japan’s dealer auctions and used-car dealers.</p>
+        <p class="pstep__dl">DETAILS</p>
+        <ul class="pstep__details"><li>Requirements interview</li><li>Vehicle search</li><li>Shortlist proposal</li><li>Vehicle selection</li></ul>
+      </li>
+
+      <li class="pstep reveal pstep--you">
+        <p class="pstep__k"><span>STEP 2</span><span class="pstep__node" aria-hidden="true"></span></p>
+        <svg class="ico" aria-hidden="true"><use href="#i-pay"/></svg>
+        <h2 class="pstep__title">Confirm the vehicle &amp; pay</h2>
+        <p class="pstep__jp">車両の確定・お支払い</p>
+        <p class="pstep__desc">You review and approve the vehicle and the costs. Once your payment is confirmed, we purchase the vehicle or bid for it at auction.</p>
+        <p class="pstep__dl">DETAILS</p>
+        <ul class="pstep__details"><li>Vehicle approval</li><li>Quote confirmation</li><li>Payment</li><li>Purchase procedure</li></ul>
+      </li>
+
+      <li class="pstep reveal">
+        <p class="pstep__k"><span>STEP 3</span><span class="pstep__node" aria-hidden="true"></span></p>
+        <svg class="ico" aria-hidden="true"><use href="#i-ship"/></svg>
+        <h2 class="pstep__title">Export &amp; shipping, Japan to the UK</h2>
+        <p class="pstep__jp">日本から英国への輸出・輸送手配</p>
+        <p class="pstep__desc">We arrange every export task in Japan as one package and provide the documents you need to collect the vehicle in the UK.</p>
+        <p class="pstep__dl">DETAILS</p>
+        <ul class="pstep__details"><li>Domestic transport</li><li>Export deregistration</li><li>Export documents</li><li>Port formalities</li><li>Export customs clearance</li><li>Loading</li><li>Ocean freight booking</li></ul>
+      </li>
+
+      <li class="pstep reveal pstep--you">
+        <p class="pstep__k"><span>STEP 4</span><span class="pstep__node" aria-hidden="true"></span></p>
+        <svg class="ico" aria-hidden="true"><use href="#i-key"/></svg>
+        <h2 class="pstep__title">Collect your vehicle in the UK</h2>
+        <p class="pstep__jp">英国で車両をお受け取り</p>
+        <p class="pstep__desc">We introduce providers who handle UK import clearance and inland delivery. You instruct the local provider directly and take delivery of the vehicle.</p>
+        <p class="pstep__dl">DETAILS</p>
+        <ul class="pstep__details"><li>UK provider introduction</li><li>Import customs clearance</li><li>Duty / VAT</li><li>Port formalities</li><li>Inland delivery</li></ul>
+      </li>
+
+    </ol>
+
+    <p class="pflow__note reveal"><svg class="ico" aria-hidden="true"><use href="#i-info"/></svg><span>After arrival in the UK, the work and its costs are, as a rule, a direct arrangement between you and the local provider.</span></p>
+
+    <p class="cta-row reveal">
+      <a class="cta-huge" href="#/process/details" aria-label="More details — all 16 steps"><span data-scramble>MORE</span> <span class="nowrap"><span data-scramble>DETAILS</span><span class="arr" aria-hidden="true">&nbsp;→</span></span></a>
+    </p>
+    <p class="cta-note reveal">All 16 steps of the transaction, from order to completion, with the Japan-side and UK-side partner checklists.</p>
+
+    <p class="more-row reveal">
+      <a href="#/request" data-scramble>START AN ORDER →</a>
+      <span class="more-row__sep" aria-hidden="true">/</span>
+      <a href="#/calculator" data-scramble>ESTIMATE THE LANDED COST →</a>
+    </p>
+  </div>
+</main>
+
+<!-- =====================================================================
+     PROCESS — the 16-step transaction flow, Japan → UK
+     ===================================================================== -->
+<main class="page" data-page="process-details" hidden>
+  <div class="page-head">
+    <p class="page-eyebrow" aria-hidden="true">
+      <span><span class="duo"></span>MORE DETAILS — THE FULL TRANSACTION FLOW</span>
       <span>16 STEPS · ONE CONTACT</span>
     </p>
+    <p class="proc-back"><a href="#/process" data-scramble>← BACK TO THE 4-STEP OVERVIEW</a></p>
     <div class="page-title-row">
       <h1 class="page-title" data-kinetic data-outline="3">PROCESS</h1>
       <dl class="lexicon" aria-label="Process at a glance">

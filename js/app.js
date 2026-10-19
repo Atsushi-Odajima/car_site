@@ -432,13 +432,14 @@
 
   /* ---------- router ---------- */
 
-  var PAGES = ["home", "stock", "calculator", "process", "company", "request"];
+  var PAGES = ["home", "stock", "calculator", "process", "process-details", "company", "request"];
   var current = null;
 
   function parseHash() {
     var h = (window.location.hash || "").replace(/^#\/?/, "");
     var parts = h.split("?");
-    var page = parts[0] || "home";
+    /* "#/process/details" → page "process-details" */
+    var page = (parts[0] || "home").replace(/\/+$/, "").replace(/\//g, "-") || "home";
     var params = {};
     (parts[1] || "").split("&").forEach(function (kv) {
       if (!kv) return;
@@ -467,8 +468,8 @@
       }
     });
     $all(".site-nav a, .footer-nav a").forEach(function (a) {
-      var target = (a.getAttribute("href") || "").replace(/^#\/?/, "") || "home";
-      if (target === r.page) a.setAttribute("aria-current", "page");
+      var target = ((a.getAttribute("href") || "").replace(/^#\/?/, "") || "home").replace(/\//g, "-");
+      if (target === r.page || r.page.indexOf(target + "-") === 0) a.setAttribute("aria-current", "page");
       else a.removeAttribute("aria-current");
     });
     current = r.page;
@@ -476,7 +477,8 @@
       home: "Japan car cycle — Used vehicles from Japan to the UK",
       stock: "Stock — Japan car cycle",
       calculator: "Import cost calculator — Japan car cycle",
-      process: "Process — Japan car cycle",
+      process: "How it works — Japan car cycle",
+      "process-details": "Process in detail — Japan car cycle",
       company: "Company — Japan car cycle",
       request: "Vehicle Request — Japan car cycle"
     };
@@ -536,12 +538,18 @@
     update();
   }
 
+  function initFlowRoad() {
+    var car = $("#pflowCar");
+    if (car) car.innerHTML = D.carSVG("minivan", true);
+  }
+
   /* ---------- boot ---------- */
 
   function init() {
     initHeader();
     initRoad();
     initProcess();
+    initFlowRoad();
     renderFeatured();
     initStock();
     initRequest();
