@@ -98,6 +98,7 @@
     </h1>
     <p class="hero__sub">Japan keeps its cars beautifully. We find the right one at auction, inspect it, and ship it to your port in the UK — right-hand drive, fully documented.</p>
     <p class="hero__actions">
+      <a class="btn" href="#/catalog">Catalog</a>
       <a class="btn btn--solid" href="#/request">Request a vehicle</a>
       <a class="btn" href="#/stock">View stock</a>
     </p>
@@ -288,15 +289,15 @@
   <div class="page-head">
     <p class="page-eyebrow" aria-hidden="true">
       <span><span class="duo"></span>CATALOGUE — JAPANESE DEALER LISTINGS</span>
-      <span>SAMPLE MIRROR · ¥4.0M – ¥5.0M BAND</span>
+      <span>LIVE MIRROR · JAPANESE MAKES · ¥1M – ¥10M</span>
     </p>
     <div class="page-title-row">
       <h1 class="page-title" data-kinetic data-outline="4">CATALOGUE</h1>
       <dl class="lexicon" aria-label="About this catalogue">
         <div><dt>SOURCE</dt><dd>221616.COM (GULLIVER)</dd></div>
-        <div><dt>LISTINGS</dt><dd>30 · PUBLIC SEARCH RESULTS</dd></div>
-        <div><dt>PRICES</dt><dd>JPY INCL. TAX, AS PUBLISHED</dd></div>
+        <div><dt>LISTINGS</dt><dd id="catTotal">—</dd></div>
         <div><dt>RANGE</dt><dd id="catRange">—</dd></div>
+        <div><dt>UPDATED</dt><dd id="catUpdated">—</dd></div>
       </dl>
     </div>
   </div>
@@ -305,7 +306,7 @@
     <div class="toolbar__inner">
       <div class="toolbar__search">
         <label class="visually-hidden" for="catSearch">Search catalogue</label>
-        <input type="search" id="catSearch" placeholder="Search make, model, colour, ID…" autocomplete="off">
+        <input type="search" id="catSearch" placeholder="Search make, model, grade, colour, ID…" autocomplete="off">
       </div>
       <label class="visually-hidden" for="catSort">Sort</label>
       <select id="catSort">
@@ -313,17 +314,39 @@
         <option value="price-asc">Price — low to high</option>
         <option value="km-asc">Mileage — lowest</option>
         <option value="year-desc">Year — newest</option>
+        <option value="model-asc">Model — A to Z</option>
       </select>
+      <button type="button" class="toolbar__toggle" id="catFilterToggle" aria-expanded="true" aria-controls="catFilters">
+        <svg class="ico" aria-hidden="true"><use href="#i-sliders"/></svg><span>FILTERS</span><b id="catFilterCount" hidden>0</b>
+      </button>
       <span class="toolbar__count" id="catCount" aria-live="polite"></span>
     </div>
   </div>
 
+  <form class="cfilters" id="catFilters" aria-label="Filter listings" autocomplete="off">
+    <div class="cfilters__inner">
+      <label class="cfilter"><span>PRICE FROM</span><select id="cfMin"></select></label>
+      <label class="cfilter"><span>PRICE TO</span><select id="cfMax"></select></label>
+      <label class="cfilter"><span>YEAR FROM</span><select id="cfYear"></select></label>
+      <label class="cfilter"><span>MAX MILEAGE</span><select id="cfKm"></select></label>
+      <label class="cfilter"><span>BODY</span><select id="cfBody"></select></label>
+      <label class="cfilter"><span>FUEL</span><select id="cfFuel"></select></label>
+      <label class="cfilter"><span>DRIVE</span><select id="cfDrive"></select></label>
+      <label class="cfilter"><span>TRANSMISSION</span><select id="cfTrans"></select></label>
+      <label class="cfilter cfilter--check"><input type="checkbox" id="cfOwner"><span>ONE OWNER</span></label>
+      <label class="cfilter cfilter--check"><input type="checkbox" id="cfClean"><span>NO ACCIDENTS</span></label>
+      <label class="cfilter cfilter--check"><input type="checkbox" id="cfRecords"><span>SERVICE RECORDS</span></label>
+      <button type="reset" class="cfilters__reset" id="cfReset" data-scramble>RESET FILTERS</button>
+    </div>
+  </form>
+
   <div class="chips" id="catChips" role="group" aria-label="Make"></div>
+  <div class="chips chips--models" id="catModels" role="group" aria-label="Model" hidden></div>
 
   <section class="stock-wrap" aria-label="Listings">
     <ul class="cgrid" id="catGrid"></ul>
     <p class="empty" id="catEmpty" hidden>NO LISTINGS MATCH</p>
-    <p class="disclaimer">Demonstration catalogue. Listings, prices and photos are mirrored from public search results on 221616.com (Gulliver, Japan) and translated into English for this sample; they belong to the selling dealer and are not offered for sale here. Prices are Japanese on-the-road totals including tax and domestic fees — use the calculator for a UK landed estimate.</p>
+    <p class="disclaimer" id="catDisclaimer">Demonstration catalogue. Listings, prices and photos are mirrored from the public search results on 221616.com (Gulliver, Japan) — Japanese makes, ¥1M – ¥10M — and translated into English for this sample; they belong to the selling dealer and are not offered for sale here. The mirror is re-synced automatically about every six hours; a browser cannot read the source site directly, so what you see is the last sync, not a live query. Prices are Japanese on-the-road totals including tax and domestic fees — use the calculator for a UK landed estimate.</p>
   </section>
 </main>
 

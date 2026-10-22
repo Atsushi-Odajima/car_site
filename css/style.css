@@ -3482,6 +3482,126 @@ body.is-dark .site-footer { margin-top: 0; }
    33. CATALOGUE — mirrored dealer listings on the black wall
    ------------------------------------------------------------------------- */
 
+/* filter toggle in the toolbar */
+.toolbar__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .22em;
+  color: var(--ink-soft);
+  transition: border-color .25s var(--ease), color .25s var(--ease);
+}
+.toolbar__toggle .ico { width: 14px; height: 14px; stroke: currentColor; }
+.toolbar__toggle:hover { color: var(--ink); border-color: var(--ink); }
+.toolbar__toggle[aria-expanded="true"] { color: var(--ink); border-color: var(--ink); }
+.toolbar__toggle b {
+  min-width: 18px;
+  padding: 1px 5px;
+  font-weight: 400;
+  text-align: center;
+  color: #161616;
+  background: var(--orange);
+}
+
+/* filter bar */
+.cfilters {
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, .02);
+}
+.cfilters[hidden] { display: none; }
+.cfilters__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 18px var(--gutter) 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 14px 16px;
+  align-items: end;
+}
+.cfilter { display: grid; gap: 6px; }
+.cfilter > span {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .28em;
+  color: var(--ink-mute);
+}
+.cfilter select {
+  width: 100%;
+  min-width: 0;
+  padding: 8px 30px 8px 10px;
+  font-size: 12px;
+  background-color: #171716;
+  color: var(--ink);
+  border-color: var(--line);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23f2f2ee' stroke-width='1'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px 6px;
+}
+.cfilter--check {
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0 8px;
+  cursor: pointer;
+}
+.cfilter--check input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  border: 1px solid var(--line);
+  background: transparent;
+  position: relative;
+  transition: border-color .25s var(--ease), background-color .25s var(--ease);
+}
+.cfilter--check input:checked { background: var(--orange); border-color: var(--orange); }
+.cfilter--check input:checked::after {
+  content: "";
+  position: absolute;
+  left: 4px; top: 1px;
+  width: 4px; height: 8px;
+  border: solid #161616;
+  border-width: 0 1.5px 1.5px 0;
+  transform: rotate(45deg);
+}
+.cfilter--check input:focus-visible { outline: 1px solid var(--ink); outline-offset: 2px; }
+.cfilter--check > span { font-size: 9px; letter-spacing: .24em; color: var(--ink-soft); }
+.cfilters__reset {
+  justify-self: start;
+  align-self: end;
+  padding: 9px 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .26em;
+  color: var(--ink);
+  border-bottom: 1px solid var(--ink);
+  transition: opacity .25s var(--ease);
+}
+.cfilters__reset:disabled { opacity: .35; cursor: default; }
+
+/* model chips under the make chips */
+.chips--models { padding-top: 10px; align-items: center; }
+.chips__k {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .3em;
+  color: var(--ink-mute);
+  margin-right: 6px;
+}
+.chip--sub { padding: 4px 10px; font-size: 9px; }
+.dark .chip--sub[aria-pressed="true"] { box-shadow: inset 0 -2px 0 var(--ukblue); }
+
+@media (max-width: 767px) {
+  .cfilters__inner { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cfilter--check, .cfilters__reset { grid-column: 1 / -1; }
+}
+
 .cgrid {
   display: grid;
   grid-template-columns: 1fr;

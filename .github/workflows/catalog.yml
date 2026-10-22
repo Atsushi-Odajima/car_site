@@ -1,0 +1,42 @@
+name: Refresh catalogue mirror
+
+# Re-scrapes the public Gulliver (221616.com) search results every 6 hours
+# and commits js/catalog-data.js when anything changed. Private portfolio use.
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: catalogue-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Scrape listings
+        run: python3 tools/catalog_scrape.py --per-make 12 --out js/catalog-data.js
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- js/catalog-data.js; then
+            echo "No change in listings."
+            exit 0
+          fi
+          git config user.name "catalogue-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add js/catalog-data.js
+          git commit -m "chore(catalogue): refresh mirror $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git push
