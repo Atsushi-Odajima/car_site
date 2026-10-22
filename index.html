@@ -64,6 +64,7 @@
       <ul>
         <li><a href="#/" data-scramble>HOME</a></li>
         <li><a href="#/stock" data-scramble>STOCK</a></li>
+        <li><a href="#/catalog" data-scramble>CATALOGUE</a></li>
         <li><a href="#/calculator" data-scramble>CALCULATOR</a></li>
         <li><a href="#/process" data-scramble>PROCESS</a></li>
         <li><a href="#/company" data-scramble>COMPANY</a></li>
@@ -277,6 +278,57 @@
     <p class="empty" id="stockEmpty" hidden>NO VEHICLES MATCH — <a href="#/request" style="border-bottom:1px solid var(--orange)">REQUEST ONE INSTEAD →</a></p>
     <p class="disclaimer">Sample stock shown for illustration. Prices are indicative CIF Southampton and exclude UK import duty, VAT, port handling and registration. JPY figures use an indicative rate. Don’t see the right car? We source to order — <a href="#/request" style="border-bottom:1px solid var(--orange)">send us a request</a>.</p>
   </section>
+</main>
+
+<!-- =====================================================================
+     CATALOGUE — Japanese dealer listings, mirrored in English (dark UI)
+     Data: js/catalog-data.js · behaviour: js/catalog.js
+     ===================================================================== -->
+<main class="page dark" data-page="catalog" hidden>
+  <div class="page-head">
+    <p class="page-eyebrow" aria-hidden="true">
+      <span><span class="duo"></span>CATALOGUE — JAPANESE DEALER LISTINGS</span>
+      <span>SAMPLE MIRROR · ¥4.0M – ¥5.0M BAND</span>
+    </p>
+    <div class="page-title-row">
+      <h1 class="page-title" data-kinetic data-outline="4">CATALOGUE</h1>
+      <dl class="lexicon" aria-label="About this catalogue">
+        <div><dt>SOURCE</dt><dd>221616.COM (GULLIVER)</dd></div>
+        <div><dt>LISTINGS</dt><dd>30 · PUBLIC SEARCH RESULTS</dd></div>
+        <div><dt>PRICES</dt><dd>JPY INCL. TAX, AS PUBLISHED</dd></div>
+        <div><dt>RANGE</dt><dd id="catRange">—</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <div class="toolbar toolbar--dark">
+    <div class="toolbar__inner">
+      <div class="toolbar__search">
+        <label class="visually-hidden" for="catSearch">Search catalogue</label>
+        <input type="search" id="catSearch" placeholder="Search make, model, colour, ID…" autocomplete="off">
+      </div>
+      <label class="visually-hidden" for="catSort">Sort</label>
+      <select id="catSort">
+        <option value="price-desc">Price — high to low</option>
+        <option value="price-asc">Price — low to high</option>
+        <option value="km-asc">Mileage — lowest</option>
+        <option value="year-desc">Year — newest</option>
+      </select>
+      <span class="toolbar__count" id="catCount" aria-live="polite"></span>
+    </div>
+  </div>
+
+  <div class="chips" id="catChips" role="group" aria-label="Make"></div>
+
+  <section class="stock-wrap" aria-label="Listings">
+    <ul class="cgrid" id="catGrid"></ul>
+    <p class="empty" id="catEmpty" hidden>NO LISTINGS MATCH</p>
+    <p class="disclaimer">Demonstration catalogue. Listings, prices and photos are mirrored from public search results on 221616.com (Gulliver, Japan) and translated into English for this sample; they belong to the selling dealer and are not offered for sale here. Prices are Japanese on-the-road totals including tax and domestic fees — use the calculator for a UK landed estimate.</p>
+  </section>
+</main>
+
+<main class="page dark" data-page="catalog-detail" hidden>
+  <div class="cdet" id="catDetail"></div>
 </main>
 
 <!-- =====================================================================
@@ -1087,6 +1139,7 @@
     <nav class="footer-nav" aria-label="Footer">
       <a href="#/" data-scramble>HOME</a>
       <a href="#/stock" data-scramble>STOCK</a>
+      <a href="#/catalog" data-scramble>CATALOGUE</a>
       <a href="#/calculator" data-scramble>CALCULATOR</a>
       <a href="#/process" data-scramble>PROCESS</a>
       <a href="#/company" data-scramble>COMPANY</a>
@@ -1129,6 +1182,8 @@
 <script src="js/ink.js"></script>
 <script src="js/fx.js"></script>
 <script src="js/calc.js"></script>
+<script src="js/catalog-data.js"></script>
+<script src="js/catalog.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

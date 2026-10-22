@@ -337,6 +337,20 @@
     if (!form || !id) return;
     var v = null;
     D.vehicles.forEach(function (x) { if (x.id === id) v = x; });
+    if (!v && window.SaeCatalog && window.SaeCatalog.find) {
+      var c = window.SaeCatalog.find(id);
+      if (c) {
+        fillForm(form, {
+          make_model: c.make + " " + c.model + " " + c.grade + " (catalogue ID " + c.id + ")",
+          year_from: String(c.year), year_to: String(c.year),
+          budget_ccy: "JPY", budget_amount: String(c.priceVehicle),
+          max_km: String(Math.ceil((c.km || 0) / 10000) * 10000)
+        });
+        saveDraft();
+        toast("FORM PRE-FILLED FROM CATALOGUE " + c.id);
+      }
+      return;
+    }
     if (!v) return;
     fillForm(form, {
       make_model: v.make + " " + v.model + " " + v.grade + " (stock " + v.id + ")",
@@ -432,7 +446,7 @@
 
   /* ---------- router ---------- */
 
-  var PAGES = ["home", "stock", "calculator", "process", "process-details", "company", "request"];
+  var PAGES = ["home", "stock", "catalog", "catalog-detail", "calculator", "process", "process-details", "company", "request"];
   var current = null;
 
   function parseHash() {
@@ -441,6 +455,9 @@
     /* "#/process/details" → page "process-details" */
     var page = (parts[0] || "home").replace(/\/+$/, "").replace(/\//g, "-") || "home";
     var params = {};
+    /* "#/catalog/55748394" → the detail page for that listing */
+    var cat = page.match(/^catalog-(\d+)$/);
+    if (cat) { page = "catalog-detail"; params.id = cat[1]; }
     (parts[1] || "").split("&").forEach(function (kv) {
       if (!kv) return;
       var p = kv.split("=");
@@ -476,6 +493,8 @@
     var titles = {
       home: "Samurai Auto Export — Used vehicles from Japan to the UK",
       stock: "Stock — Samurai Auto Export",
+      catalog: "Catalogue — Samurai Auto Export",
+      "catalog-detail": "Catalogue — Samurai Auto Export",
       calculator: "Import cost calculator — Samurai Auto Export",
       process: "How it works — Samurai Auto Export",
       "process-details": "Process in detail — Samurai Auto Export",
@@ -484,8 +503,13 @@
     };
     document.title = titles[r.page];
     if (r.page === "request" && r.params.v) prefillFromStock(r.params.v);
+    if (r.page === "catalog-detail" && window.SaeCatalog) window.SaeCatalog.showDetail(r.params.id);
+    if (r.page === "calculator" && r.params.jpy && window.JccCalc && window.JccCalc.prefill) {
+      window.JccCalc.prefill({ amount: Number(r.params.jpy), size: r.params.size });
+    }
     if (changed) window.scrollTo(0, 0);
     document.body.classList.toggle("is-home", r.page === "home");
+    document.body.classList.toggle("is-dark", r.page === "catalog" || r.page === "catalog-detail");
     gateInk();
     if (FX.observe) FX.observe(document);
     if (FX.odometerOnView) FX.odometerOnView(document);

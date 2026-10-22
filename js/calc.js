@@ -418,7 +418,22 @@
     showMessage(MSG_START);
   }
 
+  /* catalogue hand-off: set the price (JPY) and size, leave the run to the button */
+  function prefill(o) {
+    var form = $("#calcForm");
+    if (!form || !o) return;
+    if (isFinite(o.amount) && o.amount > 0) {
+      switchCurrency(form, "JPY");
+      form.elements.calc_amount.value = String(Math.round(o.amount));
+    }
+    if (o.size && findBy(CFG.vehicleSizes, o.size)) form.elements.calc_size.value = o.size;
+    clearFigures();
+    setState("empty");
+    showMessage("Vehicle price filled in from the catalogue — check the size, then press Start Price Estimate.", "stale");
+  }
+
   window.JccCalc = {
+    prefill: prefill,
     compute: compute,
     fmtJPY: fmtJPY,
     fmtGBP: fmtGBP,

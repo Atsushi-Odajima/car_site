@@ -18,6 +18,7 @@ https://atsushi-odajima.github.io/car_site/
 |--------------|----------|
 | `#/`         | Hero (kinetic wordmark), key figures, featured stock (flip cards), how it works, request CTA, news |
 | `#/stock`    | Stock list: body-type filters, search, sorting, GBP / JPY switch |
+| `#/catalog`  | Catalogue (dark UI): 30 Japanese dealer listings mirrored in English from public search results on 221616.com — make chips, search, sort; each card opens `#/catalog/<id>` with gallery, price block, key facts, dealer condition scores, equipment and specification, plus hand-offs to the calculator (price and size pre-filled) and the request form |
 | `#/calculator` | Import cost calculator for UK dealers: Japanese dealer price → estimated landed cost at the dealership, GBP with JPY alongside, import VAT shown separately |
 | `#/process`  | How it works in four steps (find the vehicle → confirm & pay → export & shipping → collect in the UK), each with its detail chips; "More details" leads on |
 | `#/process/details` | The 16-step transaction flow in four phases with the two end-to-end partner checklists; a line-art car follows the scroll down the rail |
@@ -36,6 +37,8 @@ js/app.js              routing, stock, request form, process-page car marker
 js/calc-config.js      ALL calculator figures: exchange-rate default, fee rate and minimum,
                        pre-shipment lump sum, freight bands by vehicle size, duty options,
                        UK local costs, VAT rate — edit here, nothing is hard-coded elsewhere
+js/catalog-data.js     catalogue sample data (30 listings) — regenerate with the scraper notes below
+js/catalog.js          catalogue list + detail rendering
 js/calc.js             calculator arithmetic (JccCalc.compute) and the page behaviour:
                        on "Start Price Estimate" the line-art car drives across a veil over
                        the page (Yokohama → Southampton) and the figures appear when it
@@ -64,4 +67,5 @@ To preview locally, run `python3 -m http.server` in this folder and open http://
   - `valley-road.jpg`: "Zigzagging mountain road (Unsplash)", CC0
   - `aqualine.jpg`: "Tokyo Bay Aqua-Line Highway" by Kakidai, CC BY 2.0 — attribution is in the footer; keep it if the photo stays
 - **Background blooms** use only these scenery photos (the `-ink.jpg` grayscale copies); the client's car photos appear on the stock cards only.
+- **Catalogue data** (`js/catalog-data.js`) was extracted from public listing pages on 221616.com (Gulliver) for a private portfolio demonstration: specs, prices and equipment flags translated into English, photos hot-linked from the source (not copied into the repo). The listings, prices and photos belong to the selling dealer; the page says so. Do not publish this catalogue as a live sales channel without the source's permission, and refresh or remove it before any commercial use. To regenerate: fetch the search page's JSON-LD ItemList, fetch each detail page, read the Product JSON-LD plus the labelled text fields and `aria-label="…:あり/なし"` equipment flags, translate with a term table.
 - **Request form**: the site is static, so the form builds a summary for the customer to send by email or copy. Connect a form backend (e.g. Formspree, Netlify Forms) to receive requests directly.
