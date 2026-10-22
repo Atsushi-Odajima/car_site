@@ -47,7 +47,8 @@
   /* accents — from the request form */
   --orange: #f07832;
   --lime: #c5f542;
-  --ukblue: #012169;   /* Union flag blue — the E of Export */
+  --ukblue: #1a3fcf;   /* Union-flag blue, lifted so it reads on white — the S and E */
+  --ukred: #c8102e;    /* Union-flag red — the A */
   --font-sans: "Helvetica Neue", Helvetica, Arial, "Hiragino Kaku Gothic ProN",
                "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif;
   --font-display: "Marcellus SC", "Marcellus", Georgia, "Times New Roman", serif;
@@ -355,12 +356,14 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .wm-s,
-.wm-a { color: var(--orange); }
-
 .wm-e { color: var(--ukblue); }
 
-/* on the black footer the flag blue needs a lighter tint to read */
-.footer-brand .wm-e { color: #6f93ea; }
+.wm-a { color: var(--ukred); }
+
+/* on the black footer the flag colours take a lighter tint to read */
+.footer-brand .wm-s,
+.footer-brand .wm-e { color: #7d9bff; }
+.footer-brand .wm-a { color: #ff5a6e; }
 
 /* the logo glyph: orange Ж-like crossing, drawn inline */
 .wm-glyph {
@@ -3382,3 +3385,69 @@ main {
   .has-reveal .pflow__road.reveal.is-visible .pflow__trail { animation: none; }
   .pflow__car { left: calc(100% - 72px); }
 }
+
+/* ----------------------------------------------------------------------------
+   32. HOME — the black wall. Below the hero every section sits on black;
+   the colour tokens are flipped on the wrapper so the components keep
+   their hairline grammar, and the footer joins without a seam.
+   ------------------------------------------------------------------------- */
+
+.home-dark {
+  --ink: #f2f2ee;
+  --ink-soft: #c9c9c3;
+  --ink-mute: #8c8c88;
+  --paper: #0b0b0b;
+  --paper-warm: #171716;
+  --white: #171716;
+  --line: rgba(255, 255, 255, .16);
+  position: relative;
+  margin-top: 4vh;
+  padding-bottom: 14vh;
+  background: var(--black);
+  color: var(--ink);
+}
+
+.home-dark::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, .22);
+}
+
+/* no paper veils on the wall */
+.home-dark .figures,
+.home-dark .news,
+.home-dark .cta-note { background: none; }
+
+/* a little more air for the dark hairlines */
+.home-dark .shead { border-bottom-color: rgba(255, 255, 255, .28); }
+.home-dark .figures { border-top-color: rgba(255, 255, 255, .28); }
+
+.home-dark .marquee__seg { -webkit-text-stroke: 1.2px rgba(255, 255, 255, .7); }
+
+.home-dark .route__title { -webkit-text-stroke: 1.2px #ffffff; }
+
+/* the caption chip stays a white label with dark text */
+.home-dark .photo__cap { color: #161616; }
+
+/* stock cards on black: light sheet on the front, dark spec sheet behind */
+.home-dark .card__front { background: #f4f4f2; }
+.home-dark .card__front--photo { background: #ffffff; border-color: rgba(255,255,255,.16); }
+.home-dark .card__front--cover .card__plate { color: #4a4a48; }
+.home-dark .card__back { background: #171716; color: #f2f2ee; border: 1px solid rgba(255,255,255,.18); }
+.home-dark .card__back dt { color: #8c8c88; }
+.home-dark .card__enquire { color: #f2f2ee; }
+
+/* flow rows: hover lifts to a pale sheet with dark text */
+.home-dark .rows tr:hover td,
+.home-dark .rows tr:focus-within td { background: #f4f4f2; color: #161616; border-color: #f4f4f2; }
+.home-dark .rows tr:hover .flow-desc,
+.home-dark .rows tr:hover .row-meta { color: #4a4a48; }
+
+.home-dark .cta-note a { border-bottom-color: var(--orange); }
+
+/* the footer follows the wall directly on the home page */
+body.is-home .site-footer { margin-top: 0; }

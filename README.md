@@ -2,7 +2,7 @@
 
 Static website for **Samurai Auto Export** (the service name; the operating company is still TBC on the Company page), exporters of used vehicles from Japan to the UK.
 
-White ground, black ink, black header bar. Orange (`#f07832`) and lime (`#c5f542`) are used only as small accents, the same way the printed Vehicle Request Form uses them. On lettering only the wordmark carries colour: the S and A in orange, the E of Export in Union-flag blue (`#012169`); lime appears only on bars, dots and ticks.
+White ground, black ink, black header bar. Orange (`#f07832`) and lime (`#c5f542`) are used only as small accents, the same way the printed Vehicle Request Form uses them. On lettering only the wordmark carries colour: the S and the E in Union-flag blue (`#1a3fcf`), the A in Union-flag red (`#c8102e`); lime appears only on bars, dots and ticks. The ink-wash scenery shows behind the home hero only; from WHY JAPAN down the home page sits on a black wall (`.home-dark` flips the colour tokens), and the other pages are plain white.
 
 ## Publishing on GitHub Pages
 

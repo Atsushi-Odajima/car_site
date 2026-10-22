@@ -485,6 +485,8 @@
     document.title = titles[r.page];
     if (r.page === "request" && r.params.v) prefillFromStock(r.params.v);
     if (changed) window.scrollTo(0, 0);
+    document.body.classList.toggle("is-home", r.page === "home");
+    gateInk();
     if (FX.observe) FX.observe(document);
     if (FX.odometerOnView) FX.odometerOnView(document);
     if (FX.refreshRail) FX.refreshRail();
@@ -543,6 +545,25 @@
     if (car) car.innerHTML = D.carSVG("minivan", true);
   }
 
+  /* ---------- the ink wash lives behind the home hero only ---------- */
+
+  function gateInk() {
+    if (!window.JccInk || !window.JccInk.setOpacity) return;
+    if (current !== "home") { window.JccInk.setOpacity(0); return; }
+    var hero = $('[data-page="home"] .hero');
+    if (!hero) { window.JccInk.setOpacity(0); return; }
+    var bottom = hero.getBoundingClientRect().bottom;
+    window.JccInk.setOpacity((bottom - 64) / 260);
+  }
+
+  function initInkGate() {
+    var ticking = false;
+    window.addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; gateInk(); }); }
+    }, { passive: true });
+    window.addEventListener("resize", gateInk, { passive: true });
+  }
+
   /* ---------- boot ---------- */
 
   function init() {
@@ -550,6 +571,7 @@
     initRoad();
     initProcess();
     initFlowRoad();
+    initInkGate();
     renderFeatured();
     initStock();
     initRequest();

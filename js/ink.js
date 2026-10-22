@@ -262,7 +262,7 @@
     canvas.id = "inkCanvas";
     canvas.setAttribute("aria-hidden", "true");
     canvas.style.cssText =
-      "position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;";
+      "position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;transition:opacity .4s;";
     document.body.insertBefore(canvas, document.body.firstChild);
     ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -279,7 +279,18 @@
     schedule();
   }
 
-  window.JccInk = { pause: pause, resume: resume };
+  /* the page tells the ink how visible it may be (1 behind the hero, 0 elsewhere) */
+  var shown = 1;
+  function setOpacity(v) {
+    v = v < 0 ? 0 : v > 1 ? 1 : v;
+    if (!canvas) return;
+    canvas.style.opacity = String(v);
+    if (v === 0 && shown !== 0) pause();
+    if (v > 0 && shown === 0) resume();
+    shown = v;
+  }
+
+  window.JccInk = { pause: pause, resume: resume, setOpacity: setOpacity };
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
