@@ -1,8 +1,8 @@
-# Japan car cycle — website
+# Samurai Auto Export — website
 
-Static website for **Japan car cycle**, exporters of used vehicles from Japan to the UK.
+Static website for **Samurai Auto Export** (the service name; the operating company is still TBC on the Company page), exporters of used vehicles from Japan to the UK.
 
-White ground, black ink, black header bar. Orange (`#f07832`) and lime (`#c5f542`) are used only as small accents, the same way the printed Vehicle Request Form uses them. Orange is the only accent used on lettering (the J and the c of the wordmark); lime appears only on bars, dots and ticks.
+White ground, black ink, black header bar. Orange (`#f07832`) and lime (`#c5f542`) are used only as small accents, the same way the printed Vehicle Request Form uses them. On lettering only the wordmark carries colour: the S and A in orange, the E of Export in Union-flag blue (`#012169`); lime appears only on bars, dots and ticks.
 
 ## Publishing on GitHub Pages
 
@@ -59,4 +59,9 @@ To preview locally, run `python3 -m http.server` in this folder and open http://
   - `yard.jpg`: "New cars ready for shipment out of Dundalk Marine Terminal" (NARA 546813), public domain
   - `road.jpg`: "Highway drone shot (Unsplash)", CC0
   - `trails.jpg`: "Car trails on dual highway (Unsplash)", CC0
+  - `tokyo-expressway.jpg`: "Highway intersection at night-time (Unsplash)", CC0
+  - `forest-road.jpg`: "Driving on winding forest highway in California (Unsplash)", CC0
+  - `valley-road.jpg`: "Zigzagging mountain road (Unsplash)", CC0
+  - `aqualine.jpg`: "Tokyo Bay Aqua-Line Highway" by Kakidai, CC BY 2.0 — attribution is in the footer; keep it if the photo stays
+- **Background blooms** use only these scenery photos (the `-ink.jpg` grayscale copies); the client's car photos appear on the stock cards only.
 - **Request form**: the site is static, so the form builds a summary for the customer to send by email or copy. Connect a form backend (e.g. Formspree, Netlify Forms) to receive requests directly.

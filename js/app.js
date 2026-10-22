@@ -1,5 +1,5 @@
 /* =========================================================================
-   js/app.js — Japan car cycle
+   js/app.js — Samurai Auto Export
    Hash routes (#/ · #/stock · #/company · #/request), header behaviour,
    GBP/JPY switch, vehicle cards, stock filtering and the online
    Vehicle Request Form (mirrors the printed hearing sheet, 13 questions).
@@ -8,7 +8,7 @@
 (function () {
   "use strict";
 
-  var CONTACT_EMAIL = "info@japancarcycle.example"; /* TODO: real address */
+  var CONTACT_EMAIL = "info@samuraiautoexport.example"; /* TODO: real address */
   var STORE_CCY = "jcc.ccy";
   var STORE_DRAFT = "jcc.requestDraft";
 
@@ -314,7 +314,7 @@
   function makeRef() {
     var d = new Date();
     var p = function (n) { return String(n).padStart(2, "0"); };
-    return "JCC-REQ-" + String(d.getFullYear()).slice(2) + p(d.getMonth() + 1) + p(d.getDate()) +
+    return "SAE-REQ- + String(d.getFullYear()).slice(2) + p(d.getMonth() + 1) + p(d.getDate()) +
       "-" + Math.random().toString(36).slice(2, 6).toUpperCase();
   }
 
@@ -474,13 +474,13 @@
     });
     current = r.page;
     var titles = {
-      home: "Japan car cycle — Used vehicles from Japan to the UK",
-      stock: "Stock — Japan car cycle",
-      calculator: "Import cost calculator — Japan car cycle",
-      process: "How it works — Japan car cycle",
-      "process-details": "Process in detail — Japan car cycle",
-      company: "Company — Japan car cycle",
-      request: "Vehicle Request — Japan car cycle"
+      home: "Samurai Auto Export — Used vehicles from Japan to the UK",
+      stock: "Stock — Samurai Auto Export",
+      calculator: "Import cost calculator — Samurai Auto Export",
+      process: "How it works — Samurai Auto Export",
+      "process-details": "Process in detail — Samurai Auto Export",
+      company: "Company — Samurai Auto Export",
+      request: "Vehicle Request — Samurai Auto Export"
     };
     document.title = titles[r.page];
     if (r.page === "request" && r.params.v) prefillFromStock(r.params.v);

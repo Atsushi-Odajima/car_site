@@ -328,7 +328,7 @@
     var r = lastResult;
     var line = function (name, v) { return name + ": " + fmtGBP(v / r.R) + "  (" + fmtJPY(v) + ")"; };
     return [
-      "Japan car cycle — import cost estimate (budget figures, not a quotation)",
+      "Samurai Auto Export — import cost estimate (budget figures, not a quotation)",
       "Exchange rate used: £1 = ¥" + r.R + " (editable estimate, not a live rate)",
       "Vehicle size: " + r.size.label + " · Import duty: " + fmtPct(r.duty.rate),
       "",

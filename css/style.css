@@ -1,5 +1,5 @@
 /* ============================================================================
-   Japan car cycle — shared stylesheet
+   Samurai Auto Export — shared stylesheet
    ----------------------------------------------------------------------------
    White ground, black ink, black header bar. Orange + lime are accents only
    (the same quiet doses as the Vehicle Request Form): the twin bars, the
@@ -47,6 +47,7 @@
   /* accents — from the request form */
   --orange: #f07832;
   --lime: #c5f542;
+  --ukblue: #012169;   /* Union flag blue — the E of Export */
   --font-sans: "Helvetica Neue", Helvetica, Arial, "Hiragino Kaku Gothic ProN",
                "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif;
   --font-display: "Marcellus SC", "Marcellus", Georgia, "Times New Roman", serif;
@@ -342,10 +343,9 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 /* ----------------------------------------------------------------------------
-   7. Wordmark — "Japan car cycle"
-   Marcellus SC, the same inscription face as the section titles: a full
-   capital J, the rest in small caps. The J and the c of car are orange,
-   where the printed logo carries its accents.
+   7. Wordmark — "Samurai Auto Export"
+   Marcellus SC, the same inscription face as the section titles. The S
+   and the A are orange; the E takes the Union-flag blue.
    ------------------------------------------------------------------------- */
 
 .wm {
@@ -354,8 +354,13 @@ input[type="number"]::-webkit-outer-spin-button {
   white-space: nowrap;
 }
 
-.wm-j,
-.wm-c { color: var(--orange); }
+.wm-s,
+.wm-a { color: var(--orange); }
+
+.wm-e { color: var(--ukblue); }
+
+/* on the black footer the flag blue needs a lighter tint to read */
+.footer-brand .wm-e { color: #6f93ea; }
 
 /* the logo glyph: orange Ж-like crossing, drawn inline */
 .wm-glyph {
@@ -401,8 +406,8 @@ input[type="number"]::-webkit-outer-spin-button {
   align-items: center;
   gap: 10px;
   height: 40px;
-  padding: 0 16px;
-  font-size: 18px;
+  padding: 0 14px;
+  font-size: 16px;
   color: var(--ink);
   background: var(--white);
   transition: background-color .3s var(--ease);
@@ -513,7 +518,7 @@ body.nav-open .menu-toggle span:nth-child(2) { top: 19px; transform: rotate(-45d
 @media (max-width: 1023px) {
   .menu-toggle { display: block; }
 
-  .brand-mark { font-size: 15px; padding: 0 12px; height: 36px; }
+  .brand-mark { font-size: 13px; padding: 0 10px; height: 36px; }
 
   .site-nav {
     position: fixed;
@@ -880,7 +885,7 @@ main {
 }
 
 .hero__wordmark {
-  font-size: clamp(52px, 10.6vw, 164px);
+  font-size: clamp(44px, 9.4vw, 148px);
   font-weight: 400;
   line-height: 1;
   letter-spacing: 0.03em;

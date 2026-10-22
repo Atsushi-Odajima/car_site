@@ -1,5 +1,5 @@
 /* =========================================================================
-   js/fx.js — Japan car cycle shared interaction library
+   js/fx.js — Samurai Auto Export shared interaction library
    window.JccFX = { scramble, bindScramble, kinetic, rail, reveal, observe, odometer }
    [data-scramble]  hover/focus decode
    [data-kinetic]   letters repelled by the cursor, spring back

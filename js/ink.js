@@ -1,13 +1,14 @@
 /* =========================================================================
-   js/ink.js — Japan car cycle ink-wash background
+   js/ink.js — Samurai Auto Export ink-wash background
    White ground. Ink blooms bleed in, spread and dissolve like liquid.
-   Most blooms are "photo blooms": a grayscale car / road / port / highway
-   picture seen only through the bloom's feathered shape, as if the ink
+   Most blooms are "photo blooms": a grayscale road / port / highway scene
+   seen only through the bloom's feathered shape, as if the ink
    carried the picture with it. Plain black, orange and lime washes sit in
    between so the colour cycle of the original ink survives.
    Tone cycle: p p k p p o p p l  (p = photo)
    Photo sources: window.JCC_INK_PHOTOS — array of URLs or {src, whole}.
-   `whole` draws the entire picture (a car cut-out) instead of a random crop.
+   `whole` draws the entire picture instead of a random crop (unused now that
+   the backgrounds are scenery only, kept for cut-out images).
    Auto-initialises on load. window.JccInk = { pause(), resume() }.
    ========================================================================= */
 (function () {
