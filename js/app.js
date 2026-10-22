@@ -314,7 +314,7 @@
   function makeRef() {
     var d = new Date();
     var p = function (n) { return String(n).padStart(2, "0"); };
-    return "SAE-REQ- + String(d.getFullYear()).slice(2) + p(d.getMonth() + 1) + p(d.getDate()) +
+    return "SAE-REQ-" + String(d.getFullYear()).slice(2) + p(d.getMonth() + 1) + p(d.getDate()) +
       "-" + Math.random().toString(36).slice(2, 6).toUpperCase();
   }
 
