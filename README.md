@@ -81,3 +81,11 @@ A browser cannot read 221616.com directly (no CORS), so the site cannot query Gu
 - `--per-make 12` (what the workflow uses) takes the first 12 listings of each make so all nine makes appear (~108 cars, about 4 minutes); `--pages N` walks the combined search instead.
 - `.github/workflows/catalog.yml` runs it every 6 hours (`17 */6 * * *`) and on demand (Actions → “Refresh catalogue mirror” → Run workflow), committing `js/catalog-data.js` only when it changed. GitHub Pages redeploys on that commit. The repository needs Actions enabled with workflow write permission (Settings → Actions → General → Workflow permissions → “Read and write”).
 - Manual refresh: `python3 tools/catalog_scrape.py --per-make 12 && git commit -am "chore(catalogue): refresh" && git push`.
+
+## Cloudflare Pages
+
+The site is also published to the Cloudflare Pages project `samurai-motors` (direct upload, no Git integration on the Cloudflare side).
+
+- `tools/build_dist.sh` copies what the site serves (`index.html`, `css/`, `js/`, `assets/`) into `dist/` and writes a `_headers` file; `dist/` is git-ignored.
+- Manual deploy: `bash tools/build_dist.sh && npx wrangler@4 pages deploy dist --project-name samurai-motors --branch main` with `CLOUDFLARE_API_TOKEN` (permission: Account › Cloudflare Pages › Edit) and `CLOUDFLARE_ACCOUNT_ID` set.
+- `.github/workflows/deploy-cloudflare.yml` deploys on every push to `main`, after each catalogue refresh, and on demand. It needs the repository secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` (Settings → Secrets and variables → Actions); until they exist the job skips itself.
