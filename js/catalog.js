@@ -397,7 +397,7 @@
       });
     });
     main.addEventListener("error", function () { main.classList.add("is-missing"); });
-    document.title = c.make + " " + c.model + " — Catalogue — Samurai Auto Export";
+    document.title = c.make + " " + c.model + " — Catalogue — Samurai motors";
     afterRender(root);
   }
 

@@ -7,7 +7,7 @@
 
 ## プロジェクト概要
 
-- 日本の中古車を英国へ輸出するサービス「Samurai Auto Export」の静的サイト（ポートフォリオ／面接デモ用、私的利用）。
+- 日本の中古車を英国へ輸出するサービス「Samurai motors」の静的サイト（ポートフォリオ／面接デモ用、私的利用）。
 - ビルド工程なし。`index.html` + `css/style.css` + `js/*.js`、ハッシュルーティング、GitHub Pages で公開。
 - カタログは `tools/catalog_scrape.py` が生成する `js/catalog-data.js` を表示します（詳細は README「Catalogue mirror」）。
 - 変更後は `main` にプッシュし、プレビュー用アーティファクトも更新してください。

@@ -1,5 +1,5 @@
 /* ============================================================================
-   Samurai Auto Export — shared stylesheet
+   Samurai motors — shared stylesheet
    ----------------------------------------------------------------------------
    White ground, black ink, black header bar. Orange + lime are accents only
    (the same quiet doses as the Vehicle Request Form): the twin bars, the
@@ -47,8 +47,7 @@
   /* accents — from the request form */
   --orange: #f07832;
   --lime: #c5f542;
-  --ukblue: #1a3fcf;   /* Union-flag blue, lifted so it reads on white — the S and E */
-  --ukred: #c8102e;    /* Union-flag red — the A */
+  --green: #006e54;    /* trad green (SMBC-like) — the o of "motors" */
   --font-sans: "Helvetica Neue", Helvetica, Arial, "Hiragino Kaku Gothic ProN",
                "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif;
   --font-display: "Marcellus SC", "Marcellus", Georgia, "Times New Roman", serif;
@@ -344,9 +343,9 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 /* ----------------------------------------------------------------------------
-   7. Wordmark — "Samurai Auto Export"
+   7. Wordmark — "Samurai motors"
    Marcellus SC, the same inscription face as the section titles. The S
-   and the A are orange; the E takes the Union-flag blue.
+   is orange; the o of "motors" takes the trad green.
    ------------------------------------------------------------------------- */
 
 .wm {
@@ -355,15 +354,13 @@ input[type="number"]::-webkit-outer-spin-button {
   white-space: nowrap;
 }
 
-.wm-s,
-.wm-e { color: var(--ukblue); }
+.wm-s { color: var(--orange); }
 
-.wm-a { color: var(--ukred); }
+.wm-o { color: var(--green); }
 
-/* on the black footer the flag colours take a lighter tint to read */
-.footer-brand .wm-s,
-.footer-brand .wm-e { color: #7d9bff; }
-.footer-brand .wm-a { color: #ff5a6e; }
+/* on the black footer the green takes a lighter tint to read */
+.footer-brand .wm-s { color: var(--orange); }
+.footer-brand .wm-o { color: #3fbf96; }
 
 /* the logo glyph: orange Ж-like crossing, drawn inline */
 .wm-glyph {
@@ -3595,7 +3592,7 @@ body.is-dark .site-footer { margin-top: 0; }
   margin-right: 6px;
 }
 .chip--sub { padding: 4px 10px; font-size: 9px; }
-.dark .chip--sub[aria-pressed="true"] { box-shadow: inset 0 -2px 0 var(--ukblue); }
+.dark .chip--sub[aria-pressed="true"] { box-shadow: inset 0 -2px 0 var(--green); }
 
 @media (max-width: 767px) {
   .cfilters__inner { grid-template-columns: repeat(2, minmax(0, 1fr)); }

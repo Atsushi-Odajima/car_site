@@ -1,5 +1,5 @@
 /* =========================================================================
-   js/ink.js — Samurai Auto Export ink-wash background
+   js/ink.js — Samurai motors ink-wash background
    White ground. Ink blooms bleed in, spread and dissolve like liquid.
    Most blooms are "photo blooms": a grayscale road / port / highway scene
    seen only through the bloom's feathered shape, as if the ink

@@ -1,5 +1,5 @@
 /* =========================================================================
-   js/app.js — Samurai Auto Export
+   js/app.js — Samurai motors
    Hash routes (#/ · #/stock · #/company · #/request), header behaviour,
    GBP/JPY switch, vehicle cards, stock filtering and the online
    Vehicle Request Form (mirrors the printed hearing sheet, 13 questions).
@@ -314,7 +314,7 @@
   function makeRef() {
     var d = new Date();
     var p = function (n) { return String(n).padStart(2, "0"); };
-    return "SAE-REQ-" + String(d.getFullYear()).slice(2) + p(d.getMonth() + 1) + p(d.getDate()) +
+    return "SM-REQ-" + String(d.getFullYear()).slice(2) + p(d.getMonth() + 1) + p(d.getDate()) +
       "-" + Math.random().toString(36).slice(2, 6).toUpperCase();
   }
 
@@ -491,15 +491,15 @@
     });
     current = r.page;
     var titles = {
-      home: "Samurai Auto Export — Used vehicles from Japan to the UK",
-      stock: "Stock — Samurai Auto Export",
-      catalog: "Catalogue — Samurai Auto Export",
-      "catalog-detail": "Catalogue — Samurai Auto Export",
-      calculator: "Import cost calculator — Samurai Auto Export",
-      process: "How it works — Samurai Auto Export",
-      "process-details": "Process in detail — Samurai Auto Export",
-      company: "Company — Samurai Auto Export",
-      request: "Vehicle Request — Samurai Auto Export"
+      home: "Samurai motors — Used vehicles from Japan to the UK",
+      stock: "Stock — Samurai motors",
+      catalog: "Catalogue — Samurai motors",
+      "catalog-detail": "Catalogue — Samurai motors",
+      calculator: "Import cost calculator — Samurai motors",
+      process: "How it works — Samurai motors",
+      "process-details": "Process in detail — Samurai motors",
+      company: "Company — Samurai motors",
+      request: "Vehicle Request — Samurai motors"
     };
     document.title = titles[r.page];
     if (r.page === "request" && r.params.v) prefillFromStock(r.params.v);
