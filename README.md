@@ -89,3 +89,9 @@ The site is also published to the Cloudflare Pages project `samurai-motors` (dir
 - `tools/build_dist.sh` copies what the site serves (`index.html`, `css/`, `js/`, `assets/`) into `dist/` and writes a `_headers` file; `dist/` is git-ignored.
 - Manual deploy: `bash tools/build_dist.sh && npx wrangler@4 pages deploy dist --project-name samurai-motors --branch main` with `CLOUDFLARE_API_TOKEN` (permission: Account › Cloudflare Pages › Edit) and `CLOUDFLARE_ACCOUNT_ID` set.
 - `.github/workflows/deploy-cloudflare.yml` deploys on every push to `main`, after each catalogue refresh, and on demand. It needs the repository secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` (Settings → Secrets and variables → Actions); until they exist the job skips itself.
+
+### Custom domain and email
+
+- The Pages project serves `samuraiautoexport.net` and `www.samuraiautoexport.net` (proxied CNAMEs to `samurai-motors.pages.dev`, zone on the same Cloudflare account).
+- Inbound mail uses Cloudflare Email Routing: `info@` and `sales@` forward to the owner's Gmail (MX and DKIM records are managed and locked by Email Routing).
+- Outbound mail is sent from Gmail with "Send mail as" through `smtp.gmail.com`; SPF therefore includes both `_spf.mx.cloudflare.net` and `_spf.google.com`. DMARC is `p=none` (monitor only) because Gmail signs with its own domain; tighten it only after moving to a sender that signs with this domain (e.g. Google Workspace).
