@@ -1,5 +1,5 @@
 /* ============================================================================
-   Samurai motors — shared stylesheet
+   Samurai Auto Export — shared stylesheet
    ----------------------------------------------------------------------------
    White ground, black ink, black header bar. Orange + lime are accents only
    (the same quiet doses as the Vehicle Request Form): the twin bars, the
@@ -47,7 +47,7 @@
   /* accents — from the request form */
   --orange: #f07832;
   --lime: #c5f542;
-  --green: #006e54;    /* trad green (SMBC-like) — the o of "motors" */
+  --green: #006e54;    /* trad green (SMBC-like) — the A of "Auto" */
   --font-sans: "Helvetica Neue", Helvetica, Arial, "Hiragino Kaku Gothic ProN",
                "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif;
   --font-display: "Marcellus SC", "Marcellus", Georgia, "Times New Roman", serif;
@@ -343,9 +343,9 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 /* ----------------------------------------------------------------------------
-   7. Wordmark — "Samurai motors"
+   7. Wordmark — "Samurai Auto Export"
    Marcellus SC, the same inscription face as the section titles. The S
-   is orange; the o of "motors" takes the trad green.
+   and the E are orange; the A of "Auto" takes the trad green.
    ------------------------------------------------------------------------- */
 
 .wm {
@@ -354,13 +354,15 @@ input[type="number"]::-webkit-outer-spin-button {
   white-space: nowrap;
 }
 
-.wm-s { color: var(--orange); }
+.wm-s,
+.wm-e { color: var(--orange); }
 
-.wm-o { color: var(--green); }
+.wm-a { color: var(--green); }
 
 /* on the black footer the green takes a lighter tint to read */
-.footer-brand .wm-s { color: var(--orange); }
-.footer-brand .wm-o { color: #3fbf96; }
+.footer-brand .wm-s,
+.footer-brand .wm-e { color: var(--orange); }
+.footer-brand .wm-a { color: #3fbf96; }
 
 /* the logo glyph: orange Ж-like crossing, drawn inline */
 .wm-glyph {
