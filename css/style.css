@@ -470,6 +470,33 @@ input[type="number"]::-webkit-outer-spin-button {
   gap: 20px;
 }
 
+/* Instagram — small square next to the currency switch */
+.ig-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(255, 255, 255, .35);
+  transition: border-color .3s var(--ease), background-color .3s var(--ease);
+}
+
+@media (max-width: 1279px) {
+  .header-tools { gap: 10px; }
+}
+
+@media (max-width: 400px) {
+  .header-tools { gap: 7px; }
+  .site-header .brand-mark { font-size: 12px; padding: 0 8px; gap: 7px; }
+  .site-header .ccy button { padding: 5px 6px; }
+}
+.ig-link .ico { width: 16px; height: 16px; stroke: var(--paper); stroke-width: 1.7; transition: stroke .3s var(--ease); }
+.ig-link:hover,
+.ig-link:focus-visible { border-color: var(--orange); background: var(--orange); }
+.ig-link:hover .ico,
+.ig-link:focus-visible .ico { stroke: #161616; }
+
 /* GBP / JPY switch */
 .ccy {
   display: inline-flex;
@@ -640,6 +667,34 @@ body.nav-open .menu-toggle span:nth-child(2) { top: 19px; transform: rotate(-45d
 .footer-nav a:hover,
 .footer-nav a:focus-visible { opacity: 1; }
 
+.footer-contact {
+  margin: 0 auto 40px;
+  font-style: normal;
+  font-size: 12px;
+  letter-spacing: .06em;
+  line-height: 2;
+  color: #b9b9b4;
+}
+.footer-contact a { color: var(--paper); border-bottom: 1px solid rgba(255, 255, 255, .3); }
+.footer-contact a:hover { border-bottom-color: var(--orange); }
+.footer-ig {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  padding: 8px 16px 8px 12px;
+  border: 1px solid rgba(255, 255, 255, .35) !important;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .24em;
+  transition: border-color .3s var(--ease), background-color .3s var(--ease), color .3s var(--ease);
+}
+.footer-ig .ico { width: 18px; height: 18px; stroke: var(--orange); stroke-width: 1.7; transition: stroke .3s var(--ease); }
+.footer-ig:hover,
+.footer-ig:focus-visible { border-color: var(--orange) !important; background: var(--orange); color: #161616; }
+.footer-ig:hover .ico,
+.footer-ig:focus-visible .ico { stroke: #161616; }
+
 .footer-note {
   font-size: 11px;
   letter-spacing: .06em;
@@ -744,6 +799,35 @@ main {
   pointer-events: none;
   user-select: none;
   white-space: nowrap;
+}
+
+/* Instagram handle, top-right corner of the hero */
+.hero__ig {
+  position: absolute;
+  top: 26px;
+  right: var(--gutter);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px 6px 8px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, .72);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .26em;
+  color: var(--ink-mute);
+  white-space: nowrap;
+  transition: border-color .3s var(--ease), color .3s var(--ease);
+  animation: fade 1.6s var(--ease) 1.2s both;
+}
+.hero__ig .ico { width: 16px; height: 16px; stroke: var(--orange); stroke-width: 1.7; }
+.hero__ig b { font-weight: 400; color: var(--ink); letter-spacing: .2em; }
+.hero__ig:hover,
+.hero__ig:focus-visible { border-color: var(--ink); color: var(--ink); }
+
+@media (max-width: 767px) {
+  .hero__ig { top: 18px; right: 50%; transform: translateX(50%); }
 }
 
 .lex-float--tl { top: 34px; left: var(--gutter); }
@@ -1832,6 +1916,10 @@ main {
 .ph {
   color: var(--ink-mute);
 }
+
+.plain-link { border-bottom: 1px solid var(--ink); }
+.ig-inline { display: inline-flex; align-items: center; gap: 8px; }
+.ig-inline .ico { width: 16px; height: 16px; stroke: var(--orange); stroke-width: 1.7; }
 
 .duo-photos {
   display: grid;
