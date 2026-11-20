@@ -98,7 +98,7 @@ TERMS = [("ハイブリッド", "Hybrid"), ("ハイブリット", "Hybrid"), ("�
  ("アドベンチャー", "Adventure"), ("オフロード", "Off-road"), ("ツートーンインテリア", "Two-tone interior"), ("ツートーン", "Two-tone"), ("インテリア", "Interior"), ("クロム", "Chrome"),
  ("ジャーニー", "Journey"), ("アピアランス", "Appearance"), ("ドライブ", "Drive"), ("リテイル", "Retail"), ("エクストラ", "Extra"), ("エアロツアラー", "Aero Tourer"), ("ワゴン", "Wagon"),
  ("プレステージ", "Prestige"), ("ノワール", "Noir"), ("ブラン", "Blanc"), ("グランド", "Grand"), ("ロング", "Long"), ("スーパーロング", "Super Long"), ("マスター", "Master"), ("ハイルーフ", "High roof"),
- ("モデューロ", "Modulo"), ("メイクアップ", "Makeup"), ("クロスター", "Crosstar"), ("コーディネート", "Coordinate"), ("ブレイク", "Break"), ("アクセント", "Accent"), ("マイ", "My"), ("ストライプス", "Stripes"), ("カンブス", "Canbus"), ("セオリー", "Theory"), ("ブースター", "Booster"), ("ジュニア", "Junior"), ("セダン", "Sedan"), ("クーペ", "Coupe"), ("リバティ", "Liberty"), ("ソリオ", "Solio"), ("ロードスター", "Roadster")]
+ ("モデューロ", "Modulo"), ("ハイパー", "Hyper"), ("メイクアップ", "Makeup"), ("クロスター", "Crosstar"), ("コーディネート", "Coordinate"), ("ブレイク", "Break"), ("アクセント", "Accent"), ("マイ", "My"), ("ストライプス", "Stripes"), ("カンブス", "Canbus"), ("セオリー", "Theory"), ("ブースター", "Booster"), ("ジュニア", "Junior"), ("セダン", "Sedan"), ("クーペ", "Coupe"), ("リバティ", "Liberty"), ("ソリオ", "Solio"), ("ロードスター", "Roadster")]
 COLOR = [("プレシャス", "Precious"), ("ブラック", "Black"), ("ホワイト", "White"), ("パール", "Pearl"), ("マイカ", "Mica"), ("メタリック", "Metallic"), ("クリスタル", "Crystal"), ("シャイン", "Shine"),
  ("グレー", "Grey"), ("シルバー", "Silver"), ("イエロー", "Yellow"), ("レッド", "Red"), ("ブルー", "Blue"), ("グリーン", "Green"), ("ブラウン", "Brown"), ("ベージュ", "Beige"), ("オレンジ", "Orange"),
  ("ゴールド", "Gold"), ("ピンク", "Pink"), ("パープル", "Purple"), ("ブロンズ", "Bronze"), ("プラチナ", "Platinum"), ("アティチュード", "Attitude"), ("アルピン", "Alpine"), ("ウォーム", "Warm"),
@@ -115,7 +115,7 @@ COLOR = [("プレシャス", "Precious"), ("ブラック", "Black"), ("ホワイ
  ("オーシャン", "Ocean"), ("ロジウム", "Rhodium"), ("シルキー", "Silky"), ("メタル", "Metal"), ("ミスト", "Mist"), ("クール", "Cool"), ("白", "White"), ("黒", "Black"), ("赤", "Red"), ("青", "Blue"),
  ("銀", "Silver"), ("灰", "Grey"), ("茶", "Brown"), ("紺", "Navy"), ("緑", "Green"), ("黄", "Yellow"), ("紫", "Purple"), ("金", "Gold"), ("桃", "Pink"), ("ライム", "Lime"), ("マルーン", "Maroon"),
  ("プリズム", "Prism"), ("ピュアホワイト", "Pure White"), ("レイク", "Lake"), ("ハーバー", "Harbour"), ("スカイ", "Sky"), ("アクア", "Aqua"), ("ターコイズ", "Turquoise"), ("テラ", "Terra"),
- ("コッパー", "Copper"), ("ノーヴァ", "Nova"), ("イリジウム", "Iridium"), ("トワイライト", "Twilight"), ("トワイ", "Twi"), ("ジルコン", "Zircon"), ("シリカ", "Silica"), ("カスケード", "Cascade"), ("ブライト", "Bright"), ("ナチュラル", "Natural"), ("ファイン", "Fine"), ("スムース", "Smooth"), ("デニム", "Denim"), ("ガンメタ", "Gunmetal"), ("ガン", "Gun"), ("アクティブ", "Active"), ("バーニング", "Burning"), ("ウッディ", "Woody"), ("オフ", "Off"), ("ブルーイッシュ", "Bluish"), ("グレーイッシュ", "Greyish"), ("イッシュ", "-ish"), ("ラベンダー", "Lavender"), ("ミント", "Mint"), ("ローズ", "Rose"), ("シャドー", "Shadow"), ("ナイト", "Night"), ("エボニー", "Ebony"), ("スターライト", "Starlight")]
+ ("コッパー", "Copper"), ("フィヨルド", "Fjord"), ("ガイザー", "Geyser"), ("ファイアー", "Fire"), ("ノーヴァ", "Nova"), ("イリジウム", "Iridium"), ("トワイライト", "Twilight"), ("トワイ", "Twi"), ("ジルコン", "Zircon"), ("シリカ", "Silica"), ("カスケード", "Cascade"), ("ブライト", "Bright"), ("ナチュラル", "Natural"), ("ファイン", "Fine"), ("スムース", "Smooth"), ("デニム", "Denim"), ("ガンメタ", "Gunmetal"), ("ガン", "Gun"), ("アクティブ", "Active"), ("バーニング", "Burning"), ("ウッディ", "Woody"), ("オフ", "Off"), ("ブルーイッシュ", "Bluish"), ("グレーイッシュ", "Greyish"), ("イッシュ", "-ish"), ("ラベンダー", "Lavender"), ("ミント", "Mint"), ("ローズ", "Rose"), ("シャドー", "Shadow"), ("ナイト", "Night"), ("エボニー", "Ebony"), ("スターライト", "Starlight")]
 HL = [("ワンオーナー", "One owner"), ("ワンオ-ナ-", "One owner"), ("1オーナー", "One owner"), ("登録済未使用車", "Registered, unused"), ("届出済未使用車", "Registered, unused"),
  ("純正12.3インチナビ", 'Factory 12.3" navigation'), ("純正12.3型ナビ", 'Factory 12.3" navigation'), ("純正10.5インチナビ", 'Factory 10.5" navigation'), ("純正9インチナビ", 'Factory 9" navigation'),
  ("9インチナビ", '9" navigation'), ("10インチナビ", '10" navigation'), ("純正DAナビ", "Factory display audio"), ("ディスプレイオーディオ", "Display audio"), ("純Dオーディオ", "Factory display audio"),
@@ -157,7 +157,7 @@ PREF = {"道央・札幌": "Hokkaido", "道南": "Hokkaido", "道北": "Hokkaido
 TRANS = {"FAT": "Automatic", "CAT": "Automatic", "IAT": "Automatic", "CVT": "CVT", "AT": "Automatic", "6F": "6-speed manual", "5F": "5-speed manual", "4F": "4-speed manual",
          "6MT": "6-speed manual", "5MT": "5-speed manual", "MT": "Manual", "AGS": "Automated manual", "DCT": "Dual-clutch automatic"}
 FUEL = {"ガソリン": "Petrol", "ハイブリッド": "Hybrid", "軽油": "Diesel", "電気": "Electric", "LPG": "LPG", "水素": "Hydrogen"}
-MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+MON = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 MINIVAN = {"alphard", "alphardhybrid", "vellfire", "vellfirehybrid", "voxy", "voxyhybrid", "noah", "noahhybrid", "esquire", "estima", "sienta", "hiacewagon", "hiacevan", "granace", "lm",
            "stepwgn", "stepwgnspada", "freed", "freedplus", "odyssey", "serena", "elgrand", "caravan", "delicad5", "landy", "nv200vanette"}
 SPORTS = {"86", "gr86", "supra", "gryaris", "fairladyz", "gtr", "skyline", "roadster", "roadsterrf", "brz", "wrxsti", "wrxs4", "civictyper", "copen", "s660", "rc", "lc", "swiftsport"}
@@ -206,7 +206,27 @@ def year(s):
 
 def insp(s):
     s = N(s or ""); m = re.match(r"(\d{4})\(.*?\)年(\d{1,2})月", s)
-    return f"{MON[int(m.group(2)) - 1]} {m.group(1)}" if m else "Expired / not included"
+    if m:
+        return f"{MON[int(m.group(2)) - 1]} {m.group(1)}"
+    if "なし" in s or "無" in s:
+        return "No current inspection (車検なし)"
+    if "付" in s:
+        return "Arranged on sale — date not stated"
+    return "Not stated"
+
+def yes_no(s):
+    """what the source states for a yes/no item: "yes", "no", or None when it says nothing"""
+    s = N(s or "")
+    return "yes" if s == "あり" else "no" if s == "なし" else None
+
+def repair_text(s):
+    """修復歴 as the source states it — never widened to 'no accidents', never guessed"""
+    s = N(s or "")
+    if s == "なし":
+        return "No repair history declared (修復歴なし)"
+    if s == "あり":
+        return "Repair history declared (修復歴あり)"
+    return "Not stated"
 
 def slug_name(slug):
     if slug in MODEL:
@@ -304,8 +324,9 @@ def parse_detail(url, s, thumb):
         dims=(f"{sz('全長')} × {sz('全幅')} × {sz('全高')}" if sz("全長") else None),
         seats=int(re.match(r"\d+", N(seats)).group(0)) if seats and re.match(r"\d+", N(seats)) else None,
         handle="Right-hand drive" if one("ハンドル") == "右" else "Left-hand drive", inspection=insp(one("車検")),
-        repair="No accident / repair history" if one("修復歴") == "なし" else "Repair history declared",
+        repair=repair_text(one("修復歴")),
         extRating=rating("外装評価点"), intRating=rating("内装評価点"), records=one("定期点検整備記録簿") == "あり", rental=one("レンタカー歴") == "あり",
+        recordsState=yes_no(one("定期点検整備記録簿")), rentalState=yes_no(one("レンタカー歴")),
         storeBrand="LIBERALA" if (store or "").startswith("LIBERALA") else "Gulliver", storePref=pref,
         highlights=thighlights(title2, prod.get("color")), equipment=eq, images=imgs[:10], thumb=thumb, sourceUrl=url, sizeKey=size_key(model_slug))
 

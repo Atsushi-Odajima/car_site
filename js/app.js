@@ -8,7 +8,7 @@
 (function () {
   "use strict";
 
-  var CONTACT_EMAIL = "info@samuraiautoexport.example"; /* TODO: real address */
+  var CONTACT_EMAIL = "info@samuraiautoexport.net";
   var STORE_CCY = "jcc.ccy";
   var STORE_DRAFT = "jcc.requestDraft";
 
@@ -134,7 +134,7 @@
         '</div>' +
         '<div class="card__face card__back">' +
           '<dl>' +
-            '<dt>STOCK</dt><dd>' + esc(v.id) + '</dd>' +
+            '<dt>EXAMPLE</dt><dd>' + esc(v.id) + '</dd>' +
             '<dt>GRADE</dt><dd>' + esc(v.grade) + '</dd>' +
             '<dt>YEAR</dt><dd>' + v.year + '</dd>' +
             '<dt>MILEAGE</dt><dd>' + km(v.km) + '</dd>' +
@@ -150,7 +150,7 @@
       '</div>' +
       '<div class="card__cap">' +
         '<h3 class="card__name">' + esc(name) + '<span class="card__sub">' + esc(v.grade) + ' · ' + v.year + ' · ' + km(v.km) + '</span></h3>' +
-        '<p class="card__price"><span data-odo data-price-gbp="' + v.gbp + '">' + price + '</span><small>CIF SOUTHAMPTON</small></p>' +
+        '<p class="card__price"><span data-odo data-price-gbp="' + v.gbp + '">' + price + '</span><small>GUIDE PRICE</small></p>' +
       '</div>';
     var flip = art.querySelector(".card__flipbtn");
     flip.addEventListener("click", function () { art.classList.add("is-flipped"); });
@@ -217,7 +217,7 @@
       if (s === "price-desc") return b.gbp - a.gbp;
       if (s === "km-asc") return a.km - b.km;
       if (s === "year-desc") return b.year - a.year;
-      return a.id < b.id ? 1 : -1; /* newest stock number first */
+      return a.id < b.id ? -1 : 1; /* example number order */
     });
     return list;
   }
@@ -230,7 +230,7 @@
     list.forEach(function (v, i) { grid.appendChild(buildCard(v, i)); });
     $("#stockEmpty").hidden = list.length > 0;
     $("#stockCount").textContent = String(list.length).padStart(2, "0") + " / " +
-      String(D.vehicles.length).padStart(2, "0") + " VEHICLES";
+      String(D.vehicles.length).padStart(2, "0") + " EXAMPLES";
     afterRender(grid);
     if (FX.refreshRail) FX.refreshRail();
   }
@@ -353,7 +353,7 @@
     }
     if (!v) return;
     fillForm(form, {
-      make_model: v.make + " " + v.model + " " + v.grade + " (stock " + v.id + ")",
+      make_model: v.make + " " + v.model + " " + v.grade + " (example " + v.id + ")",
       year_from: String(v.year),
       year_to: String(v.year),
       budget_ccy: "GBP",
@@ -446,14 +446,15 @@
 
   /* ---------- router ---------- */
 
-  var PAGES = ["home", "stock", "catalog", "catalog-detail", "calculator", "process", "process-details", "company", "request"];
+  var PAGES = ["home", "stock", "catalog", "catalog-detail", "calculator", "process", "company", "request"];
   var current = null;
 
   function parseHash() {
     var h = (window.location.hash || "").replace(/^#\/?/, "");
     var parts = h.split("?");
-    /* "#/process/details" → page "process-details" */
     var page = (parts[0] || "home").replace(/\/+$/, "").replace(/\//g, "-") || "home";
+    /* the old 16-step page is gone; its links land on the 4-step overview */
+    if (page === "process-details") page = "process";
     var params = {};
     /* "#/catalog/55748394" → the detail page for that listing */
     var cat = page.match(/^catalog-(\d+)$/);
@@ -491,14 +492,13 @@
     });
     current = r.page;
     var titles = {
-      home: "Samurai Auto Export — Used vehicles from Japan to the UK",
-      stock: "Stock — Samurai Auto Export",
+      home: "Samurai Auto Export — Japanese used vehicles for UK dealers",
+      stock: "Example vehicles — Samurai Auto Export",
       catalog: "Catalogue — Samurai Auto Export",
       "catalog-detail": "Catalogue — Samurai Auto Export",
       calculator: "Import cost calculator — Samurai Auto Export",
       process: "How it works — Samurai Auto Export",
-      "process-details": "Process in detail — Samurai Auto Export",
-      company: "Company — Samurai Auto Export",
+      company: "About — Samurai Auto Export",
       request: "Vehicle Request — Samurai Auto Export"
     };
     document.title = titles[r.page];

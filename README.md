@@ -2,7 +2,7 @@
 
 Static website for **Samurai Auto Export** (the service name; the operating company is still TBC on the Company page), exporters of used vehicles from Japan to the UK.
 
-White ground, black ink, black header bar. Orange (`#f07832`) and lime (`#c5f542`) are used only as small accents, the same way the printed Vehicle Request Form uses them. On lettering only the wordmark carries colour: the S and the E in Union-flag blue (`#1a3fcf`), the A in Union-flag red (`#c8102e`); lime appears only on bars, dots and ticks. The ink-wash scenery shows behind the home hero only; from WHY JAPAN down the home page sits on a black wall (`.home-dark` flips the colour tokens), and the other pages are plain white.
+White ground, black ink, black header bar. Orange (`#f07832`) and lime (`#c5f542`) are used only as small accents, the same way the printed Vehicle Request Form uses them. On lettering only the wordmark carries colour: the S and the E in orange, the A in trad green (`#006e54`); lime appears only on bars, dots and ticks. The ink-wash scenery shows behind the home hero only; from WHY JAPAN down the home page sits on a black wall (`.home-dark` flips the colour tokens), and the other pages are plain white.
 
 ## Publishing on GitHub Pages
 
@@ -17,12 +17,11 @@ https://atsushi-odajima.github.io/car_site/
 | Route        | Contents |
 |--------------|----------|
 | `#/`         | Hero (kinetic wordmark), key figures, featured stock (flip cards), how it works, request CTA, news |
-| `#/stock`    | Stock list: body-type filters, search, sorting, GBP / JPY switch |
-| `#/catalog`  | Catalogue (dark UI): Japanese-make dealer listings (¥1M–¥10M, ~12 per make) mirrored in English from public search results on 221616.com — make/model chips, search, sort and a filter bar (price, year, mileage, body, fuel, drive, transmission, one-owner / no-accident / service-records flags); shows when the mirror was last synced; each card opens `#/catalog/<id>` with gallery, price block, key facts, dealer condition scores, equipment and specification, plus hand-offs to the calculator (price and size pre-filled) and the request form |
+| `#/stock`    | Example vehicles (nav label EXAMPLES): body-type filters, search, sorting, GBP / JPY switch. These are examples of what the service handles, not stock; prices are labelled guide prices |
+| `#/catalog`  | Catalogue (dark UI): Japanese-make dealer listings (¥1M–¥10M, ~12 per make) mirrored in English from public search results on 221616.com — make/model chips, search, sort and a filter bar (price, year, mileage, body, fuel, drive, transmission, one-owner / no-repair-history / service-records flags); shows when the mirror was last synced; each card opens `#/catalog/<id>` with gallery, price block, key facts, dealer condition scores, equipment and specification, plus hand-offs to the calculator (price and size pre-filled) and the request form |
 | `#/calculator` | Import cost calculator for UK dealers: Japanese dealer price → estimated landed cost at the dealership, GBP with JPY alongside, import VAT shown separately |
-| `#/process`  | How it works in four steps (find the vehicle → confirm & pay → export & shipping → collect in the UK), each with its detail chips; "More details" leads on |
-| `#/process/details` | The 16-step transaction flow in four phases with the two end-to-end partner checklists; a line-art car follows the scroll down the rail |
-| `#/company`  | Message, business lines, photos, company profile |
+| `#/process`  | How it works in four steps (find the vehicle → confirm & pay → export & shipping → collect in the UK), each with its detail chips. The former 16-step page was removed; `#/process/details` now lands here |
+| `#/company`  | About (nav label ABOUT): operator information as one bilingual table. Samurai Auto Export is a service name; the operator is Koji Kawakami as a sole trader |
 | `#/request`  | Online version of the Vehicle Request Form (all 13 questions plus contact details) |
 
 ## Structure
@@ -47,7 +46,7 @@ js/calc.js             calculator arithmetic (JccCalc.compute) and the page beha
                        arrives; editing an input afterwards dims them until the next press
 assets/fonts/          Marcellus SC, Della Respira (OFL)
 assets/img/            photos (cars/ = stock photos, bg/ = road, yard, highway)
-assets/docs/           printable PDF request form
+assets/docs/           printable PDF request form (built from tools/request_form.html with `node tools/build_request_pdf.js`)
 ```
 
 To preview locally, run `python3 -m http.server` in this folder and open http://localhost:8000.
@@ -57,7 +56,7 @@ To preview locally, run `python3 -m http.server` in this folder and open http://
 - **Stock** in `js/data.js` is sample data. Replace it with real inventory.
 - **Calculator figures** in `js/calc-config.js` are the agreed initial values (£1 = ¥209, 10% / min £500 fee, ¥85,000 pre-shipment, freight £1,603–£2,103 by size, £700 UK local costs, 10% / 0% duty, 20% VAT). The stock list's indicative JPY rate reads the same default. Review them whenever rates change; the page itself says the rate is an editable estimate, not a live one.
 - **Contact email**: `CONTACT_EMAIL` in `js/app.js` is a placeholder.
-- **Company profile**: the Company page is one bilingual table (English with Japanese underneath): service name, representative, address, telephone, secondhand dealer licence number, business and contact. Instagram is linked by icon only (header, hero corner, company table, footer); the handle is not displayed. Japanese law also expects the name of the issuing Public Safety Commission next to the licence number — add it once confirmed.
+- **Operator information**: the About page is one bilingual table (English with Japanese underneath): service name, operator (sole trader), address, telephone, secondhand dealer licence number, business and contact. Instagram is linked by icon only; the handle is not displayed. Japanese law also expects the name of the issuing Public Safety Commission next to the licence number — add it once confirmed.
 - **Figures and news** on the home page are example copy. Check them before publishing.
 - **Photos**: `assets/img/ship.jpg`, `office.jpg` and `handshake.jpg` come from the BE FORWARD corporate site (`handshake.jpg` is no longer used on any page). The car photos in `assets/img/cars/` were supplied by the client and look like manufacturer press images. Confirm usage rights for both or replace them.
 - **Background photos** in `assets/img/bg/` are from Wikimedia Commons and free to use:
@@ -69,8 +68,8 @@ To preview locally, run `python3 -m http.server` in this folder and open http://
   - `valley-road.jpg`: "Zigzagging mountain road (Unsplash)", CC0
   - `aqualine.jpg`: "Tokyo Bay Aqua-Line Highway" by Kakidai, CC BY 2.0 — attribution is in the footer; keep it if the photo stays
 - **Background blooms** use only these scenery photos (the `-ink.jpg` grayscale copies); the client's car photos appear on the stock cards only.
-- **Catalogue data** (`js/catalog-data.js`) is mirrored from public listing pages on 221616.com (Gulliver) for a private portfolio demonstration: specs, prices and equipment flags translated into English, photos hot-linked from the source (not copied into the repo). The listings, prices and photos belong to the selling dealer; the page says so. Do not publish this catalogue as a live sales channel without the source's permission, and refresh or remove it before any commercial use.
-- **Request form**: the site is static, so the form builds a summary for the customer to send by email or copy. Connect a form backend (e.g. Formspree, Netlify Forms) to receive requests directly.
+- **Catalogue data** (`js/catalog-data.js`) is mirrored from public listing pages on 221616.com (Gulliver) for a private portfolio demonstration: specs, prices and equipment flags translated into English (condition items are shown as the source states them: 修復歴なし is "No repair history declared", and anything the source does not state is "Not stated"), photos hot-linked from the source (not copied into the repo). The listings, prices and photos belong to the selling dealer; the page says so. Do not publish this catalogue as a live sales channel without the source's permission, and refresh or remove it before any commercial use.
+- **Request form**: the site is static, so the form builds a summary for the customer to send by email (`info@samuraiautoexport.net`) or copy. Connect a form backend (e.g. Formspree, Netlify Forms) to receive requests directly.
 
 ## Catalogue mirror
 

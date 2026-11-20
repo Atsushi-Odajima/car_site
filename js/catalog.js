@@ -58,13 +58,13 @@
   }
 
   function isOneOwner(c) { return c.highlights.indexOf("One owner") !== -1; }
-  function isClean(c) { return /^No accident/i.test(c.repair || ""); }
+  function isClean(c) { return /^No repair history/i.test(c.repair || ""); }
 
   function fmtUpdated(iso) {
     if (!iso) return "—";
     var d = new Date(iso);
     if (isNaN(d)) return iso;
-    var mon = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"][d.getUTCMonth()];
+    var mon = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][d.getUTCMonth()];
     var hh = String(d.getUTCHours()).padStart(2, "0"), mm = String(d.getUTCMinutes()).padStart(2, "0");
     return d.getUTCDate() + " " + mon + " " + d.getUTCFullYear() + " · " + hh + ":" + mm + " UTC";
   }
@@ -287,6 +287,14 @@
     return '<span class="cdet__stars" aria-label="' + v + ' out of 5">' + out + '</span><b>' + v.toFixed(1) + '</b>';
   }
 
+  /* a flag the source states as yes / no; anything it does not state stays
+     "Not stated" rather than being turned into "none" */
+  function stated(state, flag, yes, no) {
+    if (state === "yes" || (state == null && flag)) return yes;
+    if (state === "no") return no;
+    return "Not stated";
+  }
+
   function equipmentHTML(c) {
     var total = 0, on = 0;
     var blocks = Object.keys(c.equipment).map(function (cat) {
@@ -355,13 +363,13 @@
       '</div>' +
 
       '<section class="cdet__block" aria-labelledby="cdCond">' +
-        '<h2 class="cdet__h" id="cdCond">' + ico("approve") + '<span>Condition — dealer assessment</span></h2>' +
+        '<h2 class="cdet__h" id="cdCond">' + ico("approve") + '<span>Condition — as stated by the selling dealer</span></h2>' +
         '<dl class="cdet__cond">' +
-          '<div><dt>Accident / repair history</dt><dd>' + esc(c.repair) + '</dd></div>' +
+          '<div><dt>Repair history (修復歴)</dt><dd>' + esc(c.repair || "Not stated") + '</dd></div>' +
           '<div><dt>Exterior</dt><dd>' + stars(c.extRating) + '</dd></div>' +
           '<div><dt>Interior</dt><dd>' + stars(c.intRating) + '</dd></div>' +
-          '<div><dt>Service records</dt><dd>' + (c.records ? "Available" : "Not available") + '</dd></div>' +
-          '<div><dt>Rental history</dt><dd>' + (c.rental ? "Yes" : "None") + '</dd></div>' +
+          '<div><dt>Service records</dt><dd>' + stated(c.recordsState, c.records, "Available", "Listed as none") + '</dd></div>' +
+          '<div><dt>Rental history</dt><dd>' + stated(c.rentalState, c.rental, "Yes", "Listed as none") + '</dd></div>' +
         '</dl>' +
       '</section>' +
 

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Vehicle Request Form — Samurai Auto Export</title>
+<!--
+  Source of assets/docs/Vehicle_Request_Form_EN.pdf (one A4 page).
+  Rebuild with:  node tools/build_request_pdf.js
+  Keep the questions in step with the web form in index.html (#/request).
+-->
+<style>
+  @font-face { font-family: "Marcellus SC"; src: url("../assets/fonts/MarcellusSC.woff2") format("woff2"); }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    width: 210mm; height: 297mm; padding: 14mm 16mm 11mm;
+    font-family: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif;
+    font-size: 9.6pt; line-height: 1.45; color: #161616;
+    display: flex; flex-direction: column;
+  }
+  .top { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 3mm; border-bottom: 0.4mm solid #161616; }
+  .wm { font-family: "Marcellus SC", Georgia, serif; font-size: 17pt; letter-spacing: .05em; line-height: 1; }
+  .wm b { font-weight: 400; }
+  .o { color: #f07832; } .g { color: #006e54; }
+  .tag { font-size: 6.6pt; letter-spacing: .3em; color: #6c6c68; }
+  .tag i { display: inline-block; width: 1.1mm; height: 2.6mm; margin-right: .6mm; vertical-align: -0.3mm; background: #f07832; }
+  .tag i + i { background: #c5f542; margin-right: 2.2mm; }
+  h1 { margin: 6.5mm 0 1mm; font-family: "Marcellus SC", Georgia, serif; font-weight: 400; font-size: 21pt; letter-spacing: .04em; }
+  .lead { margin: 0 0 4mm; color: #4a4a47; }
+  h2 { margin: 4.2mm 0 1.2mm; padding-bottom: 1mm; border-bottom: 0.2mm solid #cfcfca; font-size: 7pt; font-weight: 400; letter-spacing: .3em; text-transform: uppercase; color: #6c6c68; }
+  .q { display: grid; grid-template-columns: 8mm 46mm 1fr; align-items: baseline; padding: 1.45mm 0; border-bottom: 0.15mm solid #e6e6e2; }
+  .q .n { font-family: "Courier New", monospace; font-size: 8pt; color: #f07832; }
+  .q .t { font-weight: 600; }
+  .q .a { display: flex; flex-wrap: wrap; gap: 1mm 7mm; align-items: baseline; }
+  .box { display: inline-block; width: 3mm; height: 3mm; margin-right: 1.6mm; border: 0.25mm solid #161616; vertical-align: -0.4mm; }
+  .line { display: inline-block; border-bottom: 0.2mm solid #161616; height: 4.2mm; vertical-align: bottom; }
+  .hint { color: #8a8a85; font-size: 8.4pt; }
+  .q.tall { align-items: start; }
+  .q.tall .a { display: block; }
+  .rule { display: block; height: 6.4mm; border-bottom: 0.2mm solid #cfcfca; }
+  .details { display: grid; grid-template-columns: 1fr 1fr; gap: 0 8mm; }
+  .d { display: grid; grid-template-columns: 30mm 1fr; align-items: end; padding: 1.2mm 0 0; }
+  .d span:first-child { font-size: 7pt; letter-spacing: .22em; color: #6c6c68; }
+  .d span:last-child { border-bottom: 0.2mm solid #161616; height: 6mm; }
+  .note { margin: 3.2mm 0 0; font-size: 8.2pt; color: #4a4a47; }
+  .foot { margin-top: auto; padding-top: 2.6mm; border-top: 0.4mm solid #161616; display: flex; justify-content: space-between; font-size: 7.6pt; color: #4a4a47; }
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="wm"><b class="o">S</b>amurai <b class="g">A</b>uto <b class="o">E</b>xport</div>
+    <div class="tag"><i></i><i></i>JAPANESE USED VEHICLES FOR UK DEALERS</div>
+  </div>
+
+  <h1>Vehicle Request Form</h1>
+  <p class="lead">Please complete the fields below and tick the relevant boxes. Tick one option for each question, except where several requirements apply.</p>
+
+  <h2>Vehicle preferences</h2>
+  <div class="q"><span class="n">01</span><span class="t">Make and model</span><span class="a"><span class="line" style="width:72mm"></span><span class="hint">e.g. Toyota Alphard</span></span></div>
+  <div class="q"><span class="n">02</span><span class="t">Model year</span><span class="a"><span>From <span class="line" style="width:22mm"></span></span><span>to <span class="line" style="width:22mm"></span></span><span class="hint">(year)</span></span></div>
+  <div class="q"><span class="n">03</span><span class="t">Budget</span><span class="a"><span><span class="box"></span>GBP (£)</span><span><span class="box"></span>JPY (¥)</span><span>Amount: <span class="line" style="width:42mm"></span></span></span></div>
+  <div class="q"><span class="n">04</span><span class="t">Maximum mileage</span><span class="a"><span><span class="line" style="width:34mm"></span> km</span></span></div>
+
+  <h2>History and equipment</h2>
+  <div class="q"><span class="n">05</span><span class="t">Exterior colour</span><span class="a"><span><span class="box"></span>Any</span><span><span class="box"></span>Black</span><span><span class="box"></span>White</span><span><span class="box"></span>Other: <span class="line" style="width:34mm"></span></span></span></div>
+  <div class="q"><span class="n">06</span><span class="t">Accident and repair history</span><span class="a"><span><span class="box"></span>No repair history only</span><span><span class="box"></span>Minor repairs acceptable</span><span><span class="box"></span>No preference</span></span></div>
+  <div class="q"><span class="n">07</span><span class="t">Smoking history</span><span class="a"><span><span class="box"></span>Non-smoking only</span><span><span class="box"></span>Smoking history acceptable</span><span><span class="box"></span>No preference</span></span></div>
+  <div class="q"><span class="n">08</span><span class="t">Sunroof</span><span class="a"><span><span class="box"></span>Required</span><span><span class="box"></span>Preferred</span><span><span class="box"></span>Not required</span></span></div>
+  <div class="q"><span class="n">09</span><span class="t">Leather seats</span><span class="a"><span><span class="box"></span>Required</span><span><span class="box"></span>Preferred</span><span><span class="box"></span>Not required</span></span></div>
+  <div class="q"><span class="n">10</span><span class="t">Number of seats</span><span class="a"><span><span class="box"></span>7 seats</span><span><span class="box"></span>8 seats</span><span><span class="box"></span>No preference</span></span></div>
+
+  <h2>Essential conditions</h2>
+  <div class="q tall"><span class="n">11</span><span class="t">Other must-have features</span><span class="a"><span class="rule"></span><span class="rule"></span></span></div>
+  <div class="q tall"><span class="n">12</span><span class="t">Unacceptable conditions</span><span class="a"><span class="rule"></span><span class="rule"></span></span></div>
+  <div class="q"><span class="n">13</span><span class="t">Top priority</span><span class="a"><span><span class="box"></span>Price</span><span><span class="box"></span>Condition</span><span><span class="box"></span>Low mileage</span></span></div>
+
+  <h2>Your details</h2>
+  <div class="details">
+    <div class="d"><span>DEALERSHIP</span><span></span></div>
+    <div class="d"><span>NAME</span><span></span></div>
+    <div class="d"><span>EMAIL</span><span></span></div>
+    <div class="d"><span>PHONE</span><span></span></div>
+  </div>
+
+  <p class="note">Please return the completed form to <strong>info@samuraiautoexport.net</strong>. We will reply with vehicles that match; the price, availability and total cost of each are confirmed with you before any purchase is made.</p>
+
+  <div class="foot">
+    <span>Samurai Auto Export — purchasing and export agent in Japan for UK used-car dealers</span>
+    <span>samuraiautoexport.net</span>
+  </div>
+</body>
+</html>

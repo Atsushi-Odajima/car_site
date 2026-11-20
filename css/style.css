@@ -1974,6 +1974,16 @@ main {
   .cinfo__links { grid-auto-flow: row; gap: 12px !important; }
 }
 
+/* one quiet line under the example cards */
+.examples-note {
+  margin-top: 28px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
 .plain-link { border-bottom: 1px solid var(--ink); }
 .ig-inline { display: inline-flex; align-items: center; gap: 8px; }
 .ig-inline .ico { width: 16px; height: 16px; stroke: var(--orange); stroke-width: 1.7; }
