@@ -446,7 +446,7 @@
 
   /* ---------- router ---------- */
 
-  var PAGES = ["home", "stock", "catalog", "catalog-detail", "calculator", "process", "company", "request"];
+  var PAGES = ["home", "stock", "catalog", "catalog-detail", "calculator", "process", "company", "representative", "request"];
   var current = null;
 
   function parseHash() {
@@ -499,6 +499,7 @@
       calculator: "Import cost calculator — Samurai Auto Export",
       process: "How it works — Samurai Auto Export",
       company: "About — Samurai Auto Export",
+      representative: "Representative — Samurai Auto Export",
       request: "Vehicle Request — Samurai Auto Export"
     };
     document.title = titles[r.page];

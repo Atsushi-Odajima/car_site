@@ -22,6 +22,7 @@ https://atsushi-odajima.github.io/car_site/
 | `#/calculator` | Import cost calculator for UK dealers: Japanese dealer price → estimated landed cost at the dealership, GBP with JPY alongside, import VAT shown separately |
 | `#/process`  | How it works in four steps (find the vehicle → confirm & pay → export & shipping → collect in the UK), each with its detail chips. The former 16-step page was removed; `#/process/details` now lands here |
 | `#/company`  | About (nav label ABOUT): operator information as one bilingual table. Samurai Auto Export is a service name; the operator is Koji Kawakami as a sole trader |
+| `#/representative` | Representative page: profile (from the representative's own portfolio), an Instagram button, and his message. English on the page; the Japanese drafts are kept in `docs/representative_ja.md` |
 | `#/request`  | Online version of the Vehicle Request Form (all 13 questions plus contact details) |
 
 ## Structure
@@ -56,8 +57,9 @@ To preview locally, run `python3 -m http.server` in this folder and open http://
 - **Stock** in `js/data.js` is sample data. Replace it with real inventory.
 - **Calculator figures** in `js/calc-config.js` are the agreed initial values (£1 = ¥209, 10% / min £500 fee, ¥85,000 pre-shipment, freight £1,603–£2,103 by size, £700 UK local costs, 10% / 0% duty, 20% VAT). The stock list's indicative JPY rate reads the same default. Review them whenever rates change; the page itself says the rate is an editable estimate, not a live one.
 - **Contact email**: `CONTACT_EMAIL` in `js/app.js` is a placeholder.
-- **Operator information**: the About page is one bilingual table (English with Japanese underneath): service name, operator (sole trader), address, telephone, secondhand dealer licence number, business and contact. Instagram is linked by icon only; the handle is not displayed. Japanese law also expects the name of the issuing Public Safety Commission next to the licence number — add it once confirmed.
-- **Figures and news** on the home page are example copy. Check them before publishing.
+- **Operator information**: the About page is one bilingual table (English with Japanese underneath): service name, operator (sole trader), address, telephone, secondhand dealer licence number, business and contact. Instagram appears only on the Representative page, as an icon button without the handle; it is not in the header, the home page or the footer. Japanese law also expects the name of the issuing Public Safety Commission next to the licence number — add it once confirmed.
+- **Figures** on the home page (auction venues, shipping time and so on) are example copy; check them before relying on them. The placeholder news section was removed.
+- **Representative photo** (`assets/img/representative.jpg`) was cropped from a phone screenshot of the portfolio and is low resolution; replace it with the original file when available.
 - **Photos**: `assets/img/ship.jpg`, `office.jpg` and `handshake.jpg` come from the BE FORWARD corporate site (`handshake.jpg` is no longer used on any page). The car photos in `assets/img/cars/` were supplied by the client and look like manufacturer press images. Confirm usage rights for both or replace them.
 - **Background photos** in `assets/img/bg/` are from Wikimedia Commons and free to use:
   - `yard.jpg`: "New cars ready for shipment out of Dundalk Marine Terminal" (NARA 546813), public domain

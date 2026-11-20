@@ -1974,6 +1974,67 @@ main {
   .cinfo__links { grid-auto-flow: row; gap: 12px !important; }
 }
 
+/* REPRESENTATIVE — profile, Instagram, message */
+.page-title--long { font-size: clamp(30px, 7.2vw, 100px); }
+
+.rep-section { padding-top: 6vh; }
+
+.rep-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  gap: 40px 56px;
+  align-items: start;
+}
+.rep-photo { margin: 0; border: 1px solid var(--ink); background: #111; }
+.rep-photo img { display: block; width: 100%; height: auto; }
+.rep-name { font-family: var(--font-display); font-size: clamp(28px, 4vw, 40px); letter-spacing: .04em; line-height: 1.1; }
+.rep-role { margin: 8px 0 22px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--ink-mute); }
+.rep-lead p:not(.rep-name):not(.rep-role) { max-width: 560px; margin-bottom: 14px; font-size: 15px; line-height: 2; color: var(--ink-soft); }
+
+.rep-h {
+  margin: 8vh 0 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--ink);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.rep-timeline, .rep-works { max-width: 880px; margin: 0; }
+.rep-timeline > div, .rep-works > div {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 6px 32px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+.rep-timeline dt, .rep-works dt { font-family: var(--font-mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-mute); padding-top: 3px; }
+.rep-timeline dd, .rep-works dd { margin: 0; font-size: 14px; line-height: 1.9; }
+.rep-works dd { color: var(--ink-soft); }
+
+.rep-ig__btn { display: inline-flex; align-items: center; gap: 12px; }
+.rep-ig__btn .ico { width: 18px; height: 18px; stroke: var(--orange); stroke-width: 1.7; transition: stroke .3s var(--ease); }
+.rep-ig__btn:hover .ico { stroke: currentColor; }
+
+.rep-message { max-width: 680px; }
+.rep-message p { margin-bottom: 20px; font-size: 15px; line-height: 2.05; color: var(--ink-soft); }
+.rep-message p:first-child { font-size: 17px; color: var(--ink); }
+.rep-sign { display: flex; align-items: flex-start; gap: 14px; margin-top: 36px; font-family: var(--font-mono); font-size: 11px !important; letter-spacing: .2em; line-height: 2 !important; text-transform: uppercase; color: var(--ink) !important; }
+.rep-sign .duo { margin-top: 5px; }
+
+@media (max-width: 899px) {
+  .rep-intro { grid-template-columns: 1fr; gap: 28px; }
+  .rep-timeline > div, .rep-works > div { grid-template-columns: 1fr; gap: 4px; padding: 14px 0; }
+}
+
+/* eight nav items: tighter spacing where the bar is narrow */
+@media (min-width: 1280px) and (max-width: 1500px) {
+  .site-header .site-nav ul { gap: 22px; }
+  .site-header .site-nav a { letter-spacing: .12em; }
+}
+
 /* one quiet line under the example cards */
 .examples-note {
   margin-top: 28px;
