@@ -1981,7 +1981,7 @@ main {
 
 .rep-intro {
   display: grid;
-  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
   gap: 40px 56px;
   align-items: start;
 }
@@ -2026,6 +2026,7 @@ main {
 
 @media (max-width: 899px) {
   .rep-intro { grid-template-columns: 1fr; gap: 28px; }
+  .rep-photo { max-width: 420px; }
   .rep-timeline > div, .rep-works > div { grid-template-columns: 1fr; gap: 4px; padding: 14px 0; }
 }
 

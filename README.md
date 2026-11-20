@@ -59,7 +59,7 @@ To preview locally, run `python3 -m http.server` in this folder and open http://
 - **Contact email**: `CONTACT_EMAIL` in `js/app.js` is a placeholder.
 - **Operator information**: the About page is one bilingual table (English with Japanese underneath): service name, operator (sole trader), address, telephone, secondhand dealer licence number, business and contact. Instagram appears only on the Representative page, as an icon button without the handle; it is not in the header, the home page or the footer. The licence is shown with its issuing authority, the Wakayama Prefectural Public Safety Commission (和歌山県公安委員会).
 - **Figures** on the home page (auction venues, shipping time and so on) are example copy; check them before relying on them. The placeholder news section was removed.
-- **Representative photo** (`assets/img/representative.jpg`) was cropped from a phone screenshot of the portfolio and is low resolution; replace it with the original file when available.
+- **Representative photo** (`assets/img/representative.jpg`) is cropped from the profile photograph in the representative's own portfolio. English names of his clients and former employer follow the portfolio's English page, which marks them as provisional.
 - **Photos**: `assets/img/ship.jpg`, `office.jpg` and `handshake.jpg` come from the BE FORWARD corporate site (`handshake.jpg` is no longer used on any page). The car photos in `assets/img/cars/` were supplied by the client and look like manufacturer press images. Confirm usage rights for both or replace them.
 - **Background photos** in `assets/img/bg/` are from Wikimedia Commons and free to use:
   - `yard.jpg`: "New cars ready for shipment out of Dundalk Marine Terminal" (NARA 546813), public domain
