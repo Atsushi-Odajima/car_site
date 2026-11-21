@@ -2031,6 +2031,29 @@ main {
   .rep-timeline > div, .rep-works > div { grid-template-columns: 1fr; gap: 4px; padding: 14px 0; }
 }
 
+/* PRIVACY NOTICE — plain reading column */
+.pn-section { padding-top: 5vh; }
+.pn { max-width: 720px; font-size: 15px; line-height: 1.95; color: var(--ink-soft); }
+.pn__lead { font-size: 16px; color: var(--ink); }
+.pn h2 {
+  margin: 44px 0 12px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: .04em;
+  color: var(--ink);
+}
+.pn p { margin-bottom: 14px; }
+.pn ul { margin: 0 0 14px; padding: 0; list-style: none; }
+.pn li { position: relative; padding-left: 18px; margin-bottom: 10px; }
+.pn li::before { content: ""; position: absolute; left: 0; top: .82em; width: 8px; height: 1px; background: var(--orange); }
+.pn strong { font-weight: 600; color: var(--ink); }
+.pn a { color: var(--ink); border-bottom: 1px solid var(--ink); overflow-wrap: anywhere; }
+.pn__contact { margin: 0 0 14px; padding: 14px 18px; border: 1px solid var(--line); font-style: normal; color: var(--ink); }
+.req-foot .plain-link { color: var(--ink); }
+
 /* one quiet line under the example cards */
 .examples-note {
   margin-top: 28px;

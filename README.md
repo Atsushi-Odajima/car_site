@@ -22,6 +22,7 @@ https://atsushi-odajima.github.io/car_site/
 | `#/calculator` | Import cost calculator for UK dealers: Japanese dealer price → estimated landed cost at the dealership, GBP with JPY alongside, import VAT shown separately |
 | `#/process`  | How it works in four steps (find the vehicle → confirm & pay → export & shipping → collect in the UK), each with its detail chips. The former 16-step page was removed; `#/process/details` now lands here |
 | `#/company`  | About: operator information (bilingual table), then the representative's profile, an Instagram button and his message. `#/representative` lands here. Japanese drafts of the profile and message are in `docs/representative_ja.md` |
+| `#/privacy`  | Privacy Notice (UK GDPR privacy information for people who contact the service). Linked from the footer, the request form and the send step. Japanese reference copy, the ICO pages it was based on and the open points are in `docs/privacy_notice_ja.md` |
 | `#/request`  | Online version of the Vehicle Request Form (all 13 questions plus contact details) |
 
 ## Structure
@@ -70,6 +71,7 @@ To preview locally, run `python3 -m http.server` in this folder and open http://
   - `aqualine.jpg`: "Tokyo Bay Aqua-Line Highway" by Kakidai, CC BY 2.0 — attribution is in the footer; keep it if the photo stays
 - **Background blooms** use only these scenery photos (the `-ink.jpg` grayscale copies); the client's car photos appear on the stock cards only.
 - **Catalogue data** (`js/catalog-data.js`) is mirrored from public listing pages on 221616.com (Gulliver) for a private portfolio demonstration: specs, prices and equipment flags translated into English (condition items are shown as the source states them: 修復歴なし is "No repair history declared", and anything the source does not state is "Not stated"), photos hot-linked from the source (not copied into the repo). The listings, prices and photos belong to the selling dealer; the page says so. Do not publish this catalogue as a live sales channel without the source's permission, and refresh or remove it before any commercial use.
+- **Privacy Notice**: written from the ICO's published guidance and from what the site actually does (no cookies or analytics, form sent from the visitor's own email app, draft and currency kept in local storage, hosting and email routing by Cloudflare, mailbox on Gmail, catalogue photos loaded from 221616.com). Update it whenever any of that changes, for example if a form backend, analytics or a mailing list is added. It has not been reviewed by a lawyer; see the open points in `docs/privacy_notice_ja.md`.
 - **Request form**: the site is static, so the form builds a summary for the customer to send by email (`info@samuraiautoexport.net`) or copy. Connect a form backend (e.g. Formspree, Netlify Forms) to receive requests directly.
 
 ## Catalogue mirror
