@@ -323,7 +323,7 @@ def parse_detail(url, s, thumb):
         fuel=FUEL.get(one("使用燃料"), one("使用燃料")), displacement=disp, weight=one("車両重量"), turning=one("最小回転半径"),
         dims=(f"{sz('全長')} × {sz('全幅')} × {sz('全高')}" if sz("全長") else None),
         seats=int(re.match(r"\d+", N(seats)).group(0)) if seats and re.match(r"\d+", N(seats)) else None,
-        handle="Right-hand drive" if one("ハンドル") == "右" else "Left-hand drive", inspection=insp(one("車検")),
+        handle={"右": "Right-hand drive", "左": "Left-hand drive"}.get(N(one("ハンドル") or ""), "Not stated"), inspection=insp(one("車検")),
         repair=repair_text(one("修復歴")),
         extRating=rating("外装評価点"), intRating=rating("内装評価点"), records=one("定期点検整備記録簿") == "あり", rental=one("レンタカー歴") == "あり",
         recordsState=yes_no(one("定期点検整備記録簿")), rentalState=yes_no(one("レンタカー歴")),
