@@ -446,7 +446,7 @@
 
   /* ---------- router ---------- */
 
-  var PAGES = ["home", "stock", "catalog", "catalog-detail", "calculator", "process", "company", "representative", "request"];
+  var PAGES = ["home", "stock", "catalog", "catalog-detail", "calculator", "process", "company", "request"];
   var current = null;
 
   function parseHash() {
@@ -455,6 +455,8 @@
     var page = (parts[0] || "home").replace(/\/+$/, "").replace(/\//g, "-") || "home";
     /* the old 16-step page is gone; its links land on the 4-step overview */
     if (page === "process-details") page = "process";
+    /* the representative page was merged into About */
+    if (page === "representative") page = "company";
     var params = {};
     /* "#/catalog/55748394" → the detail page for that listing */
     var cat = page.match(/^catalog-(\d+)$/);
@@ -499,7 +501,6 @@
       calculator: "Import cost calculator — Samurai Auto Export",
       process: "How it works — Samurai Auto Export",
       company: "About — Samurai Auto Export",
-      representative: "Representative — Samurai Auto Export",
       request: "Vehicle Request — Samurai Auto Export"
     };
     document.title = titles[r.page];

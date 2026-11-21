@@ -430,7 +430,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 @media (min-width: 1280px) and (max-width: 1400px) {
-  .site-nav ul { gap: 24px; }
+  .site-nav ul { gap: 36px; }
 }
 
 .site-nav a {
@@ -508,6 +508,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .ccy button {
   padding: 5px 9px;
+  white-space: nowrap;
   color: rgba(255, 255, 255, .62);
   transition: color .3s var(--ease), background-color .3s var(--ease);
 }
@@ -1919,6 +1920,7 @@ main {
 
 /* COMPANY — one plain bilingual table */
 .cinfo-section { padding-top: 5vh; }
+.cinfo-section .shead { margin-bottom: 0; padding-bottom: 20px; border-bottom: 0; }
 
 .cinfo {
   max-width: 880px;
@@ -1975,9 +1977,8 @@ main {
 }
 
 /* REPRESENTATIVE — profile, Instagram, message */
-.page-title--long { font-size: clamp(30px, 7.2vw, 100px); }
-
 .rep-section { padding-top: 6vh; }
+.rep-intro, .rep-ig, .rep-message { margin-top: 36px; }
 
 .rep-intro {
   display: grid;
@@ -2028,12 +2029,6 @@ main {
   .rep-intro { grid-template-columns: 1fr; gap: 28px; }
   .rep-photo { max-width: 420px; }
   .rep-timeline > div, .rep-works > div { grid-template-columns: 1fr; gap: 4px; padding: 14px 0; }
-}
-
-/* eight nav items: tighter spacing where the bar is narrow */
-@media (min-width: 1280px) and (max-width: 1500px) {
-  .site-header .site-nav ul { gap: 22px; }
-  .site-header .site-nav a { letter-spacing: .12em; }
 }
 
 /* one quiet line under the example cards */

@@ -2,7 +2,7 @@
 
 Static website for **Samurai Auto Export** (the service name; the operating company is still TBC on the Company page), exporters of used vehicles from Japan to the UK.
 
-White ground, black ink, black header bar. Orange (`#f07832`) and lime (`#c5f542`) are used only as small accents, the same way the printed Vehicle Request Form uses them. On lettering only the wordmark carries colour: the S and the E in orange, the A in trad green (`#006e54`); lime appears only on bars, dots and ticks. The ink-wash scenery shows behind the home hero only; from WHY JAPAN down the home page sits on a black wall (`.home-dark` flips the colour tokens), and the other pages are plain white.
+White ground, black ink, black header bar. The header menu has five items (Home, Calculator, Process, About, Request); Examples and Catalogue are reached from the home page buttons and the footer. Orange (`#f07832`) and lime (`#c5f542`) are used only as small accents, the same way the printed Vehicle Request Form uses them. On lettering only the wordmark carries colour: the S and the E in orange, the A in trad green (`#006e54`); lime appears only on bars, dots and ticks. The ink-wash scenery shows behind the home hero only; from WHY JAPAN down the home page sits on a black wall (`.home-dark` flips the colour tokens), and the other pages are plain white.
 
 ## Publishing on GitHub Pages
 
@@ -21,8 +21,7 @@ https://atsushi-odajima.github.io/car_site/
 | `#/catalog`  | Catalogue (dark UI): Japanese-make dealer listings (¥1M–¥10M, ~12 per make) mirrored in English from public search results on 221616.com — make/model chips, search, sort and a filter bar (price, year, mileage, body, fuel, drive, transmission, one-owner / no-repair-history / service-records flags); shows when the mirror was last synced; each card opens `#/catalog/<id>` with gallery, price block, key facts, dealer condition scores, equipment and specification, plus hand-offs to the calculator (price and size pre-filled) and the request form |
 | `#/calculator` | Import cost calculator for UK dealers: Japanese dealer price → estimated landed cost at the dealership, GBP with JPY alongside, import VAT shown separately |
 | `#/process`  | How it works in four steps (find the vehicle → confirm & pay → export & shipping → collect in the UK), each with its detail chips. The former 16-step page was removed; `#/process/details` now lands here |
-| `#/company`  | About (nav label ABOUT): operator information as one bilingual table. Samurai Auto Export is a service name; the operator is Koji Kawakami as a sole trader |
-| `#/representative` | Representative page: profile (from the representative's own portfolio), an Instagram button, and his message. English on the page; the Japanese drafts are kept in `docs/representative_ja.md` |
+| `#/company`  | About: operator information (bilingual table), then the representative's profile, an Instagram button and his message. `#/representative` lands here. Japanese drafts of the profile and message are in `docs/representative_ja.md` |
 | `#/request`  | Online version of the Vehicle Request Form (all 13 questions plus contact details) |
 
 ## Structure
@@ -57,7 +56,7 @@ To preview locally, run `python3 -m http.server` in this folder and open http://
 - **Stock** in `js/data.js` is sample data. Replace it with real inventory.
 - **Calculator figures** in `js/calc-config.js` are the agreed initial values (£1 = ¥209, 10% / min £500 fee, ¥85,000 pre-shipment, freight £1,603–£2,103 by size, £700 UK local costs, 10% / 0% duty, 20% VAT). The stock list's indicative JPY rate reads the same default. Review them whenever rates change; the page itself says the rate is an editable estimate, not a live one.
 - **Contact email**: `CONTACT_EMAIL` in `js/app.js` is a placeholder.
-- **Operator information**: the About page is one bilingual table (English with Japanese underneath): service name, operator (sole trader), address, telephone, secondhand dealer licence number, business and contact. Instagram appears only on the Representative page, as an icon button without the handle; it is not in the header, the home page or the footer. The licence is shown with its issuing authority, the Wakayama Prefectural Public Safety Commission (和歌山県公安委員会).
+- **Operator information**: the first section of the About page is one bilingual table (English with Japanese underneath): service name, operator (sole trader), address, telephone, secondhand dealer licence number with its issuing authority (Wakayama Prefectural Public Safety Commission), business and contact. Instagram appears only in the representative part of the About page, as an icon button without the handle.
 - **Figures** on the home page (auction venues, shipping time and so on) are example copy; check them before relying on them. The placeholder news section was removed.
 - **Representative photo** (`assets/img/representative.jpg`) is cropped from the profile photograph in the representative's own portfolio. English names of his clients and former employer follow the portfolio's English page, which marks them as provisional.
 - **Photos**: `assets/img/ship.jpg`, `office.jpg` and `handshake.jpg` come from the BE FORWARD corporate site (`handshake.jpg` is no longer used on any page). The car photos in `assets/img/cars/` were supplied by the client and look like manufacturer press images. Confirm usage rights for both or replace them.

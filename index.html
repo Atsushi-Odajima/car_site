@@ -65,12 +65,9 @@
     <nav class="site-nav" id="siteNav" aria-label="Main">
       <ul>
         <li><a href="#/" data-scramble>HOME</a></li>
-        <li><a href="#/stock" data-scramble>EXAMPLES</a></li>
-        <li><a href="#/catalog" data-scramble>CATALOGUE</a></li>
         <li><a href="#/calculator" data-scramble>CALCULATOR</a></li>
         <li><a href="#/process" data-scramble>PROCESS</a></li>
         <li><a href="#/company" data-scramble>ABOUT</a></li>
-        <li><a href="#/representative" data-scramble>REPRESENTATIVE</a></li>
         <li><a href="#/request" data-scramble>REQUEST</a></li>
       </ul>
     </nav>
@@ -550,13 +547,14 @@
 </main>
 
 <!-- =====================================================================
-     COMPANY
+     ABOUT — operator information, then the representative's profile,
+     Instagram and message (Japanese drafts: docs/representative_ja.md)
      ===================================================================== -->
 <main class="page" data-page="company" hidden>
   <div class="page-head">
     <p class="page-eyebrow" aria-hidden="true">
       <span><span class="duo"></span>SAMURAI AUTO EXPORT</span>
-      <span>OPERATOR INFORMATION&ensp;/&ensp;運営者情報</span>
+      <span>OPERATOR&ensp;·&ensp;REPRESENTATIVE&ensp;·&ensp;MESSAGE</span>
     </p>
     <div class="page-title-row">
       <h1 class="page-title" data-kinetic data-outline="3">ABOUT</h1>
@@ -565,7 +563,10 @@
 
   <!-- PROFILE — English first, Japanese underneath -->
   <section class="section cinfo-section" aria-labelledby="profileTitle">
-    <h2 class="visually-hidden" id="profileTitle">Operator information</h2>
+    <header class="shead reveal">
+      <h2 class="shead__big" id="profileTitle">OPERATOR</h2>
+      <p class="shead__meta">01 — INFORMATION&ensp;/&ensp;運営者情報</p>
+    </header>
     <dl class="cinfo reveal">
       <div class="cinfo__row">
         <dt><span>Service name</span><span lang="ja">サービス名称</span></dt>
@@ -573,7 +574,7 @@
       </div>
       <div class="cinfo__row">
         <dt><span>Operator</span><span lang="ja">運営者</span></dt>
-        <dd><span>Koji Kawakami — operating as a sole trader</span><span class="cinfo__ja" lang="ja">川上 晃司（個人による運営）</span><a class="plain-link" href="#/representative">Profile and message →</a></dd>
+        <dd><span>Koji Kawakami — operating as a sole trader</span><span class="cinfo__ja" lang="ja">川上 晃司（個人による運営）</span></dd>
       </div>
       <div class="cinfo__row">
         <dt><span>Address</span><span lang="ja">住所</span></dt>
@@ -598,35 +599,13 @@
         </dd>
       </div>
     </dl>
-
-    <p class="cinfo__note reveal">Good cars deserve <em>a second life</em>. Samurai Auto Export works for used-car dealers in the UK: as your agent in Japan, we find the vehicles you need, buy them on your behalf and arrange their export.</p>
-
-    <p class="cta-row reveal">
-      <a class="cta-huge" href="#/stock" aria-label="View examples"><span data-scramble>VIEW</span> <span class="nowrap"><span data-scramble>EXAMPLES</span><span class="arr" aria-hidden="true">&nbsp;→</span></span></a>
-    </p>
   </section>
-</main>
 
-<!-- =====================================================================
-     REPRESENTATIVE — profile, Instagram, message (Japanese drafts are kept
-     in docs/representative_ja.md)
-     ===================================================================== -->
-<main class="page" data-page="representative" hidden>
-  <div class="page-head">
-    <p class="page-eyebrow" aria-hidden="true">
-      <span><span class="duo"></span>SAMURAI AUTO EXPORT — REPRESENTATIVE</span>
-      <span>KOJI KAWAKAMI</span>
-    </p>
-    <div class="page-title-row">
-      <h1 class="page-title page-title--long" data-kinetic data-outline="3">REPRESENTATIVE</h1>
-    </div>
-  </div>
-
-  <!-- 01 PROFILE -->
+  <!-- 02 REPRESENTATIVE — profile -->
   <section class="section rep-section" aria-labelledby="repProfile">
     <header class="shead reveal">
       <h2 class="shead__big" id="repProfile">PROFILE</h2>
-      <p class="shead__meta">01 — KOJI KAWAKAMI</p>
+      <p class="shead__meta">02 — REPRESENTATIVE · KOJI KAWAKAMI</p>
     </header>
 
     <div class="rep-intro">
@@ -662,11 +641,11 @@
     </dl>
   </section>
 
-  <!-- 02 INSTAGRAM -->
+  <!-- 03 INSTAGRAM -->
   <section class="section rep-section" aria-labelledby="repIg">
     <header class="shead reveal">
       <h2 class="shead__big" id="repIg">INSTAGRAM</h2>
-      <p class="shead__meta">02 — FOLLOW</p>
+      <p class="shead__meta">03 — FOLLOW</p>
     </header>
     <p class="rep-ig reveal">
       <a class="btn rep-ig__btn" href="https://www.instagram.com/koji.kawa12/" target="_blank" rel="noopener" aria-label="Koji Kawakami on Instagram (opens in a new tab)">
@@ -675,11 +654,11 @@
     </p>
   </section>
 
-  <!-- 03 MESSAGE -->
+  <!-- 04 MESSAGE -->
   <section class="section rep-section" aria-labelledby="repMsg">
     <header class="shead reveal">
       <h2 class="shead__big" id="repMsg">MESSAGE</h2>
-      <p class="shead__meta">03 — FROM THE REPRESENTATIVE</p>
+      <p class="shead__meta">04 — FROM THE REPRESENTATIVE</p>
     </header>
     <div class="rep-message reveal">
       <p>I am Koji Kawakami of Samurai Auto Export.</p>
@@ -694,7 +673,7 @@
     <p class="more-row reveal">
       <a href="#/request" data-scramble>REQUEST A VEHICLE →</a>
       <span class="more-row__sep" aria-hidden="true">/</span>
-      <a href="#/company" data-scramble>OPERATOR INFORMATION →</a>
+      <a href="#/stock" data-scramble>VIEW EXAMPLES →</a>
     </p>
   </section>
 </main>
@@ -941,7 +920,6 @@
       <a href="#/calculator" data-scramble>CALCULATOR</a>
       <a href="#/process" data-scramble>PROCESS</a>
       <a href="#/company" data-scramble>ABOUT</a>
-      <a href="#/representative" data-scramble>REPRESENTATIVE</a>
       <a href="#/request" data-scramble>REQUEST</a>
     </nav>
     <address class="footer-contact">
