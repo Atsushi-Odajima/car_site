@@ -22,7 +22,7 @@ https://atsushi-odajima.github.io/car_site/
 | `#/calculator` | Import cost calculator for UK dealers: Japanese dealer price → estimated landed cost at the dealership, GBP with JPY alongside, import VAT shown separately |
 | `#/process`  | How it works in four steps (find the vehicle → confirm & pay → export & shipping → collect in the UK), each with its detail chips. The former 16-step page was removed; `#/process/details` now lands here |
 | `#/company`  | About: operator information (bilingual table), then the representative's profile, an Instagram button and his message. `#/representative` lands here. Japanese drafts of the profile and message are in `docs/representative_ja.md` |
-| `#/privacy`  | Privacy Notice (UK GDPR privacy information for people who contact the service). Linked from the footer, the request form and the send step. Japanese reference copy, the ICO pages it was based on and the open points are in `docs/privacy_notice_ja.md` |
+| `#/privacy`  | Privacy Notice. Linked from the footer, the request form and the send step |
 | `#/request`  | Online version of the Vehicle Request Form (all 13 questions plus contact details; email is the official enquiry channel, so the preferred-contact options are Email and Phone) |
 
 ## Structure
@@ -71,7 +71,7 @@ To preview locally, run `python3 -m http.server` in this folder and open http://
   - `aqualine.jpg`: "Tokyo Bay Aqua-Line Highway" by Kakidai, CC BY 2.0 — attribution is in the footer; keep it if the photo stays
 - **Background blooms** use only these scenery photos (the `-ink.jpg` grayscale copies); the client's car photos appear on the stock cards only.
 - **Catalogue data** (`js/catalog-data.js`) is mirrored from public listing pages on 221616.com (Gulliver) for a private portfolio demonstration: specs, prices and equipment flags translated into English (condition items are shown as the source states them: 修復歴なし is "No repair history declared", and anything the source does not state is "Not stated"), photos hot-linked from the source (not copied into the repo). The listings, prices and photos belong to the selling dealer; the page says so. Do not publish this catalogue as a live sales channel without the source's permission, and refresh or remove it before any commercial use.
-- **Privacy Notice**: the final eight-section text, written with Japan's Act on the Protection of Personal Information as the baseline and kept to what customers need. It does not name internal tools or procedures. The internal audit record (what was checked in the PPC guidelines and the UK sources, what remains open before and after publication, the footer text for marketing emails and a Japanese reference translation) is in `docs/privacy_notice_ja.md`, which is not deployed. Update the notice and its date whenever the way personal information is handled changes. It has not been reviewed by a lawyer.
+- **Privacy Notice**: the final eight-section text, written with Japan's Act on the Protection of Personal Information as the baseline and kept to what customers need. It does not name internal tools or procedures, and the working notes behind it are kept outside this repository. Update the notice and its date whenever the way personal information is handled changes.
 - **Request form**: the site is static, so the form builds a summary for the customer to send by email (`info@samuraiautoexport.net`) or copy. Connect a form backend (e.g. Formspree, Netlify Forms) to receive requests directly.
 
 ## Catalogue mirror
@@ -95,5 +95,4 @@ The site is also published to the Cloudflare Pages project `samurai-motors` (dir
 ### Custom domain and email
 
 - The Pages project serves `samuraiautoexport.net` and `www.samuraiautoexport.net` (proxied CNAMEs to `samurai-motors.pages.dev`, zone on the same Cloudflare account).
-- Inbound mail uses Cloudflare Email Routing: `info@` and `sales@` forward to the owner's Gmail (MX and DKIM records are managed and locked by Email Routing).
-- Outbound mail is sent from Gmail with "Send mail as" through `smtp.gmail.com`; SPF therefore includes both `_spf.mx.cloudflare.net` and `_spf.google.com`. DMARC is `p=none` (monitor only) because Gmail signs with its own domain; tighten it only after moving to a sender that signs with this domain (e.g. Google Workspace).
+- Email for the domain is handled by a separate mail service; its DNS records (MX, SPF, DKIM, DMARC) live in the same Cloudflare zone and are not managed from this repository.
