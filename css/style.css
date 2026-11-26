@@ -2045,7 +2045,9 @@ main {
   letter-spacing: .04em;
   color: var(--ink);
 }
+.pn h2.pn__first { margin-top: 0; }
 .pn p { margin-bottom: 14px; }
+.pn__updated { margin-top: 44px; padding-top: 18px; border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-mute); }
 .pn ul { margin: 0 0 14px; padding: 0; list-style: none; }
 .pn li { position: relative; padding-left: 18px; margin-bottom: 10px; }
 .pn li::before { content: ""; position: absolute; left: 0; top: .82em; width: 8px; height: 1px; background: var(--orange); }
